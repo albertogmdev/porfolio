@@ -1,0 +1,27 @@
+# Agent configuration (local only)
+/.github/agents/
+/.github/copilot-instructions.md
+
+# Source maps and build output; styles.css is versioned
+*.css.map
+.sass-cache/
+/dist/
+/build/
+
+# Temporary files, caches and logs
+.cache/
+/tmp/
+/.tmp/
+*.log
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+._*
+
+# Local secrets; keep the example configuration
+.env
+.env.*
+!.env.example
