@@ -1,0 +1,35 @@
+@use '../../abstracts' as *;
+
+.chip-tech {
+  display: inline-flex;
+  align-items: center;
+  gap: rem($space-1-5);
+  height: rem(28px);
+  vertical-align: top;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  padding-inline: rem($space-2);
+  border: 1px solid $strokeStrong;
+  border-radius: $radius-sm;
+  color: $textSoft;
+  font-size: rem($font-size-body);
+  line-height: rem($line-height-body);
+  @include transition($duration-fast, color, background-color);
+
+  .icon {
+    width: rem($icon-size-sm);
+    height: rem($icon-size-sm);
+    flex: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: $backgroundTintHover;
+    color: $textPrimary;
+  }
+
+  @include up(sm) {
+    padding-inline: rem($space-2-5);
+  }
+}

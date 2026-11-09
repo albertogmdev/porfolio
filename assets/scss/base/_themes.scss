@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '../abstracts' as *;
+
+@each $name in map.keys($themes) {
+  $selector: '[data-theme="#{$name}"]';
+
+  @if $name == $default-theme {
+    $selector: ':root, #{$selector}';
+  }
+
+  #{$selector} {
+    @include theme-tokens($name);
+  }
+}

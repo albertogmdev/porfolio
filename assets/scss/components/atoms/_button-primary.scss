@@ -1,0 +1,66 @@
+@use '../../abstracts' as *;
+
+.button-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem($space-2);
+  width: rem(160px);
+  height: rem(40px);
+  overflow: hidden;
+  border-radius: $radius-full;
+  background-color: $buttonBg;
+  box-shadow: $shadow-cta;
+  color: $buttonText;
+  font-size: rem($font-size-body);
+  font-weight: 600;
+  line-height: rem($line-height-body);
+  text-decoration: none;
+  @include transition($duration-base, transform);
+
+  .button-label,
+  .icon {
+    position: relative;
+  }
+
+  .icon {
+    width: rem($icon-size-sm);
+    height: rem($icon-size-sm);
+  }
+
+  .button-shine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    background: linear-gradient(105deg, transparent, $buttonShine, transparent);
+    transform: translateX(-150%) skewX(-20deg);
+    pointer-events: none;
+  }
+
+  @include motion-safe {
+    .button-shine {
+      transition: transform $duration-card * 2 $ease;
+    }
+
+    &:hover {
+      transform: scale(1.03);
+
+      .button-shine {
+        transform: translateX(400%) skewX(-20deg);
+      }
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+
+  @include reduced-motion {
+    .button-shine {
+      display: none;
+    }
+  }
+}

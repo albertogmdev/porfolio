@@ -1,0 +1,138 @@
+@use '../../abstracts' as *;
+
+$bp-role-wrap: 380px;
+
+.section-profile {
+  .profile-container {
+    display: flex;
+    align-items: center;
+    gap: rem($space-3);
+    padding-block: rem($space-3);
+
+    @include up(sm) {
+      gap: rem(28px);
+      min-height: rem(152px);
+      padding-block: 0;
+    }
+  }
+
+  .profile-avatar {
+    flex: none;
+    width: rem(108px);
+    height: rem(108px);
+    margin-left: rem($space-3);
+    padding: rem($space-1);
+    border-radius: $radius-xl;
+    background-color: $backgroundAvatar;
+    box-shadow: $shadow-avatar;
+
+    @include up(sm) {
+      width: rem(120px);
+      height: rem(120px);
+      margin-left: rem($space-4);
+    }
+  }
+
+  .profile-avatar-image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: $radius-lg;
+    object-fit: cover;
+  }
+
+  .profile-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding-right: rem($section-gutter);
+  }
+
+  .profile-name {
+    color: $textPrimary;
+    font-family: $font-heading;
+    font-size: clamp(#{rem($font-size-name-min)}, calc(10vw - #{rem(18px)}), #{rem($font-size-title)});
+    font-weight: 400;
+    line-height: 1.2;
+    @include truncate;
+
+    @include theme-bash {
+      text-shadow: $text-glow;
+    }
+
+    @include up(sm) {
+      font-size: rem($font-size-title-xl);
+      line-height: rem($line-height-title-xl);
+    }
+  }
+
+  .profile-role {
+    position: relative;
+    min-height: rem($line-height-body);
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    font-weight: 600;
+    line-height: rem($line-height-body);
+    @include truncate;
+
+    @media (max-width: #{$bp-role-wrap - 0.02px}) {
+      min-height: rem($line-height-body * 2);
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
+    @include up(sm) {
+      min-height: rem($line-height-lead);
+      font-size: rem($font-size-lead);
+      line-height: rem($line-height-lead);
+    }
+  }
+
+  .profile-role-cursor {
+    display: inline-block;
+    width: rem($space-0-5);
+    height: 1em;
+    margin-left: rem($space-0-5);
+    background-color: currentColor;
+    vertical-align: text-bottom;
+
+    @media (max-width: #{$bp-role-wrap - 0.02px}) {
+      margin-right: calc(-1 * #{rem($space-1)});
+    }
+
+    @include theme-bash {
+      background-color: $accentLive;
+      box-shadow: 0 0 6px $accentLive;
+    }
+
+    @include reduced-motion {
+      display: none;
+    }
+
+    @include motion-safe {
+      animation: profile-cursor-blink 1s steps(1, end) infinite;
+    }
+  }
+
+  .profile-location {
+    color: $textTertiary;
+    font-size: rem($font-size-body);
+    font-weight: 600;
+    line-height: rem($line-height-body);
+    @include truncate;
+  }
+}
+
+@keyframes profile-cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,62 @@
+@use '../../abstracts' as *;
+
+.card-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem($space-1-5);
+  height: 100%;
+  padding-inline: rem($space-1-5);
+  color: $textSecondary;
+  text-decoration: none;
+  @include transition($duration-base, color, background-color);
+
+  &:hover {
+    background-color: $backgroundTint;
+    color: $textPrimary;
+  }
+
+  .card-icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: rem($space-8);
+    height: rem($space-8);
+    border-radius: $radius-lg;
+    background-color: $backgroundIcon;
+  }
+
+  .card-label {
+    flex: 1;
+    min-width: 0;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+    @include truncate;
+
+    @include down(md) {
+      @include visually-hidden;
+    }
+  }
+
+  .card-arrow {
+    width: rem($icon-size-sm);
+    height: rem($icon-size-sm);
+    color: $textTertiary;
+    @include transition($duration-base, transform);
+
+    @include down(md) {
+      display: none;
+    }
+  }
+
+  &:hover .card-arrow {
+    @include motion-safe {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  @include up(md) {
+    justify-content: flex-start;
+  }
+}

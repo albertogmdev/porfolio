@@ -1,0 +1,39 @@
+@use '../../abstracts' as *;
+
+.section-projects {
+  .projects-grid {
+    @include list-reset;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin: rem($space-1) rem(-$space-4) 0;
+
+    @include up(sm) {
+      margin-inline: rem(-$space-6);
+    }
+
+    @include up(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-inline: rem(-$space-2);
+    }
+
+    &:empty,
+    &[aria-busy='true'] {
+      min-height: rem(400px);
+
+      @include up(md) {
+        min-height: rem(800px);
+      }
+    }
+  }
+
+  .projects-item {
+    display: flex;
+
+    @include up(md) {
+      &:nth-child(even) .card-project {
+        border-right: 0;
+      }
+    }
+  }
+}

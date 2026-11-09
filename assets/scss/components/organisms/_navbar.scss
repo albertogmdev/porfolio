@@ -1,0 +1,167 @@
+@use '../../abstracts' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: $z-navbar;
+  height: rem($navbar-height + 1px);
+  border-bottom: 1px dashed $strokeSecondary;
+  background-color: $backgroundPrimary;
+
+  @include theme-bash {
+    background-image: $scanlines;
+  }
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem($space-4);
+    height: rem($navbar-height);
+    padding-inline: rem($section-gutter);
+  }
+
+  .navbar-logo {
+    color: $textPrimary;
+    font-family: $font-heading;
+    font-size: rem($font-size-subtitle);
+    line-height: rem($line-height-subtitle);
+    text-decoration: none;
+
+    @include theme-bash {
+      text-shadow: $text-glow;
+    }
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: rem($space-2);
+
+    @include up(md) {
+      gap: rem($space-5);
+    }
+  }
+
+  .theme-switcher {
+    order: -1;
+
+    @include up(md) {
+      order: 0;
+    }
+  }
+
+  .navbar-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: '';
+      width: 1px;
+      height: rem(20px);
+      margin-inline: rem($space-1);
+      background-color: $separator;
+
+      @include up(md) {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(32px);
+    height: rem(32px);
+    border-radius: $radius-sm;
+    color: $textSecondary;
+    @include transition($duration-fast, background-color, color);
+
+    &:hover {
+      background-color: $backgroundMenuHover;
+      color: $textPrimary;
+    }
+
+    @include up(md) {
+      display: none;
+    }
+  }
+
+  .navbar-menu {
+    @include list-reset;
+    position: absolute;
+    top: calc(100% + #{rem($space-1)});
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: rem($space-0-5);
+    width: rem(112px);
+    padding: rem($space-1-5);
+    border: 1px solid $strokeSecondary;
+    border-radius: $radius-lg;
+    background-color: $backgroundMenu;
+    box-shadow: $shadow-menu;
+
+    @include up(md) {
+      position: static;
+      display: flex;
+      flex-direction: row;
+      gap: rem($space-5);
+      width: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+      box-shadow: none;
+    }
+  }
+
+  .navbar-toggle[aria-expanded='true'] + .navbar-menu {
+    display: flex;
+  }
+
+  .navbar-link {
+    display: flex;
+    align-items: center;
+    gap: rem($space-1-5);
+    padding: rem($space-2) rem($space-2-5);
+    border-radius: $radius-md;
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+    text-decoration: none;
+    @include transition($duration-fast, color, background-color);
+
+    &:hover {
+      background-color: $backgroundMenuHover;
+      color: $textPrimary;
+    }
+
+    &[aria-current='page'] {
+      color: $textPrimary;
+      font-weight: 600;
+
+      &::before {
+        content: '';
+        flex: none;
+        width: 4px;
+        height: 4px;
+        border-radius: $radius-full;
+        background-color: currentColor;
+      }
+    }
+
+    @include up(md) {
+      padding: 0;
+      border-radius: $radius-sm;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@use '../../abstracts' as *;
+
+.tab-filter {
+  padding: rem($space-1-5) rem($space-2);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  color: $textSecondary;
+  font-size: rem($font-size-body);
+  font-weight: 600;
+  line-height: rem($line-height-body);
+  @include transition($duration-base, color, background-color, border-color, box-shadow, transform);
+
+  &:hover {
+    background-color: $backgroundTabHover;
+  }
+
+  &.is-active {
+    border-color: $strokeTab;
+    background-color: $backgroundTintHover;
+    box-shadow: $shadow-tab-active;
+    color: $textPrimary;
+    font-weight: 700;
+
+    @include motion-safe {
+      transform: scale(1.02);
+    }
+  }
+}

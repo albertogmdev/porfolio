@@ -1,0 +1,11 @@
+@use '../../abstracts' as *;
+
+.tag {
+  padding: rem($space-0-5) rem($space-2);
+  border: 1px solid $strokeSecondary;
+  border-radius: $radius-sm;
+  background-color: $backgroundTint;
+  color: $textSecondary;
+  font-size: rem($font-size-body);
+  line-height: rem($line-height-body);
+}

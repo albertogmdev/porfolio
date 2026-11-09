@@ -1,0 +1,107 @@
+@use '../../abstracts' as *;
+
+.theme-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(32px);
+    height: rem(32px);
+    border-radius: $radius-sm;
+    color: $textSecondary;
+    cursor: pointer;
+    @include transition($duration-base, background-color, color, transform);
+
+    &:hover {
+      background-color: $backgroundHover;
+    }
+
+    &[aria-expanded='true'] {
+      background-color: $backgroundHover;
+      color: $textPrimary;
+    }
+
+    &:active {
+      @include motion-safe {
+        transform: scale(0.98);
+      }
+    }
+
+    .icon {
+      pointer-events: none;
+    }
+  }
+
+  .theme-menu {
+    @include list-reset;
+    position: absolute;
+    top: calc(100% + #{rem($space-1-5)});
+    right: 0;
+    z-index: $z-navbar + 1;
+    min-width: rem(120px);
+    max-width: calc(100vw - #{rem($space-6)});
+    padding: rem($space-1-5);
+    border: 1px solid $strokeStrong;
+    border-radius: $radius-lg;
+    background-color: $backgroundMenu;
+    box-shadow: $shadow-menu;
+
+    &:not([hidden]) {
+      display: flex;
+      flex-direction: column;
+      gap: rem($space-0-5);
+    }
+  }
+
+  .theme-option {
+    display: flex;
+    align-items: center;
+    gap: rem($space-2);
+    padding: rem($space-2) rem($space-2-5);
+    border-radius: $radius-md;
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+    cursor: pointer;
+    user-select: none;
+    @include transition($duration-fast, color, background-color);
+
+    &::before {
+      content: '';
+      flex: none;
+      width: rem($space-1-5);
+      height: rem($space-1-5);
+      border-radius: $radius-full;
+      background-color: transparent;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $backgroundMenuHover;
+      color: $textPrimary;
+    }
+
+    &:focus {
+      outline: 2px solid $strokePrimary;
+      outline-offset: -2px;
+    }
+
+    &[aria-selected='true'] {
+      background-color: $buttonBg;
+      color: $buttonText;
+      font-weight: 600;
+
+      &::before {
+        background-color: currentColor;
+      }
+
+      &:focus {
+        outline-color: $buttonText;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "porfolio",
+  "private": true,
+  "description": "Portfolio en HTML, SCSS y JavaScript vanilla. Requiere Sass instalado globalmente.",
+  "scripts": {
+    "build": "sass --no-source-map assets/scss/styles.scss styles.css",
+    "watch": "sass --watch --no-source-map assets/scss/styles.scss styles.css"
+  }
+}

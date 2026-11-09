@@ -1,0 +1,6 @@
+@use '../abstracts' as *;
+
+.text-highlight {
+  color: $textPrimary;
+  font-weight: 600;
+}

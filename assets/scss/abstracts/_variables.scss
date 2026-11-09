@@ -1,0 +1,119 @@
+$font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Courier New',
+  monospace;
+$font-heading: $font-mono;
+$font-body: $font-mono;
+
+$base-font-size: 16px;
+$base-url: 'assets';
+
+$default-theme: bash;
+$icon-names: menu, close, chevron-down, arrow-up-right, arrow-right, mail, paperclip, globe, code, github, linkedin, x,
+  palette;
+$boot-failsafe-delay: 4s;
+
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$breakpoints: (
+  sm: $bp-sm,
+  md: $bp-md,
+  lg: $bp-lg,
+);
+
+$container-width: 800px;
+$navbar-height: 48px;
+$section-gutter: 12px;
+$header-height: 40px;
+
+$font-size-title-xl: 24px;
+$line-height-title-xl: 30px;
+$font-size-title: 20px;
+$line-height-title: 24px;
+$font-size-subtitle: 16px;
+$line-height-subtitle: 20px;
+$font-size-lead: 14px;
+$line-height-lead: 20px;
+$font-size-body: 12px;
+$line-height-body: 18px;
+$font-size-name-min: 14px;
+
+$icon-size: 16px;
+$icon-size-sm: 14px;
+
+$space-0-5: 2px;
+$space-1: 4px;
+$space-1-5: 6px;
+$space-2: 8px;
+$space-2-5: 10px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+$space-10: 40px;
+$space-12: 48px;
+
+$radius-xs: 2px;
+$radius-sm: 2px;
+$radius-md: 2px;
+$radius-lg: 3px;
+$radius-xl: 4px;
+$radius-2xl: 4px;
+$radius-full: 2px;
+
+$shadow-avatar: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$shadow-tab-active: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+
+$duration-fast: 120ms;
+$duration-base: 200ms;
+$duration-card: 300ms;
+$duration-theme: 300ms;
+$ease: cubic-bezier(0.4, 0, 0.2, 1);
+$easing-theme: ease;
+
+$z-scanlines: 40;
+$z-navbar: 50;
+$z-skip: 100;
+$z-boot: 110;
+
+$text-glow: 0 0 8px rgba(77, 255, 124, 0.45);
+$scanlines: repeating-linear-gradient(
+  to bottom,
+  transparent 0,
+  transparent 2px,
+  rgba(0, 0, 0, 0.16) 2px,
+  rgba(0, 0, 0, 0.16) 3px
+);
+
+$backgroundPrimary: var(--backgroundPrimary);
+$backgroundTint: var(--backgroundTint);
+$backgroundTintHover: var(--backgroundTintHover);
+$backgroundTabHover: var(--backgroundTabHover);
+$backgroundIcon: var(--backgroundIcon);
+$backgroundHover: var(--backgroundHover);
+$backgroundMenu: var(--backgroundMenu);
+$backgroundMenuHover: var(--backgroundMenuHover);
+$backgroundAvatar: var(--backgroundAvatar);
+$strokePrimary: var(--strokePrimary);
+$strokeSecondary: var(--strokeSecondary);
+$strokeStrong: var(--strokeStrong);
+$strokeTab: var(--strokeTab);
+$textPrimary: var(--textPrimary);
+$textSecondary: var(--textSecondary);
+$textTertiary: var(--textTertiary);
+$textSoft: var(--textSoft);
+$textFooter: var(--textFooter);
+$accentLive: var(--accentLive);
+$buttonBg: var(--buttonBg);
+$buttonText: var(--buttonText);
+$buttonShine: var(--buttonShine);
+$selectionBg: var(--selectionBg);
+$selectionText: var(--selectionText);
+$separator: var(--separator);
+$media-tone-1: var(--mediaTone1);
+$media-tone-2: var(--mediaTone2);
+$media-tone-3: var(--mediaTone3);
+$media-tone-4: var(--mediaTone4);
+$preview-border: var(--previewBorder);
+$shadow-cta: var(--shadowCta);
+$shadow-menu: var(--shadowMenu);

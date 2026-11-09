@@ -1,0 +1,21 @@
+@use '../../abstracts' as *;
+
+.footer {
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: rem($space-2);
+    min-height: rem(96px);
+    color: $textFooter;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+    text-align: center;
+  }
+
+  .footer-name {
+    color: $textSoft;
+    font-weight: 600;
+  }
+}

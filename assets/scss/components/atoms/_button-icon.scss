@@ -1,0 +1,18 @@
+@use '../../abstracts' as *;
+
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(32px);
+  height: rem(32px);
+  border-radius: $radius-md;
+  color: $textTertiary;
+  text-decoration: none;
+  @include transition($duration-fast, color, background-color);
+
+  &:hover {
+    background-color: $backgroundTintHover;
+    color: $textPrimary;
+  }
+}

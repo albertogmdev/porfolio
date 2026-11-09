@@ -1,0 +1,19 @@
+@use '../../abstracts' as *;
+
+.tabs-filter {
+  display: none;
+
+  @include up(sm) {
+    display: flex;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: rem($space-0-5);
+    min-width: 0;
+  }
+
+  @include up(md) {
+    gap: rem($space-1);
+  }
+}

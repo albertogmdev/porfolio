@@ -1,0 +1,18 @@
+@use '../../abstracts' as *;
+
+.section-banner {
+  .banner-container {
+    padding-inline: rem($section-gutter);
+  }
+
+  .banner-image {
+    width: 100%;
+    height: rem(128px);
+    border-radius: $radius-xs;
+    object-fit: cover;
+
+    @include up(sm) {
+      height: rem(208px);
+    }
+  }
+}

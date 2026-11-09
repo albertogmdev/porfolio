@@ -1,0 +1,25 @@
+@use '../../abstracts' as *;
+
+.section-about {
+  .about-container {
+    padding: rem($space-5) rem($section-gutter) rem($space-3);
+  }
+
+  .about-list {
+    display: flex;
+    flex-direction: column;
+    gap: rem($space-3);
+    margin: 0;
+    padding-left: rem(17px);
+  }
+
+  .about-item::marker {
+    color: $textTertiary;
+  }
+
+  .about-text {
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+  }
+}

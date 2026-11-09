@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es" data-theme="bash">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Portfolio de Alberto Gonzalez, Senior Full Stack Developer en Madrid, España.">
+  <title>Inicio — Alberto Gonzalez</title>
+  <link rel="icon" href="data:,">
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'light' || theme === 'bash') {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch (error) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <div class="terminal-boot terminal-boot--loader" id="boot-loader" aria-hidden="true"><pre class="terminal-boot-output"><span class="terminal-boot-cursor"></span></pre></div>
+  <div class="page">
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+    <p class="visually-hidden" id="route-announcer" aria-live="polite"></p>
+
+    <header class="navbar">
+      <div class="navbar-container container">
+        <a class="navbar-logo" href="./" data-link>albertogmdev</a>
+        <div class="navbar-actions">
+          <nav class="navbar-nav" aria-label="Principal">
+            <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú">
+              <span class="icon icon-menu" aria-hidden="true"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+              <li><a class="navbar-link" href="./" data-link aria-current="page">Home</a></li>
+            </ul>
+          </nav>
+          <div class="theme-switcher">
+            <button class="theme-toggle" type="button" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" aria-label="Cambiar tema">
+              <span class="icon icon-palette" aria-hidden="true"></span>
+            </button>
+            <ul class="theme-menu" id="theme-menu" role="listbox" aria-label="Tema" hidden>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false">Oscuro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false">Claro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main container" id="main-content" tabindex="-1">
+      <div class="view-loader" role="status" hidden>
+        <span class="visually-hidden">Cargando…</span>
+      </div>
+      <div class="view" id="view" aria-busy="false">
+        <div class="panel panel-home" data-panel="home" data-title="Inicio — Alberto Gonzalez">
+
+          <section class="section-banner" aria-label="Portada">
+            <div class="banner-container">
+              <img class="banner-image" src="assets/images/placeholder.svg" alt="" width="1600" height="400">
+            </div>
+          </section>
+          <div class="divider divider--line" aria-hidden="true"></div>
+
+          <section class="section-profile" aria-labelledby="profile-name">
+            <div class="profile-container">
+              <div class="profile-avatar">
+                <img class="profile-avatar-image" src="assets/images/photo-avatar.jpg" alt="Foto de perfil de Alberto Gonzalez" width="112" height="112">
+              </div>
+              <div class="profile-info">
+                <h1 class="profile-name" id="profile-name">Alberto Gonzalez</h1>
+                <p class="profile-role" data-roles="Senior Full Stack Developer|Cybersecurity Enthusiast">
+                  <span class="visually-hidden">Senior Full Stack Developer y Cybersecurity Enthusiast</span>
+                  <span class="profile-role-text" aria-hidden="true">Senior Full Stack Developer</span><span class="profile-role-cursor" aria-hidden="true"></span>
+                </p>
+                <p class="profile-location">Madrid, España</p>
+              </div>
+            </div>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-about" aria-labelledby="about-title">
+            <div class="section-header">
+              <h2 class="title-section" id="about-title">Sobre mí</h2>
+            </div>
+            <div class="about-container">
+              <ul class="about-list">
+                <li class="about-item"><p class="about-text">He estado trabajando como <strong class="text-highlight">Full-Stack Developer</strong> en diversos proyectos web, e-commerces y landing pages, para diferentes clientes, usando numerosas tecnologías y lenguajes de programación.</p></li>
+                <li class="about-item"><p class="about-text">En el front trabajo con <strong class="text-highlight">HTML, CSS, SASS y JavaScript</strong>, y con frameworks como ReactJS, VueJS, NextJS, NuxtJS y Astro. En el back, con PHP y CodeIgniter, bases de datos MySQL, PostgreSQL y MongoDB.</p></li>
+                <li class="about-item"><p class="about-text">Tengo experiencia con <strong class="text-highlight">Shopify</strong> y CMS como WordPress, Storyblok, Sitecore, Strapi o Sanity, con servicios de <strong class="text-highlight">AWS</strong> como S3, Route53, Lambda y Cloud9, y con control de versiones en GitHub y bash/shell.</p></li>
+              </ul>
+            </div>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-contact" aria-labelledby="contact-title">
+            <div class="section-header">
+              <h2 class="title-section" id="contact-title">Contacto</h2>
+            </div>
+            <ul class="contact-list">
+              <li class="contact-item">
+                <a class="card-contact" href="https://github.com/albertogmdev" target="_blank" rel="noopener noreferrer">
+                  <span class="card-icon"><span class="icon icon-github" aria-hidden="true"></span></span>
+                  <span class="card-label">GitHub</span>
+                  <span class="icon icon-arrow-up-right card-arrow" aria-hidden="true"></span>
+                </a>
+              </li>
+              <li class="contact-item">
+                <a class="card-contact" href="https://example.com/" target="_blank" rel="noopener noreferrer">
+                  <span class="card-icon"><span class="icon icon-linkedin" aria-hidden="true"></span></span>
+                  <span class="card-label">LinkedIn</span>
+                  <span class="icon icon-arrow-up-right card-arrow" aria-hidden="true"></span>
+                </a>
+              </li>
+              <li class="contact-item">
+                <a class="card-contact" href="https://example.com/" target="_blank" rel="noopener noreferrer">
+                  <span class="card-icon"><span class="icon icon-x" aria-hidden="true"></span></span>
+                  <span class="card-label">X</span>
+                  <span class="icon icon-arrow-up-right card-arrow" aria-hidden="true"></span>
+                </a>
+              </li>
+              <li class="contact-item">
+                <a class="card-contact" href="mailto:hello@example.com">
+                  <span class="card-icon"><span class="icon icon-mail" aria-hidden="true"></span></span>
+                  <span class="card-label">Email</span>
+                  <span class="icon icon-arrow-up-right card-arrow" aria-hidden="true"></span>
+                </a>
+              </li>
+              <li class="contact-item">
+                <a class="card-contact" href="https://example.com/" target="_blank" rel="noopener noreferrer">
+                  <span class="card-icon"><span class="icon icon-paperclip" aria-hidden="true"></span></span>
+                  <span class="card-label">CV</span>
+                  <span class="icon icon-arrow-up-right card-arrow" aria-hidden="true"></span>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-projects" aria-labelledby="projects-title">
+            <div class="section-header">
+              <h2 class="title-section" id="projects-title">Proyectos</h2>
+              <a class="link-more" href="projects" data-link>Ver todos <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+            </div>
+            <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-stack" aria-labelledby="stack-title">
+            <div class="stack-container">
+              <div class="section-header section-header--stack">
+                <h2 class="title-section" id="stack-title">Stack</h2>
+                <div class="tabs-filter" role="group" aria-label="Filtrar por categoría">
+                  <button class="tab-filter is-active" type="button" data-filter="all" aria-pressed="true">Todos</button>
+                  <button class="tab-filter" type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
+                  <button class="tab-filter" type="button" data-filter="backend" aria-pressed="false">Backend</button>
+                  <button class="tab-filter" type="button" data-filter="cms" aria-pressed="false">CMS</button>
+                  <button class="tab-filter" type="button" data-filter="cloud" aria-pressed="false">Cloud</button>
+                  <button class="tab-filter" type="button" data-filter="data" aria-pressed="false">Datos</button>
+                  <button class="tab-filter" type="button" data-filter="tools" aria-pressed="false">Herramientas</button>
+                </div>
+              </div>
+              <ul class="stack-list" data-source="tech" aria-busy="true"></ul>
+            </div>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-cta" aria-labelledby="cta-title">
+            <div class="section-header">
+              <h2 class="title-section" id="cta-title">¿Hablamos?</h2>
+            </div>
+            <div class="cta-container">
+              <p class="cta-text">Texto de invitación a contactar, de una o dos líneas, provisional.</p>
+              <a class="button-primary" href="mailto:hello@example.com">
+                <span class="button-shine" aria-hidden="true"></span>
+                <span class="button-label">Hablemos</span>
+                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer container">
+      <div class="divider divider--band divider--mobile-only" aria-hidden="true"></div>
+      <div class="footer-container">
+        <p class="footer-text">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
+        <p class="footer-text">© 2026 Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

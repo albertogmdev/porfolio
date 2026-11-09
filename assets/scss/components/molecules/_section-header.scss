@@ -1,0 +1,27 @@
+@use '../../abstracts' as *;
+
+.section-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: rem($space-3);
+  min-height: rem($header-height);
+  padding-inline: rem($section-gutter);
+
+  &::after {
+    @include full-bleed-line(bottom);
+  }
+
+  &--stack {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    @include up(sm) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

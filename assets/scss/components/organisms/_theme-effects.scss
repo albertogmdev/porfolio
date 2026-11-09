@@ -1,0 +1,106 @@
+@use '../../abstracts' as *;
+
+@include motion-safe {
+  html.is-theme-changing,
+  html.is-theme-changing *,
+  html.is-theme-changing *::before,
+  html.is-theme-changing *::after {
+    transition-property: color, background-color, border-color, outline-color, fill, stroke, text-shadow, box-shadow !important;
+    transition-duration: $duration-theme !important;
+    transition-timing-function: $easing-theme !important;
+    transition-delay: 0s !important;
+  }
+}
+
+.terminal-boot {
+  @include theme-tokens(bash);
+  position: fixed;
+  inset: 0;
+  z-index: $z-boot;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: max(rem($space-6), env(safe-area-inset-top)) max(rem($space-6), env(safe-area-inset-right))
+    max(rem($space-6), env(safe-area-inset-bottom)) max(rem($space-6), env(safe-area-inset-left));
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: $backgroundPrimary;
+  color: $textPrimary;
+  font-family: $font-body;
+  text-shadow: $text-glow;
+  cursor: pointer;
+
+  @include up(md) {
+    padding: max(rem($space-10), env(safe-area-inset-top)) max(rem($space-10), env(safe-area-inset-right))
+      max(rem($space-10), env(safe-area-inset-bottom)) max(rem($space-10), env(safe-area-inset-left));
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: $scanlines;
+    pointer-events: none;
+  }
+
+  &--loader {
+    animation: terminal-boot-failsafe $boot-failsafe-delay step-end forwards;
+
+    html:not([data-theme='bash']) & {
+      display: none;
+    }
+  }
+
+  .terminal-boot-output {
+    margin: 0;
+    color: $textPrimary;
+    font-family: inherit;
+    font-size: rem($font-size-lead);
+    line-height: rem($line-height-lead);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .terminal-boot-cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    background-color: currentColor;
+    vertical-align: text-bottom;
+
+    @include motion-safe {
+      animation: terminal-cursor-blink 1s steps(1, end) infinite;
+    }
+
+    @include reduced-motion {
+      animation: none;
+    }
+  }
+}
+
+@keyframes terminal-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-boot-failsafe {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.panel.is-building {
+  > *:not(.is-built) {
+    opacity: 0;
+  }
+
+  @include motion-safe {
+    > * {
+      transition: opacity 90ms steps(3, end);
+    }
+  }
+}

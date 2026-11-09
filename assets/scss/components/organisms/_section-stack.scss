@@ -1,0 +1,21 @@
+@use '../../abstracts' as *;
+
+.section-stack {
+  .stack-list {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem($space-1);
+    padding: rem($section-gutter);
+
+    @include up(sm) {
+      gap: rem($space-2);
+    }
+
+    &:empty,
+    &[aria-busy='true'] {
+      min-height: rem(180px);
+      align-content: flex-start;
+    }
+  }
+}

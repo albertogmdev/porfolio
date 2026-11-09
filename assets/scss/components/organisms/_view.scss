@@ -1,0 +1,103 @@
+@use '../../abstracts' as *;
+
+.main {
+  position: relative;
+  flex: 1;
+  padding-top: rem($navbar-height + 4px);
+  background-color: $backgroundPrimary;
+}
+
+.view-loader {
+  position: absolute;
+  top: rem($navbar-height + 1px);
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: 2px;
+  overflow: hidden;
+  background-color: $backgroundTintHover;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background-color: $textPrimary;
+  }
+
+  @include motion-safe {
+    &::before {
+      animation: view-loader 1s $ease infinite;
+    }
+  }
+
+  @include reduced-motion {
+    &::before {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes view-loader {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(250%);
+  }
+}
+
+.view {
+  position: relative;
+
+  &.is-loading {
+    cursor: progress;
+  }
+}
+
+.panel {
+  @include motion-safe {
+    transition: opacity $duration-base $ease, transform $duration-base $ease;
+
+    &.is-entering {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    &.is-leaving {
+      opacity: 0;
+      transition-duration: $duration-fast;
+    }
+  }
+}
+
+.panel-error {
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem($space-3);
+    min-height: rem(320px);
+    padding: rem($space-12) rem($section-gutter);
+  }
+
+  .error-title {
+    color: $textPrimary;
+    font-family: $font-heading;
+    font-size: rem($font-size-title-xl);
+    font-weight: 400;
+    line-height: rem($line-height-title-xl);
+
+    @include theme-bash {
+      text-shadow: $text-glow;
+    }
+  }
+
+  .error-text {
+    max-width: 48ch;
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+  }
+}

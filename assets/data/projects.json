@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Proyecto 1",
+    "subtitle": "Descripción corta.",
+    "status": "Activo",
+    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
+    "tags": ["Tag 1", "Tag 2"],
+    "tone": 1,
+    "image": "assets/images/placeholder.svg",
+    "links": { "live": "https://example.com/", "code": "https://example.com/" }
+  },
+  {
+    "title": "Proyecto 2",
+    "subtitle": "Descripción corta.",
+    "status": "Activo",
+    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
+    "tags": ["Tag 1", "Tag 2", "Tag 3"],
+    "tone": 2,
+    "image": "assets/images/placeholder.svg",
+    "links": { "live": "https://example.com/" }
+  },
+  {
+    "title": "Proyecto 3",
+    "subtitle": "Descripción corta.",
+    "status": "Activo",
+    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
+    "tags": ["Tag 1", "Tag 2"],
+    "tone": 3,
+    "image": "assets/images/placeholder.svg",
+    "links": { "live": "https://example.com/", "code": "https://example.com/" }
+  },
+  {
+    "title": "Proyecto 4",
+    "subtitle": "Descripción corta.",
+    "status": "Activo",
+    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
+    "tags": ["Tag 1", "Tag 2"],
+    "tone": 4,
+    "image": "assets/images/placeholder.svg",
+    "links": { "live": "https://example.com/", "code": "https://example.com/" }
+  }
+]

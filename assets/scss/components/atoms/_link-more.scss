@@ -1,0 +1,29 @@
+@use '../../abstracts' as *;
+
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: rem($space-1);
+  border-radius: $radius-sm;
+  color: $textSecondary;
+  font-size: rem($font-size-body);
+  line-height: rem($line-height-body);
+  text-decoration: none;
+  @include transition($duration-base, color);
+
+  .icon {
+    width: rem($icon-size-sm);
+    height: rem($icon-size-sm);
+    @include transition($duration-base, transform);
+  }
+
+  &:hover {
+    color: $textPrimary;
+
+    .icon {
+      @include motion-safe {
+        transform: translate(2px, -2px);
+      }
+    }
+  }
+}

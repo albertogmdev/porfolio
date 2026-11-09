@@ -1,0 +1,19 @@
+@use '../../abstracts' as *;
+
+.section-contact {
+  & + .divider--band {
+    margin-top: 0;
+  }
+
+  .contact-list {
+    @include list-reset;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: rem($space-1);
+  }
+
+  .contact-item {
+    height: rem(52px);
+    border-inline: 1px dashed $strokeSecondary;
+  }
+}

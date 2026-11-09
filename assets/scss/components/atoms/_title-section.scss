@@ -1,0 +1,13 @@
+@use '../../abstracts' as *;
+
+.title-section {
+  color: $textPrimary;
+  font-family: $font-heading;
+  font-size: rem($font-size-title);
+  font-weight: 400;
+  line-height: rem($line-height-title);
+
+  @include theme-bash {
+    text-shadow: $text-glow;
+  }
+}
