@@ -14,6 +14,11 @@
     background-image: $scanlines;
   }
 
+  @include theme-gameboy {
+    background-image: $lcd-grid;
+    background-attachment: fixed;
+  }
+
   .navbar-container {
     display: flex;
     align-items: center;
@@ -105,9 +110,11 @@
     border-radius: $radius-lg;
     background-color: $backgroundMenu;
     box-shadow: $shadow-menu;
+    --indicator-offset: #{rem(-$space-2)};
 
     @include up(md) {
-      position: static;
+      --indicator-offset: #{rem($space-1)};
+      position: relative;
       display: flex;
       flex-direction: row;
       gap: rem($space-5);
@@ -128,7 +135,7 @@
     display: flex;
     align-items: center;
     gap: rem($space-1-5);
-    padding: rem($space-2) rem($space-2-5);
+    padding: rem($space-2) rem($space-2-5) rem($space-3);
     border-radius: $radius-md;
     color: $textSecondary;
     font-size: rem($font-size-body);
@@ -144,15 +151,6 @@
     &[aria-current='page'] {
       color: $textPrimary;
       font-weight: 600;
-
-      &::before {
-        content: '';
-        flex: none;
-        width: 4px;
-        height: 4px;
-        border-radius: $radius-full;
-        background-color: currentColor;
-      }
     }
 
     @include up(md) {
@@ -162,6 +160,38 @@
       &:hover {
         background-color: transparent;
       }
+    }
+  }
+
+  .navbar-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: $radius-full;
+    background-color: $textPrimary;
+    opacity: 0;
+    transform: translate(
+      calc(var(--indicator-x, 0px) - 50%),
+      calc(var(--indicator-y, 0px) + var(--indicator-offset))
+    );
+    pointer-events: none;
+
+    @include theme-bash {
+      box-shadow: $text-glow;
+    }
+
+    @include motion-safe {
+      &.is-ready {
+        transition:
+          transform $duration-base $ease,
+          opacity $duration-fast $ease;
+      }
+    }
+
+    &.is-visible {
+      opacity: 1;
     }
   }
 }

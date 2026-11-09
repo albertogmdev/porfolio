@@ -1,0 +1,48 @@
+@use '../../abstracts' as *;
+
+.button-pixel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem($space-0-5);
+  min-width: 0;
+  min-height: rem(32px);
+  padding: rem($space-1-5) rem($space-2);
+  border: 1px solid $strokeStrong;
+  border-radius: $radius-sm;
+  background-color: transparent;
+  color: $textSecondary;
+  font-family: $font-mono;
+  font-size: rem($font-size-body);
+  font-weight: 600;
+  line-height: rem($line-height-body);
+  white-space: nowrap;
+  cursor: pointer;
+  @include transition($duration-fast, color, background-color, border-color, transform);
+
+  &::before {
+    content: '[' / '';
+  }
+
+  &::after {
+    content: ']' / '';
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: $backgroundTintHover;
+    color: $textPrimary;
+  }
+
+  &[aria-pressed='true'] {
+    border-color: $buttonBg;
+    background-color: $buttonBg;
+    color: $buttonText;
+  }
+
+  @include motion-safe {
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}

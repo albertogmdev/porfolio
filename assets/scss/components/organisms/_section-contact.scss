@@ -9,11 +9,24 @@
     @include list-reset;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: rem($space-1);
+    gap: 0;
+    margin-inline: rem(-$space-4);
+
+    @include up(sm) {
+      margin-inline: rem(-$space-6);
+    }
+
+    @include up(md) {
+      margin-inline: rem(-$space-2);
+    }
   }
 
   .contact-item {
     height: rem(52px);
-    border-inline: 1px dashed $strokeSecondary;
+    border-right: 1px dashed $strokeSecondary;
+
+    &:last-child {
+      border-right: 0;
+    }
   }
 }

@@ -13,7 +13,7 @@
   }
 
   &--band {
-    height: rem(20px);
+    height: rem($band-height);
     margin-block: rem($space-2);
 
     &::before {
@@ -21,12 +21,7 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 50%;
-      width: 100vw;
-      transform: translateX(-50%);
-      border-block: 1px dashed $strokeSecondary;
-      background-color: $backgroundTint;
-      pointer-events: none;
+      @include full-bleed-band;
     }
   }
 

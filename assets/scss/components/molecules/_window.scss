@@ -1,0 +1,78 @@
+@use '../../abstracts' as *;
+
+.window {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid $strokeStrong;
+  border-radius: $radius-window;
+  background-color: $backgroundTint;
+
+  .window-bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: rem($space-2);
+    min-height: rem(28px);
+    padding: 0 rem($space-3);
+    border-bottom: 1px dashed $strokeSecondary;
+    background-color: $backgroundTintHover;
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+  }
+
+  .window-dots {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: rem($space-1);
+
+    i {
+      display: block;
+      width: rem(6px);
+      height: rem(6px);
+      border: 1px solid $textTertiary;
+      border-radius: 50%;
+    }
+  }
+
+  .window-name {
+    min-width: 0;
+    @include truncate;
+  }
+
+  .window-body {
+    flex: 1;
+    min-height: 0;
+  }
+
+  &--terminal {
+    &:not(.is-flying) {
+      width: 100%;
+      height: 100%;
+    }
+
+    &.is-flying {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: $z-terminal-flight;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      box-shadow: $shadow-menu;
+      pointer-events: none;
+    }
+  }
+
+  &.is-alert {
+    border-color: $accentError;
+
+    .window-dots i {
+      border-color: $accentError;
+      background-color: $accentError;
+    }
+  }
+}

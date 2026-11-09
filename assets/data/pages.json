@@ -1,0 +1,4 @@
+[
+  { "name": "home", "path": "./", "description": "Inicio" },
+  { "name": "projects", "path": "projects.html", "description": "Todos los proyectos" }
+]

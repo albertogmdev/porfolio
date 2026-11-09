@@ -11,7 +11,7 @@
     (function () {
       try {
         var theme = localStorage.getItem('theme');
-        if (theme === 'dark' || theme === 'light' || theme === 'bash') {
+        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy') {
           document.documentElement.dataset.theme = theme;
         }
       } catch (error) {}
@@ -19,6 +19,7 @@
   </script>
   <link rel="stylesheet" href="styles.css">
   <script src="assets/js/main.js" defer></script>
+  <script type="module" src="assets/js/widgets.js"></script>
 </head>
 <body>
   <div class="terminal-boot terminal-boot--loader" id="boot-loader" aria-hidden="true"><pre class="terminal-boot-output"><span class="terminal-boot-cursor"></span></pre></div>
@@ -36,6 +37,8 @@
             </button>
             <ul class="navbar-menu" id="navbar-menu">
               <li><a class="navbar-link" href="./" data-link aria-current="page">Home</a></li>
+              <li><a class="navbar-link" href="projects.html" data-link>Proyectos</a></li>
+              <li class="navbar-indicator" aria-hidden="true"></li>
             </ul>
           </nav>
           <div class="theme-switcher">
@@ -46,6 +49,7 @@
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false">Oscuro</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false">Claro</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
             </ul>
           </div>
         </div>
@@ -56,6 +60,7 @@
       <div class="view-loader" role="status" hidden>
         <span class="visually-hidden">Cargando…</span>
       </div>
+      <div class="terminal-dock" id="terminal-dock" hidden></div>
       <div class="view" id="view" aria-busy="false">
         <div class="panel panel-home" data-panel="home" data-title="Inicio — Alberto Gonzalez">
 
@@ -79,6 +84,61 @@
                 </p>
                 <p class="profile-location">Madrid, España</p>
               </div>
+            </div>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-widgets" aria-label="Módulos interactivos">
+            <div class="widgets-grid">
+              <div class="terminal-slot" data-terminal-slot>
+                <article class="window window--terminal" data-widget="terminal" aria-label="Terminal">
+                  <header class="window-bar">
+                    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="window-name">terminal.sh</span>
+                  </header>
+                  <div class="window-body terminal-body">
+                    <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
+                    <form class="terminal-form" autocomplete="off">
+                      <label class="terminal-prompt" for="terminal-input">visitor@portfolio:/$</label>
+                      <input class="terminal-input" id="terminal-input" type="text" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send">
+                    </form>
+                  </div>
+                </article>
+              </div>
+              <article class="window window--wide" data-widget="pet" aria-label="Mascota virtual">
+                <header class="window-bar">
+                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="window-name">bicho.exe</span>
+                </header>
+                <div class="window-body pet-layout">
+                  <div class="pet-screen">
+                    <canvas class="pet-canvas" width="64" height="40" role="img" aria-label="Mascota en pixel art"></canvas>
+                  </div>
+                  <div class="pet-panel">
+                    <ul class="pet-stats">
+                      <li class="pet-stat" data-stat="food"><span class="pet-stat-label">Comida</span><span class="pet-segments" role="img" aria-label="Comida"><i></i><i></i><i></i><i></i><i></i></span></li>
+                      <li class="pet-stat" data-stat="joy"><span class="pet-stat-label">Ánimo</span><span class="pet-segments" role="img" aria-label="Ánimo"><i></i><i></i><i></i><i></i><i></i></span></li>
+                      <li class="pet-stat" data-stat="energy"><span class="pet-stat-label">Energía</span><span class="pet-segments" role="img" aria-label="Energía"><i></i><i></i><i></i><i></i><i></i></span></li>
+                    </ul>
+                    <p class="pet-status" aria-live="polite"></p>
+                    <div class="pet-actions">
+                      <button class="button-pixel" type="button" data-action="feed">Comer</button>
+                      <button class="button-pixel" type="button" data-action="play">Jugar</button>
+                      <button class="button-pixel" type="button" data-action="sleep" aria-pressed="false">Dormir</button>
+                      <button class="button-pixel" type="button" data-action="clean">Limpiar</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="window" data-widget="eye" aria-label="Ojo cibernético">
+                <header class="window-bar">
+                  <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="window-name">ojo.sys</span>
+                </header>
+                <div class="window-body eye-screen">
+                  <canvas class="eye-canvas" width="64" height="64" role="img" aria-label="Ojo cibernético en pixel art que sigue al cursor"></canvas>
+                </div>
+              </article>
             </div>
           </section>
           <div class="divider divider--band" aria-hidden="true"></div>
@@ -144,7 +204,7 @@
           <section class="section-projects" aria-labelledby="projects-title">
             <div class="section-header">
               <h2 class="title-section" id="projects-title">Proyectos</h2>
-              <a class="link-more" href="projects" data-link>Ver todos <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+              <a class="link-more" href="projects.html" data-link>Ver todos <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
             </div>
             <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
           </section>

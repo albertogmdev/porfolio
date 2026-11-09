@@ -5,6 +5,11 @@
   flex: 1;
   padding-top: rem($navbar-height + 4px);
   background-color: $backgroundPrimary;
+
+  @include theme-gameboy {
+    background-image: $lcd-grid;
+    background-attachment: fixed;
+  }
 }
 
 .view-loader {

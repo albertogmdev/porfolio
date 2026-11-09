@@ -1,0 +1,104 @@
+@use '../../abstracts' as *;
+
+$terminal-form-height: 24px;
+$terminal-form-height-touch: 32px;
+$terminal-input-size-touch: 16px;
+$terminal-stack-width: 420px;
+
+.terminal-body {
+  display: flex;
+  flex-direction: column;
+  gap: rem($space-1);
+  min-height: 0;
+  padding: rem($space-3);
+
+  .terminal-output {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: $textSecondary;
+    font-size: rem($font-size-terminal);
+    line-height: rem($line-height-terminal);
+    overflow-wrap: anywhere;
+    scrollbar-color: $strokeStrong transparent;
+    scrollbar-width: thin;
+    white-space: pre-wrap;
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
+  }
+
+  .terminal-line {
+    &--text {
+      color: $textPrimary;
+    }
+
+    &--muted {
+      color: $textSecondary;
+    }
+
+    &--input {
+      color: $textPrimary;
+      font-weight: 600;
+    }
+
+    &--error {
+      color: $accentError;
+    }
+  }
+
+  .terminal-form {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: rem($space-2);
+    min-height: rem($terminal-form-height-touch);
+    border-bottom: 1px solid transparent;
+
+    @media (max-width: #{$terminal-stack-width - 0.02px}) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    @include up(md) {
+      min-height: rem($terminal-form-height);
+    }
+
+    &:focus-within {
+      border-bottom-color: $strokePrimary;
+    }
+  }
+
+  .terminal-prompt {
+    flex: none;
+    color: $textPrimary;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .terminal-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    caret-color: currentColor;
+    color: $textPrimary;
+    font: inherit;
+    outline: none;
+
+    @include down(md) {
+      font-size: rem($terminal-input-size-touch);
+    }
+
+    @media (max-width: #{$terminal-stack-width - 0.02px}) {
+      flex: none;
+      width: 100%;
+      min-height: rem($terminal-form-height-touch);
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@use '../../abstracts' as *;
+
+$eye-max-height: 280px;
+
+.section-widgets {
+  padding: rem($section-gutter);
+
+  .widgets-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: rem($space-3);
+
+    @include up(md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .window {
+      align-self: stretch;
+
+      &:not(.window--wide):not(.window--terminal) {
+        width: 100%;
+        max-height: rem($eye-max-height);
+        aspect-ratio: 4 / 3;
+
+        @include up(md) {
+          max-height: none;
+          aspect-ratio: 1;
+        }
+      }
+
+      &--wide {
+        @include up(md) {
+          grid-column: span 2;
+        }
+      }
+
+    }
+
+    .terminal-slot {
+      grid-column: 1 / -1;
+      min-width: 0;
+      height: rem($terminal-height-mobile);
+
+      @include up(md) {
+        height: rem($terminal-height);
+      }
+    }
+  }
+}

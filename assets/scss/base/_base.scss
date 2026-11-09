@@ -32,6 +32,11 @@ body {
     overflow: hidden;
   }
 
+  @include theme-gameboy {
+    background-image: $lcd-grid;
+    background-attachment: fixed;
+  }
+
   @include theme-bash {
     &::after {
       content: '';

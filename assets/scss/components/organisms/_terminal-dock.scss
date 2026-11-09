@@ -1,0 +1,25 @@
+@use '../../abstracts' as *;
+
+.terminal-dock {
+  position: relative;
+  height: rem($terminal-dock-height-mobile + $section-gutter * 2);
+  margin-bottom: rem($band-height + $space-2 * 2);
+  padding: rem($section-gutter);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    height: rem($band-height);
+    margin-top: rem($space-2);
+    @include full-bleed-band;
+  }
+
+  @include up(md) {
+    height: rem($terminal-dock-height + $section-gutter * 2);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}

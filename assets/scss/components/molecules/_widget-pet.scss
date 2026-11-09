@@ -1,0 +1,110 @@
+@use '../../abstracts' as *;
+
+$pet-cell: 10px;
+$pet-label-width: 56px;
+
+.pet-layout {
+  display: flex;
+  flex-direction: column;
+  gap: rem($space-3);
+  padding: rem($space-3);
+
+  @include up(sm) {
+    flex-direction: row;
+  }
+
+  @include up(md) {
+    padding: rem($space-2);
+  }
+
+  .pet-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: rem($space-2);
+    border: 1px solid $strokeStrong;
+    border-radius: $radius-lg;
+    background-color: $backgroundPrimary;
+
+    @include up(sm) {
+      flex: 1 1 0;
+    }
+  }
+
+  .pet-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    background-color: transparent;
+    color: $textPrimary;
+    image-rendering: pixelated;
+    object-fit: contain;
+  }
+
+  .pet-panel {
+    display: flex;
+    flex-direction: column;
+    gap: rem($space-2);
+    justify-content: space-between;
+    min-width: 0;
+
+    @include up(sm) {
+      flex: 1 1 0;
+    }
+  }
+
+  .pet-stats {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    gap: rem($space-1);
+  }
+
+  .pet-stat {
+    display: flex;
+    align-items: center;
+    gap: rem($space-2);
+    min-height: rem($line-height-body);
+  }
+
+  .pet-stat-label {
+    flex: none;
+    width: rem($pet-label-width);
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+  }
+
+  .pet-segments {
+    display: inline-flex;
+    gap: rem($space-0-5);
+
+    i {
+      display: block;
+      width: rem($pet-cell);
+      height: rem($pet-cell);
+      border: 1px solid $strokeStrong;
+      background-color: $backgroundTintHover;
+
+      &.is-on {
+        border-color: $textPrimary;
+        background-color: $textPrimary;
+      }
+    }
+  }
+
+  .pet-status {
+    min-height: rem($line-height-body * 2);
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+  }
+
+  .pet-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: rem($space-1);
+  }
+}

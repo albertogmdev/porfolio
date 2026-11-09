@@ -1,0 +1,24 @@
+@use '../../abstracts' as *;
+
+.eye-screen {
+  position: relative;
+  min-height: rem(120px);
+
+  .eye-canvas {
+    position: absolute;
+    top: rem($space-2);
+    left: rem($space-2);
+    display: block;
+    width: calc(100% - #{rem($space-4)});
+    height: calc(100% - #{rem($space-4)});
+    background-color: transparent;
+    color: $textPrimary;
+    image-rendering: pixelated;
+    object-fit: contain;
+    transition: none;
+  }
+}
+
+.window.is-alert .eye-canvas {
+  color: $accentError;
+}

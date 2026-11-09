@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es" data-theme="bash">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Proyectos de Alberto Gonzalez, Senior Full Stack Developer en Madrid, España.">
+  <title>Proyectos — Alberto Gonzalez</title>
+  <link rel="icon" href="data:,">
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy') {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch (error) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/main.js" defer></script>
+  <script type="module" src="assets/js/widgets.js"></script>
+</head>
+<body>
+  <div class="terminal-boot terminal-boot--loader" id="boot-loader" aria-hidden="true"><pre class="terminal-boot-output"><span class="terminal-boot-cursor"></span></pre></div>
+  <div class="page">
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+    <p class="visually-hidden" id="route-announcer" aria-live="polite"></p>
+
+    <header class="navbar">
+      <div class="navbar-container container">
+        <a class="navbar-logo" href="./" data-link>albertogmdev</a>
+        <div class="navbar-actions">
+          <nav class="navbar-nav" aria-label="Principal">
+            <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú">
+              <span class="icon icon-menu" aria-hidden="true"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+              <li><a class="navbar-link" href="./" data-link>Home</a></li>
+              <li><a class="navbar-link" href="projects.html" data-link aria-current="page">Proyectos</a></li>
+              <li class="navbar-indicator" aria-hidden="true"></li>
+            </ul>
+          </nav>
+          <div class="theme-switcher">
+            <button class="theme-toggle" type="button" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" aria-label="Cambiar tema">
+              <span class="icon icon-palette" aria-hidden="true"></span>
+            </button>
+            <ul class="theme-menu" id="theme-menu" role="listbox" aria-label="Tema" hidden>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false">Oscuro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false">Claro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main container" id="main-content" tabindex="-1">
+      <div class="view-loader" role="status" hidden>
+        <span class="visually-hidden">Cargando…</span>
+      </div>
+      <div class="terminal-dock" id="terminal-dock">
+        <article class="window window--terminal" data-widget="terminal" aria-label="Terminal">
+          <header class="window-bar">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="window-name">terminal.sh</span>
+          </header>
+          <div class="window-body terminal-body">
+            <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
+            <form class="terminal-form" autocomplete="off">
+              <label class="terminal-prompt" for="terminal-input">visitor@portfolio:/projects$</label>
+              <input class="terminal-input" id="terminal-input" type="text" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send">
+            </form>
+          </div>
+        </article>
+      </div>
+      <div class="view" id="view" aria-busy="false">
+        <div class="panel panel-projects" data-panel="projects" data-title="Proyectos — Alberto Gonzalez">
+
+          <section class="section-projects" aria-labelledby="projects-title">
+            <div class="section-header">
+              <h1 class="title-section" id="projects-title">Proyectos</h1>
+            </div>
+            <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer container">
+      <div class="divider divider--band divider--mobile-only" aria-hidden="true"></div>
+      <div class="footer-container">
+        <p class="footer-text">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
+        <p class="footer-text">© 2026 Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

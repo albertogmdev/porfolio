@@ -36,4 +36,22 @@
       }
     }
   }
+
+  &:has(+ .divider--band) .projects-item {
+    &:last-child .card-project {
+      border-bottom: 0;
+    }
+
+    @include up(md) {
+      &:nth-last-child(2):nth-child(odd) .card-project {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .panel-projects & .projects-item:last-child .card-project {
+    @include down(sm) {
+      border-bottom: 0;
+    }
+  }
 }

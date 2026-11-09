@@ -6,6 +6,8 @@
   const DESKTOP_QUERY = '(min-width: 768px)';
   const TABLET_QUERY = '(min-width: 640px)';
   const LEAVE_MS = 120;
+  const FLIGHT_MS = 450;
+  const FLIGHT_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
   const LOADER_DELAY_MS = 150;
   const TYPE_MS = 70;
   const DELETE_MS = 35;
@@ -159,9 +161,8 @@
       return handle;
     };
 
-    const choose = (option) => {
-      const theme = option.dataset.themeValue;
-      if (!themes.includes(theme)) return;
+    const applyChoice = (theme) => {
+      if (!themes.includes(theme)) return false;
 
       stopEffect();
       const previous = root.dataset.theme;
@@ -176,10 +177,19 @@
 
       if (animated && theme === 'bash') effect = playTerminalBoot();
 
+      const option = options.find((item) => item.dataset.themeValue === theme);
       const announcer = document.getElementById('route-announcer');
       if (announcer) announcer.textContent = `Tema ${option.textContent.trim()}`;
-      close(true);
+      return true;
     };
+
+    const choose = (option) => {
+      if (applyChoice(option.dataset.themeValue)) close(true);
+    };
+
+    document.addEventListener('app:set-theme', (event) => {
+      if (event.detail) applyChoice(event.detail.theme);
+    });
 
     let stored = null;
     try {
@@ -258,11 +268,26 @@
   const initNavbar = () => {
     const toggle = document.querySelector('.navbar-toggle');
     const menu = document.getElementById('navbar-menu');
-    if (!toggle || !menu) return { close: () => {} };
+    if (!toggle || !menu) return { close: () => {}, refresh: () => {} };
 
     const icon = toggle.querySelector('.icon');
+    const indicator = menu.querySelector('.navbar-indicator');
     const desktop = window.matchMedia(DESKTOP_QUERY);
     const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+    // El indicador se mide sobre el enlace activo; con el menú móvil cerrado no hay layout que medir.
+    const placeIndicator = () => {
+      if (!indicator) return;
+      const active = menu.querySelector('a[aria-current="page"]');
+      indicator.classList.toggle('is-visible', Boolean(active));
+      if (!active || active.offsetParent === null) return;
+      menu.style.setProperty('--indicator-x', `${active.offsetLeft + active.offsetWidth / 2}px`);
+      menu.style.setProperty('--indicator-y', `${active.offsetTop + active.offsetHeight}px`);
+      if (!indicator.classList.contains('is-ready')) {
+        void indicator.offsetWidth;
+        indicator.classList.add('is-ready');
+      }
+    };
 
     const setOpen = (open, restoreFocus = false) => {
       toggle.setAttribute('aria-expanded', String(open));
@@ -271,6 +296,7 @@
         icon.classList.toggle('icon-menu', !open);
         icon.classList.toggle('icon-close', open);
       }
+      if (open) placeIndicator();
       if (!open && restoreFocus) toggle.focus();
     };
 
@@ -290,9 +316,14 @@
 
     desktop.addEventListener('change', (event) => {
       if (event.matches) setOpen(false);
+      placeIndicator();
     });
 
-    return { close: () => setOpen(false) };
+    window.addEventListener('resize', placeIndicator);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeIndicator);
+    placeIndicator();
+
+    return { close: () => setOpen(false), refresh: placeIndicator };
   };
 
   const createElement = (tag, className, text) => {
@@ -553,12 +584,93 @@
     });
   };
 
+  /* Terminal persistente: un único elemento que se muda entre el slot de la home y el dock de las páginas interiores. */
+  const initTerminalDock = (view) => {
+    const dock = document.getElementById('terminal-dock');
+    const findTerminal = () => document.querySelector('[data-widget="terminal"]');
+    const focusInput = (terminal) => terminal.querySelector('.terminal-input')?.focus({ preventScroll: true });
+    const box = (rect) => ({ transform: `translate(${rect.left}px, ${rect.top}px)`, width: `${rect.width}px`, height: `${rect.height}px` });
+
+    let flight = null;
+    let parkedFocus = false;
+
+    const endFlight = () => {
+      if (!flight) return;
+      const { terminal, animation, host, focused } = flight;
+      flight = null;
+      animation.cancel();
+      terminal.classList.remove('is-flying');
+      if (host) host.append(terminal);
+      if (focused) focusInput(terminal);
+    };
+
+    const contentBox = (host, panel) => {
+      const rect = host.getBoundingClientRect();
+      const style = getComputedStyle(host);
+      const inset = (side) => (parseFloat(style[`padding${side}`]) || 0) + (parseFloat(style[`border${side}Width`]) || 0);
+      // El panel entrante está desplazado por su transición: se descuenta para apuntar a la posición final.
+      const lift = panel.contains(host) ? new DOMMatrix(getComputedStyle(panel).transform).m42 : 0;
+      return {
+        left: rect.left + inset('Left'),
+        top: rect.top + inset('Top') - lift,
+        width: rect.width - inset('Left') - inset('Right'),
+        height: rect.height - inset('Top') - inset('Bottom'),
+      };
+    };
+
+    return {
+      start: (animate) => {
+        const terminal = findTerminal();
+        if (!animate || !terminal || reducedMotion.matches || typeof terminal.animate !== 'function') return;
+        if (flight) {
+          if (flight.host) endFlight();
+          else return;
+        }
+        const from = terminal.getBoundingClientRect();
+        const focused = terminal.contains(document.activeElement);
+        terminal.classList.add('is-flying');
+        document.body.append(terminal);
+        const animation = terminal.animate([box(from), box(from)], { duration: FLIGHT_MS, easing: FLIGHT_EASING, fill: 'both' });
+        animation.pause();
+        flight = { terminal, animation, from, focused, host: null };
+        if (focused) focusInput(terminal);
+      },
+
+      park: () => {
+        const terminal = findTerminal();
+        parkedFocus = Boolean(terminal && terminal.contains(document.activeElement));
+        if (terminal && view.contains(terminal)) document.body.append(terminal);
+      },
+
+      place: (panel) => {
+        const terminal = findTerminal();
+        const host = panel.querySelector('[data-terminal-slot]') || dock;
+        if (!terminal || !host) return;
+        if (dock) dock.hidden = host !== dock;
+        if (flight && flight.host) endFlight();
+
+        if (flight && flight.terminal === terminal) {
+          const to = contentBox(host, panel);
+          flight.host = host;
+          flight.animation.effect.setKeyframes([box(flight.from), box(to)]);
+          flight.animation.onfinish = endFlight;
+          flight.animation.play();
+          return;
+        }
+
+        host.append(terminal);
+        if (parkedFocus) focusInput(terminal);
+      },
+    };
+  };
+
   /* Router: carga el #view de otra página por fetch sin recargar. Sin JS los enlaces siguen funcionando. */
   const initRouter = (navbar) => {
     const view = document.getElementById('view');
     const main = document.getElementById('main-content');
     if (!view || !main || !window.fetch || !window.history.pushState) return;
 
+    const terminalDock = initTerminalDock(view);
     const loader = document.querySelector('.view-loader');
     const announcer = document.getElementById('route-announcer');
 
@@ -591,6 +703,9 @@
     const importPanel = (panel) => {
       const node = document.importNode(panel, true);
       node.querySelectorAll('script').forEach((script) => script.remove());
+      // La terminal de la página cargada se descarta: se reutiliza la persistente.
+      const slot = node.querySelector('[data-terminal-slot]');
+      if (slot) slot.replaceChildren();
       return node;
     };
 
@@ -622,14 +737,18 @@
       return panel;
     };
 
-    const swapPanel = async (next) => {
+    const swapPanel = async (next, fromTerminal) => {
       const current = view.querySelector('.panel');
+      terminalDock.start(fromTerminal);
       if (current && !reducedMotion.matches) {
         current.classList.add('is-leaving');
         await wait(LEAVE_MS);
       }
+      terminalDock.park();
       next.classList.add('is-entering');
       view.replaceChildren(next);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      terminalDock.place(next);
       void next.offsetWidth;
       window.requestAnimationFrame(() => next.classList.remove('is-entering'));
     };
@@ -656,7 +775,7 @@
       return fetch(withExtension.href, options);
     };
 
-    const navigate = async (url, push = true) => {
+    const navigate = async (url, push = true, fromTerminal = false) => {
       if (controller) controller.abort();
       const request = new AbortController();
       controller = request;
@@ -679,10 +798,11 @@
       if (request.signal.aborted) return;
 
       const next = panel ? importPanel(panel) : createErrorPanel();
-      await swapPanel(next);
+      await swapPanel(next, fromTerminal);
       if (request.signal.aborted) return;
       initRoleTyping(next);
       initData(next);
+      document.dispatchEvent(new CustomEvent('panel:ready', { detail: { panel: next } }));
 
       if (panel && push) window.history.pushState({}, '', url.href);
       currentKey = routeKey(url);
@@ -690,8 +810,9 @@
       document.title = next.dataset.title || document.title;
       updateCurrentLink(url);
       navbar.close();
+      navbar.refresh();
       window.scrollTo({ top: 0, behavior: 'auto' });
-      main.focus({ preventScroll: true });
+      if (!fromTerminal) main.focus({ preventScroll: true });
       if (announcer) announcer.textContent = document.title;
       setLoading(false);
     };
@@ -713,6 +834,19 @@
 
       event.preventDefault();
       navigate(url);
+    });
+
+    document.addEventListener('app:navigate', (event) => {
+      const destination = event.detail && event.detail.url;
+      if (typeof destination !== 'string') return;
+      let url;
+      try {
+        url = new URL(destination, window.location.href);
+      } catch {
+        return;
+      }
+      if (url.origin !== window.location.origin || routeKey(url) === currentKey) return;
+      navigate(url, true, event.detail.source === 'terminal');
     });
 
     window.addEventListener('popstate', () => {

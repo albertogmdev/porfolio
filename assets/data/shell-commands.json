@@ -1,0 +1,10 @@
+[
+  "ls", "cd", "pwd", "cat", "echo", "touch", "mkdir", "rmdir", "rm", "cp", "mv", "ln",
+  "chmod", "chown", "chgrp", "find", "grep", "sed", "awk", "sort", "uniq", "head", "tail",
+  "less", "more", "wc", "tar", "zip", "unzip", "gzip", "df", "du", "free", "ps", "top",
+  "htop", "kill", "killall", "uname", "hostname", "whoami", "id", "date", "uptime", "history",
+  "env", "export", "alias", "which", "man", "ping", "curl", "wget", "ssh", "scp", "ftp",
+  "nano", "vim", "vi", "git", "npm", "node", "python", "python3", "pip", "apt", "apt-get",
+  "yum", "brew", "systemctl", "service", "mount", "umount", "reboot", "shutdown", "passwd",
+  "useradd", "userdel", "ifconfig", "ip", "netstat", "nmap", "dd", "crontab", "docker"
+]

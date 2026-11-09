@@ -43,6 +43,12 @@
   }
 }
 
+@mixin theme-gameboy {
+  [data-theme='gameboy'] & {
+    @content;
+  }
+}
+
 @mixin transition($duration, $properties...) {
   @include motion-safe {
     transition-property: $properties;
@@ -85,6 +91,15 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@mixin full-bleed-band {
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-block: 1px dashed $strokeSecondary;
+  background-color: $backgroundTint;
+  pointer-events: none;
 }
 
 @mixin full-bleed-line($side: bottom) {

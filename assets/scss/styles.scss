@@ -11,19 +11,26 @@
 @use 'components/atoms/chip-tech';
 @use 'components/atoms/tab-filter';
 @use 'components/atoms/divider';
+@use 'components/atoms/button-pixel';
 
 @use 'components/molecules/section-header';
 @use 'components/molecules/card-project';
 @use 'components/molecules/card-contact';
 @use 'components/molecules/theme-switcher';
 @use 'components/molecules/tabs-filter';
+@use 'components/molecules/window';
+@use 'components/molecules/widget-pet';
+@use 'components/molecules/widget-eye';
+@use 'components/molecules/widget-terminal';
 
 @use 'components/organisms/navbar';
 @use 'components/organisms/footer';
 @use 'components/organisms/view';
+@use 'components/organisms/terminal-dock';
 @use 'components/organisms/theme-effects';
 @use 'components/organisms/section-banner';
 @use 'components/organisms/section-profile';
+@use 'components/organisms/section-widgets';
 @use 'components/organisms/section-about';
 @use 'components/organisms/section-contact';
 @use 'components/organisms/section-projects';

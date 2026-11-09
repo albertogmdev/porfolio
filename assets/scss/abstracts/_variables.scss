@@ -24,6 +24,11 @@ $container-width: 800px;
 $navbar-height: 48px;
 $section-gutter: 12px;
 $header-height: 40px;
+$terminal-height: 340px;
+$terminal-height-mobile: 320px;
+$terminal-dock-height: 280px;
+$terminal-dock-height-mobile: 300px;
+$band-height: 20px;
 
 $font-size-title-xl: 24px;
 $line-height-title-xl: 30px;
@@ -35,6 +40,8 @@ $font-size-lead: 14px;
 $line-height-lead: 20px;
 $font-size-body: 12px;
 $line-height-body: 18px;
+$font-size-terminal: 12px;
+$line-height-terminal: 18px;
 $font-size-name-min: 14px;
 
 $icon-size: 16px;
@@ -60,6 +67,7 @@ $radius-lg: 3px;
 $radius-xl: 4px;
 $radius-2xl: 4px;
 $radius-full: 2px;
+$radius-window: 10px;
 
 $shadow-avatar: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
 $shadow-tab-active: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -72,6 +80,7 @@ $ease: cubic-bezier(0.4, 0, 0.2, 1);
 $easing-theme: ease;
 
 $z-scanlines: 40;
+$z-terminal-flight: 45;
 $z-navbar: 50;
 $z-skip: 100;
 $z-boot: 110;
@@ -84,6 +93,9 @@ $scanlines: repeating-linear-gradient(
   rgba(0, 0, 0, 0.16) 2px,
   rgba(0, 0, 0, 0.16) 3px
 );
+$lcd-grid:
+  repeating-linear-gradient(to bottom, transparent 0, transparent 2px, rgba(0, 0, 0, 0.12) 2px, rgba(0, 0, 0, 0.12) 3px),
+  repeating-linear-gradient(to right, transparent 0, transparent 2px, rgba(0, 0, 0, 0.12) 2px, rgba(0, 0, 0, 0.12) 3px);
 
 $backgroundPrimary: var(--backgroundPrimary);
 $backgroundTint: var(--backgroundTint);
@@ -104,6 +116,7 @@ $textTertiary: var(--textTertiary);
 $textSoft: var(--textSoft);
 $textFooter: var(--textFooter);
 $accentLive: var(--accentLive);
+$accentError: var(--accentError);
 $buttonBg: var(--buttonBg);
 $buttonText: var(--buttonText);
 $buttonShine: var(--buttonShine);
