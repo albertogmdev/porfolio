@@ -2,7 +2,19 @@
 
 .section-banner {
   .banner-container {
+    position: relative;
     padding-inline: rem($section-gutter);
+
+    @include theme-gameboy {
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0 rem($section-gutter);
+        border-radius: $radius-xs;
+        background-image: $lcd-grid;
+        pointer-events: none;
+      }
+    }
   }
 
   .banner-image {

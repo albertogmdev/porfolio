@@ -14,6 +14,8 @@
   { "icon": "assets/icons/icon-tech-php.svg", "name": "PHP", "url": "https://www.php.net/", "tags": ["backend"] },
   { "icon": "assets/icons/icon-tech-codeigniter.svg", "name": "CodeIgniter", "url": "https://codeigniter.com/", "tags": ["backend"] },
   { "icon": "assets/icons/icon-tech-python.svg", "name": "Python", "url": "https://www.python.org/", "tags": ["backend"] },
+  { "icon": "assets/icons/icon-tech-fastapi.svg", "name": "FastAPI", "url": "https://fastapi.tiangolo.com/", "tags": ["backend"] },
+  { "icon": "assets/icons/icon-tech-express.svg", "name": "Express", "url": "https://expressjs.com/", "tags": ["backend"] },
   { "icon": "assets/icons/icon-tech-shopify.svg", "name": "Shopify", "url": "https://www.shopify.com/", "tags": ["cms"] },
   { "icon": "assets/icons/icon-tech-magento.svg", "name": "Magento", "url": "https://developer.adobe.com/commerce/", "tags": ["cms"] },
   { "icon": "assets/icons/icon-tech-wordpress.svg", "name": "WordPress", "url": "https://wordpress.org/", "tags": ["cms"] },

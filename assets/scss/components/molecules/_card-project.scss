@@ -58,6 +58,16 @@
     border: 5px solid $preview-border;
     border-radius: $radius-2xl;
     @include transition($duration-base, right, bottom);
+
+    @include theme-gameboy {
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: $lcd-grid;
+        pointer-events: none;
+      }
+    }
   }
 
   .card-image {

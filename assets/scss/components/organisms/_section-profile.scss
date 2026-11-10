@@ -17,6 +17,7 @@ $bp-role-wrap: 380px;
   }
 
   .profile-avatar {
+    position: relative;
     flex: none;
     width: rem(108px);
     height: rem(108px);
@@ -25,6 +26,17 @@ $bp-role-wrap: 380px;
     border-radius: $radius-xl;
     background-color: $backgroundAvatar;
     box-shadow: $shadow-avatar;
+
+    @include theme-gameboy {
+      &::after {
+        content: '';
+        position: absolute;
+        inset: rem($space-1);
+        border-radius: $radius-lg;
+        background-image: $lcd-grid;
+        pointer-events: none;
+      }
+    }
 
     @include up(sm) {
       width: rem(120px);
