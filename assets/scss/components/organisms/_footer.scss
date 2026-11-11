@@ -12,6 +12,10 @@
     font-size: rem($font-size-body);
     line-height: rem($line-height-body);
     text-align: center;
+
+    @include down(md) {
+      padding-block: rem($section-gutter);
+    }
   }
 
   .footer-name {

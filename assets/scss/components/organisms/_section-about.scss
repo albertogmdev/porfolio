@@ -3,6 +3,10 @@
 .section-about {
   .about-container {
     padding: rem($space-5) rem($section-gutter) rem($space-3);
+
+    @include down(md) {
+      padding-block: rem($section-gutter);
+    }
   }
 
   .about-list {

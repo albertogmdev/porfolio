@@ -3,6 +3,8 @@
 $terminal-form-height: 24px;
 $terminal-form-height-touch: 32px;
 $terminal-input-size-touch: 16px;
+$terminal-output-size-touch: 10px;
+$terminal-line-height-touch: 14px;
 $terminal-stack-width: 420px;
 
 .terminal-body {
@@ -12,11 +14,15 @@ $terminal-stack-width: 420px;
   min-height: 0;
   padding: rem($space-3);
 
+  @include down(md) {
+    gap: rem($space-0-5);
+  }
+
   .terminal-output {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    overscroll-behavior: auto;
     color: $textSecondary;
     font-size: rem($font-size-terminal);
     line-height: rem($line-height-terminal);
@@ -24,6 +30,11 @@ $terminal-stack-width: 420px;
     scrollbar-color: $strokeStrong transparent;
     scrollbar-width: thin;
     white-space: pre-wrap;
+
+    @include down(md) {
+      font-size: rem($terminal-output-size-touch);
+      line-height: rem($terminal-line-height-touch);
+    }
 
     &:focus-visible {
       outline-offset: -2px;
@@ -67,6 +78,10 @@ $terminal-stack-width: 420px;
       min-height: rem($terminal-form-height);
     }
 
+    @include down(md) {
+      gap: rem($space-1);
+    }
+
     &:focus-within {
       border-bottom-color: $strokePrimary;
     }
@@ -77,6 +92,11 @@ $terminal-stack-width: 420px;
     color: $textPrimary;
     font-weight: 600;
     white-space: nowrap;
+
+    @include down(md) {
+      font-size: rem($terminal-output-size-touch);
+      line-height: rem($terminal-line-height-touch);
+    }
   }
 
   .terminal-input {
@@ -92,6 +112,7 @@ $terminal-stack-width: 420px;
     outline: none;
 
     @include down(md) {
+      min-height: rem($terminal-form-height-touch);
       font-size: rem($terminal-input-size-touch);
     }
 

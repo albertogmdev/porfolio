@@ -6,11 +6,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
-    margin: rem($space-1) rem(-$space-4) 0;
-
-    @include up(sm) {
-      margin-inline: rem(-$space-6);
-    }
+    margin: rem($space-1) 0 0;
 
     @include up(md) {
       grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -83,8 +83,11 @@ const commands = [
     description: 'Muestra los comandos disponibles',
     run: ({ print }) => {
       print('Comandos disponibles:');
+      const compact = window.matchMedia('(max-width: 767px)').matches;
       const width = Math.max(...commands.map((command) => command.usage.length)) + 2;
-      commands.forEach((command) => print(`  ${command.usage.padEnd(width)}${command.description}`));
+      commands.forEach((command) => print(compact
+        ? `${command.usage} > ${command.description}`
+        : `  ${command.usage.padEnd(width)}${command.description}`));
       print('Otros comandos de bash requieren un usuario administrador.', 'muted');
     },
   },
@@ -182,6 +185,11 @@ export const init = (root) => {
   const input = root.querySelector('.terminal-input');
   if (!output || !form || !input) return;
 
+  const touchMode = window.matchMedia('(max-width: 767px), (pointer: coarse), (any-pointer: coarse)');
+  const dismissKeyboard = () => {
+    if (touchMode.matches && document.activeElement === input) input.blur();
+  };
+
   const history = [];
   let historyIndex = 0;
   let pagesCache = [];
@@ -249,6 +257,7 @@ export const init = (root) => {
     event.preventDefault();
     const line = input.value.trim();
     input.value = '';
+    dismissKeyboard();
     if (!line) return;
     history.push(line);
     if (history.length > HISTORY_MAX) history.shift();
@@ -275,9 +284,20 @@ export const init = (root) => {
   });
 
   root.addEventListener('click', (event) => {
+    if (touchMode.matches) return;
     if (event.target.closest('a, button')) return;
     if (!window.getSelection().toString()) input.focus({ preventScroll: true });
   });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (event.target !== input) dismissKeyboard();
+  });
+  if ('IntersectionObserver' in window) {
+    const visibility = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => !entry.isIntersecting)) dismissKeyboard();
+    });
+    visibility.observe(root);
+  }
 
   print('albertogmdev terminal v1.0');
   print("Escribe 'help' para ver los comandos.", 'muted');

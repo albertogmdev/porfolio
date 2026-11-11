@@ -154,12 +154,8 @@ img {
   width: 100%;
   max-width: $container-width;
   margin-inline: auto;
-  padding-inline: rem($space-4);
+  padding-inline: rem($section-gutter);
   border-inline: 1px dashed $strokeSecondary;
-
-  @include up(sm) {
-    padding-inline: rem($space-6);
-  }
 
   @include up(md) {
     padding-inline: rem($space-2);

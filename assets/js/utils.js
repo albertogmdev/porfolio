@@ -24,10 +24,13 @@ export const watchTheme = (root, redraw) => {
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 };
 
-export const paintRows = (ctx, rows, originX, originY) => {
+export const paintRows = (ctx, rows, originX, originY, scale = 1) => {
   rows.forEach((row, y) => {
     for (let x = 0; x < row.length; x += 1) {
-      if (row[x] === '#') ctx.fillRect(originX + x, originY + y, 1, 1);
+      if (row[x] === '#') ctx.fillRect(originX + x * scale, originY + y * scale, scale, scale);
     }
   });
 };
+
+const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((value) => (value + 0.5) / 16);
+export const bayer = (x, y) => BAYER[(y & 3) * 4 + (x & 3)];

@@ -1,4 +1,4 @@
-import { APP_EVENTS, clamp, inkOf, pointerFine, random, reducedMotion, watchTheme } from '../utils.js';
+import { APP_EVENTS, bayer, clamp, inkOf, pointerFine, random, reducedMotion, watchTheme } from '../utils.js';
 
 const EYE_SIZE = 64;
 const EYE_CENTER = 32;
@@ -10,8 +10,6 @@ const BLINK_MS = 180;
 const ALERT_MS = 2000;
 const ALERT_BLINKS = [0, 330, 660];
 const ALERT_JITTER_MS = 110;
-const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((value) => (value + 0.5) / 16);
-const bayer = (x, y) => BAYER[(y & 3) * 4 + (x & 3)];
 
 const drawEye = (ctx, ink, look, blink) => {
   ctx.clearRect(0, 0, EYE_SIZE, EYE_SIZE);

@@ -35,6 +35,17 @@ $eye-max-height: 280px;
         }
       }
 
+      // Mobile: terminal -> ojo -> pet (el DOM trae pet antes que el ojo).
+      @include down(md) {
+        &[data-widget='eye'] {
+          order: 1;
+        }
+
+        &[data-widget='pet'] {
+          order: 2;
+        }
+      }
+
     }
 
     .terminal-slot {

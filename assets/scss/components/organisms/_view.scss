@@ -6,6 +6,10 @@
   padding-top: rem($navbar-height + 4px);
   background-color: $backgroundPrimary;
 
+  @include down(md) {
+    padding-inline: 0;
+  }
+
   @include theme-gameboy {
     background-image: $lcd-grid;
     background-attachment: fixed;
@@ -85,6 +89,10 @@
     gap: rem($space-3);
     min-height: rem(320px);
     padding: rem($space-12) rem($section-gutter);
+
+    @include down(md) {
+      padding-block: rem($section-gutter);
+    }
   }
 
   .error-title {

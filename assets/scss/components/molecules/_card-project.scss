@@ -4,6 +4,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  min-width: 0;
   min-height: rem(400px);
   padding: rem($space-3);
   border-bottom: 1px dashed $strokeSecondary;
@@ -19,61 +20,139 @@
 
   .card-media {
     position: relative;
+    isolation: isolate;
     display: block;
-    height: rem(232px);
-    overflow: hidden;
+    width: 100%;
+    height: auto;
+    aspect-ratio: $project-media-ratio;
     border-radius: $radius-md;
+    background-color: $backgroundPrimary;
     text-decoration: none;
 
-    &--tone-1 {
-      background: $media-tone-1;
-    }
-
-    &--tone-2 {
-      background: $media-tone-2;
-    }
-
-    &--tone-3 {
-      background: $media-tone-3;
-    }
-
-    &--tone-4 {
-      background: $media-tone-4;
-    }
-
-    &:hover .card-preview {
-      right: rem(-40px);
-      bottom: rem(-12px);
+    @include theme-bash {
+      z-index: $z-scanlines + 1;
     }
   }
 
   .card-preview {
     position: absolute;
-    right: rem(-52px);
-    bottom: rem(-20px);
-    display: block;
-    width: rem(360px);
-    height: rem(400px);
-    overflow: hidden;
-    border: 5px solid $preview-border;
-    border-radius: $radius-2xl;
-    @include transition($duration-base, right, bottom);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    touch-action: pan-y pinch-zoom;
 
-    @include theme-gameboy {
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: $lcd-grid;
-        pointer-events: none;
-      }
+    &:not([hidden]) {
+      display: block;
     }
   }
 
-  .card-image {
+  .card-slide {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: $radius-md;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 350ms $ease;
+
+    &.is-active {
+      z-index: 1;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &--dual {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      align-items: center;
+      gap: rem($space-2);
+      padding: rem($space-2);
+    }
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+
+  .card-image,
+  .card-video {
     width: 100%;
     height: 100%;
+    min-width: 0;
+    min-height: 0;
     object-fit: cover;
+    object-position: center;
+
+    &:not([hidden]) {
+      display: block;
+    }
+  }
+
+  .card-carousel-controls {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    right: rem($space-1);
+    left: rem($space-1);
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    &:not([hidden]) {
+      display: flex;
+    }
+  }
+
+  .card-carousel-button {
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: rem(28px);
+    height: rem(28px);
+    margin: 0;
+    padding: 0;
+    border: 1px solid $strokePrimary;
+    border-radius: $radius-md;
+    background-color: $backgroundPrimary;
+    background-color: color-mix(in srgb, #{$backgroundPrimary} 85%, transparent);
+    color: $textPrimary;
+    cursor: pointer;
+    pointer-events: auto;
+
+    &:not([hidden]) {
+      display: inline-flex;
+    }
+
+    .icon-arrow-right {
+      width: rem($icon-size-sm);
+      height: rem($icon-size-sm);
+    }
+
+    &--next {
+      margin-inline-start: auto;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: $backgroundHover;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &:disabled {
+      color: color-mix(in srgb, #{$textPrimary} 70%, #{$backgroundPrimary});
+      border-color: currentColor;
+      cursor: default;
+    }
+
+    &--prev .icon-arrow-right {
+      transform: rotate(180deg);
+    }
   }
 
   .card-body {
@@ -86,6 +165,7 @@
 
   .card-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
     gap: rem($space-2);
@@ -97,6 +177,7 @@
 
   .card-title {
     color: $textPrimary;
+    overflow-wrap: anywhere;
     font-size: rem($font-size-subtitle);
     font-weight: 600;
     line-height: rem($line-height-subtitle);
@@ -121,14 +202,49 @@
     color: $accentLive;
   }
 
+  &--inactive .card-status-dot {
+    color: $textTertiary;
+  }
+
   .card-text {
     color: $textSecondary;
     font-size: rem($font-size-body);
     line-height: rem($line-height-body);
   }
 
+  .card-sites {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem($space-1) rem($space-3);
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+
+    li {
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
+  .card-site {
+    color: inherit;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-underline-offset: rem($space-0-5);
+
+    &:hover {
+      color: $textPrimary;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
   .card-footer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: rem($space-2);
@@ -139,13 +255,16 @@
   .card-tags {
     @include list-reset;
     display: flex;
+    flex: 1 1 rem(200px);
     flex-wrap: wrap;
+    min-width: 0;
     gap: rem($space-1);
   }
 
   .card-actions {
     display: flex;
-    flex: none;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
     gap: rem($space-1);
   }
 }

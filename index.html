@@ -11,7 +11,7 @@
     (function () {
       try {
         var theme = localStorage.getItem('theme');
-        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy') {
+        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy' || theme === 'eva') {
           document.documentElement.dataset.theme = theme;
         }
       } catch (error) {}
@@ -50,6 +50,7 @@
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false">Claro</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="eva" aria-selected="false">EVA</li>
             </ul>
           </div>
         </div>
@@ -77,13 +78,16 @@
                 <img class="profile-avatar-image" src="assets/images/photo-avatar.jpg" alt="Foto de perfil de Alberto Gonzalez" width="112" height="112">
               </div>
               <div class="profile-info">
+                <p class="eva-profile-kicker">PERSONAL ARCHIVE</p>
                 <h1 class="profile-name" id="profile-name">Alberto Gonzalez</h1>
                 <p class="profile-role" data-roles="Senior Full Stack Developer|Cybersecurity Enthusiast">
                   <span class="visually-hidden">Senior Full Stack Developer y Cybersecurity Enthusiast</span>
                   <span class="profile-role-text" aria-hidden="true">Senior Full Stack Developer</span><span class="profile-role-cursor" aria-hidden="true"></span>
                 </p>
                 <p class="profile-location">Madrid, España</p>
+                <p class="eva-profile-caption">DEVELOPMENT / SYSTEMS</p>
               </div>
+              <span class="eva-mark eva-profile-mark" lang="ja" aria-hidden="true" title="Observación">監視</span>
             </div>
           </section>
           <div class="divider divider--band" aria-hidden="true"></div>
@@ -95,6 +99,7 @@
                   <header class="window-bar">
                     <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                     <span class="window-name">terminal.sh</span>
+                    <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Terminal">端末</span>
                   </header>
                   <div class="window-body terminal-body">
                     <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
@@ -105,14 +110,15 @@
                   </div>
                 </article>
               </div>
-              <article class="window window--wide" data-widget="pet" aria-label="Mascota virtual">
+              <article class="window window--wide" data-widget="pet" aria-label="Mascota virtual ADAM">
                 <header class="window-bar">
                   <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                  <span class="window-name">bicho.exe</span>
+                  <span class="window-name">pet.sys</span>
+                  <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Cultivo">培養</span>
                 </header>
                 <div class="window-body pet-layout">
                   <div class="pet-screen">
-                    <canvas class="pet-canvas" width="64" height="40" role="img" aria-label="Mascota en pixel art"></canvas>
+                    <canvas class="pet-canvas" width="128" height="80" role="img" aria-label="ADAM embrionario, de cuerpo curvado y ojo circular"></canvas>
                   </div>
                   <div class="pet-panel">
                     <ul class="pet-stats">
@@ -133,7 +139,8 @@
               <article class="window" data-widget="eye" aria-label="Ojo cibernético">
                 <header class="window-bar">
                   <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                  <span class="window-name">ojo.sys</span>
+                  <span class="window-name">watcher.sys</span>
+                  <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Observación">観測</span>
                 </header>
                 <div class="window-body eye-screen">
                   <canvas class="eye-canvas" width="64" height="64" role="img" aria-label="Ojo cibernético en pixel art que sigue al cursor"></canvas>
@@ -146,6 +153,7 @@
           <section class="section-about" aria-labelledby="about-title">
             <div class="section-header">
               <h2 class="title-section" id="about-title">Sobre mí</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Perfil personal">個人</span>
             </div>
             <div class="about-container">
               <ul class="about-list">
@@ -160,6 +168,7 @@
           <section class="section-contact" aria-labelledby="contact-title">
             <div class="section-header">
               <h2 class="title-section" id="contact-title">Contacto</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Contacto">連絡</span>
             </div>
             <ul class="contact-list">
               <li class="contact-item">
@@ -202,8 +211,9 @@
           <div class="divider divider--band" aria-hidden="true"></div>
 
           <section class="section-projects" aria-labelledby="projects-title">
-            <div class="section-header">
+            <div class="section-header section-header--link">
               <h2 class="title-section" id="projects-title">Proyectos</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Registro">記録</span>
               <a class="link-more" href="projects.html" data-link>Ver todos <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
             </div>
             <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
@@ -214,6 +224,7 @@
             <div class="stack-container">
               <div class="section-header section-header--stack">
                 <h2 class="title-section" id="stack-title">Stack</h2>
+                <span class="eva-mark" lang="ja" aria-hidden="true" title="Tecnología">技術</span>
                 <div class="tabs-filter" role="group" aria-label="Filtrar por categoría">
                   <button class="tab-filter is-active" type="button" data-filter="all" aria-pressed="true">Todos</button>
                   <button class="tab-filter" type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
@@ -232,6 +243,7 @@
           <section class="section-cta" aria-labelledby="cta-title">
             <div class="section-header">
               <h2 class="title-section" id="cta-title">¿Hablamos?</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Conexión">接続</span>
             </div>
             <div class="cta-container">
               <p class="cta-text">Texto de invitación a contactar, de una o dos líneas, provisional.</p>

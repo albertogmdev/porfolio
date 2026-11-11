@@ -14,6 +14,10 @@ $bp-role-wrap: 380px;
       min-height: rem(152px);
       padding-block: 0;
     }
+
+    @include down(md) {
+      padding-block: rem($section-gutter);
+    }
   }
 
   .profile-avatar {
@@ -42,6 +46,10 @@ $bp-role-wrap: 380px;
       width: rem(120px);
       height: rem(120px);
       margin-left: rem($space-4);
+    }
+
+    @include down(md) {
+      margin-left: rem($section-gutter);
     }
   }
 

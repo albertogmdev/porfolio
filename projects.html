@@ -11,7 +11,7 @@
     (function () {
       try {
         var theme = localStorage.getItem('theme');
-        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy') {
+        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy' || theme === 'eva') {
           document.documentElement.dataset.theme = theme;
         }
       } catch (error) {}
@@ -50,6 +50,7 @@
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false">Claro</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="eva" aria-selected="false">EVA</li>
             </ul>
           </div>
         </div>
@@ -65,6 +66,7 @@
           <header class="window-bar">
             <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="window-name">terminal.sh</span>
+            <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Terminal">端末</span>
           </header>
           <div class="window-body terminal-body">
             <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
@@ -81,6 +83,7 @@
           <section class="section-projects" aria-labelledby="projects-title">
             <div class="section-header">
               <h1 class="title-section" id="projects-title">Proyectos</h1>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Registro">記録</span>
             </div>
             <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
           </section>

@@ -10,6 +10,10 @@
     min-height: rem(176px);
     padding: rem($space-6) rem($section-gutter);
     text-align: center;
+
+    @include down(md) {
+      padding-block: rem($section-gutter);
+    }
   }
 
   .cta-text {

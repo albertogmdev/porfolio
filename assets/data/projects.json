@@ -1,42 +1,90 @@
 [
   {
-    "title": "Proyecto 1",
-    "subtitle": "Descripción corta.",
+    "title": "Cruzcampo",
     "status": "Activo",
-    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
-    "tags": ["Tag 1", "Tag 2"],
-    "tone": 1,
-    "image": "assets/images/placeholder.svg",
-    "links": { "live": "https://example.com/", "code": "https://example.com/" }
+    "tags": ["HTML", "JavaScript"],
+    "image": "assets/images/cruzcampo-screenshot.png",
+    "video": "assets/video/cruzcampo-video.mp4",
+    "links": { "live": "https://cruzcampo.es/" }
   },
   {
-    "title": "Proyecto 2",
-    "subtitle": "Descripción corta.",
+    "title": "Accumin",
     "status": "Activo",
-    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
-    "tags": ["Tag 1", "Tag 2", "Tag 3"],
-    "tone": 2,
-    "image": "assets/images/placeholder.svg",
-    "links": { "live": "https://example.com/" }
+    "tags": ["Strapi", "Next.js"],
+    "image": "assets/images/accumin-screenshot.png",
+    "video": "assets/video/accumin-video.mp4",
+    "links": { "live": "https://www.accumin.com/" }
   },
   {
-    "title": "Proyecto 3",
-    "subtitle": "Descripción corta.",
+    "title": "Neolith",
     "status": "Activo",
-    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
-    "tags": ["Tag 1", "Tag 2"],
-    "tone": 3,
-    "image": "assets/images/placeholder.svg",
-    "links": { "live": "https://example.com/", "code": "https://example.com/" }
+    "tags": ["Storyblok", "Nuxt.js"],
+    "image": "assets/images/neolith-screenshot.png",
+    "previews": ["assets/images/neolith-screenshot1.png"],
+    "video": "assets/video/neolith-video.mp4",
+    "links": { "live": "https://www.neolith.com/" }
   },
   {
-    "title": "Proyecto 4",
-    "subtitle": "Descripción corta.",
+    "title": "Cinfa",
     "status": "Activo",
-    "description": "Texto descriptivo de ejemplo del proyecto, con dos o tres líneas de contenido provisional.",
-    "tags": ["Tag 1", "Tag 2"],
-    "tone": 4,
-    "image": "assets/images/placeholder.svg",
-    "links": { "live": "https://example.com/", "code": "https://example.com/" }
+    "tags": ["WordPress", "ACF"],
+    "image": "assets/images/cinfa-screenshot.png",
+    "previews": ["assets/images/cinfa-screenshot1.png", "assets/images/cinfa-screenshot2.png"],
+    "links": {
+      "live": "https://pharmagrip.cinfa.com/",
+      "sites": [
+        { "label": "Pharmagrip", "url": "https://pharmagrip.cinfa.com/" },
+        { "label": "Respibien", "url": "https://respibien.cinfa.com/" },
+        { "label": "Cinfatós", "url": "https://cinfatos.cinfa.com/" },
+        { "label": "Optiben", "url": "https://optiben.cinfa.com/" }
+      ]
+    }
+  },
+  {
+    "title": "El Águila",
+    "status": "Activo",
+    "tags": [],
+    "image": "assets/images/elaguila-screenshot.png",
+    "video": "assets/video/elaguila-video.mp4",
+    "links": { "live": "https://www.cervezaelaguila.es/" }
+  },
+  {
+    "title": "Mapfre",
+    "status": "Activo",
+    "tags": ["Next.js", "GSAP"],
+    "image": "assets/images/mapfre-screenshot.png",
+    "previews": ["assets/images/mapfre-screenshot1.png", "assets/images/mapfre-screenshot2.png"],
+    "video": "assets/video/mapfre-video.mp4",
+    "links": { "live": "https://www.mapfrebrand.com/" }
+  },
+  {
+    "title": "Vuse",
+    "status": "No activo",
+    "tags": ["PHP", "Shopify"],
+    "image": "assets/images/vuse-screenshot.png",
+    "video": "assets/video/vuse-video.mp4",
+    "links": { "live": "https://web.archive.org/web/20240325181949/https://vuse.es/" }
+  },
+  {
+    "title": "Avolta",
+    "tags": ["Magento", "Umbraco", "Python"],
+    "image": "assets/images/avolta-screenshot.png",
+    "mobileImage": "assets/images/avolta-app-screenshot.png",
+    "links": { "live": "https://madrid.shopdutyfree.com/" }
+  },
+  {
+    "title": "Mychef",
+    "tags": ["WordPress", "ACF"],
+    "image": "assets/images/mychef-screenshot.png",
+    "previews": ["assets/images/mychef-screenshot1.png"],
+    "video": "assets/video/mychef-video.mp4",
+    "links": { "live": "https://mychefpro.com/" }
+  },
+  {
+    "title": "Farmacias Direct",
+    "tags": ["React", "Hydrogen", "Tailwind", "Shopify", "Oxygen"],
+    "image": "assets/images/farmacias-screenshot.png",
+    "video": "assets/video/farmacias-video.mp4",
+    "links": { "live": "https://www.farmaciasdirect.es/" }
   }
 ]

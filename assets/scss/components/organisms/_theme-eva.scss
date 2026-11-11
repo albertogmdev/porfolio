@@ -1,0 +1,553 @@
+@use '../../abstracts' as *;
+
+$eva-font-display: Impact, Haettenschweiler, 'Arial Narrow', sans-serif;
+$eva-font-mark: 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+$eva-band-height-sm: 16px;
+$eva-band-height-lg: 24px;
+$eva-stripe-width: 12px;
+
+// Franjas oblicuas de cinta de peligro (45 grados); el ancho de franja se ajusta por pieza.
+@function eva-stripes($width) {
+  @return repeating-linear-gradient(
+    135deg,
+    var(--eva-ink) 0 rem($width),
+    transparent rem($width) rem($width * 2)
+  );
+}
+
+.eva-mark,
+.eva-profile-kicker,
+.eva-profile-caption,
+.card-record {
+  display: none;
+}
+
+[data-theme='eva'] {
+  --eva-line: var(--strokeStrong);
+  --eva-ink: var(--textPrimary);
+  --eva-halo: color-mix(in srgb, var(--eva-ink) 9%, transparent);
+  // Punto intermedio entre strokeSecondary y strokeStrong (~#4b4b4b) para bordes de ventana.
+  --eva-line-soft: color-mix(in srgb, var(--strokeStrong) 30%, var(--strokeSecondary));
+
+  .eva-mark:not([hidden]),
+  .card-record-mark {
+    flex: none;
+    color: var(--eva-ink);
+    font-family: $eva-font-mark;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .eva-mark:not([hidden]) {
+    display: inline-block;
+    font-size: rem(28px);
+  }
+
+  .navbar {
+    border-bottom-style: solid;
+
+    .navbar-logo {
+      font-family: $eva-font-display;
+      font-size: rem(22px);
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .navbar-menu {
+      border-radius: 0;
+    }
+
+    .navbar-link[aria-current='page'] {
+      color: var(--eva-ink);
+    }
+
+    .navbar-indicator {
+      height: 1px;
+      border-radius: 0;
+      background-color: var(--eva-ink);
+      box-shadow: 0 0 rem(5px) var(--eva-halo);
+    }
+  }
+
+  .section-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: rem($space-2) rem($space-3);
+    min-height: rem(56px);
+    padding-block: rem($space-2);
+    border-top: 1px solid var(--eva-line);
+    background-color: transparent;
+
+    &::after {
+      border-bottom-style: solid;
+    }
+
+    > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    > .eva-mark {
+      margin-inline-start: auto;
+    }
+
+    // Fila 1: titulo + kanjis; fila 2: filtros o enlace alineados a la derecha.
+    &--stack,
+    &--link {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-content: center;
+      align-items: center;
+      justify-content: normal;
+
+      > .eva-mark {
+        grid-column: 2;
+        justify-self: end;
+        margin-inline-start: 0;
+      }
+    }
+
+    > .tabs-filter {
+      grid-column: 1 / -1;
+      justify-content: flex-end;
+    }
+
+    > .link-more {
+      grid-column: 1 / -1;
+      justify-self: end;
+      padding-block: rem($space-1);
+    }
+  }
+
+  // La banda anterior ya aporta sus bordes: sin doble linea.
+  .divider--band + section .section-header {
+    border-top: 0;
+  }
+
+  // Sin banda de peligro (Sobre mi -> Contacto, Proyectos -> Stack): la misma linea full-bleed que cierra cada cabecera.
+  .section-about + .divider--band,
+  .section-projects + .divider--band {
+    height: 1px;
+
+    &::before {
+      @include full-bleed-line(top, solid);
+      right: auto;
+      bottom: auto;
+      border-bottom: 0;
+      background: none;
+      box-shadow: none;
+    }
+  }
+  .title-section {
+    min-width: 0;
+    color: $textPrimary;
+    font-family: $eva-font-display;
+    font-size: rem(26px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+    text-transform: uppercase;
+  }
+
+  .divider--line::after {
+    border-top-style: solid;
+  }
+
+  // Sin margen inferior: la banda se pega a la cabecera siguiente.
+  .divider--band {
+    height: rem($eva-band-height-sm);
+    margin-top: rem($space-3);
+    margin-bottom: 0;
+
+    @include up(md) {
+      height: rem($eva-band-height-lg);
+    }
+
+    // Compensa el padding lateral del container (0 en movil, 8px desde md) para llegar a sus bordes.
+    &::before {
+      inset: 0;
+      width: auto;
+      transform: none;
+      border-block: 1px solid var(--eva-line);
+      background-image: eva-stripes($eva-stripe-width);
+      background-color: transparent;
+      box-shadow: 0 0 rem(5px) var(--eva-halo);
+
+      @include up(md) {
+        inset-inline: rem(-$space-2);
+      }
+    }
+  }
+
+  // Siguientes sin cabecera: conservan 12px bajo la banda.
+  .divider--band + .section-widgets {
+    margin-top: rem($space-3);
+  }
+
+  .footer .divider--band {
+    margin-bottom: rem($space-3);
+
+    &::before {
+      inset-inline: rem(-$section-gutter);
+    }
+  }
+
+  .section-profile {
+    .profile-container {
+      flex-wrap: wrap;
+      align-items: flex-start;
+
+      // Movil: kanjis bajo el avatar (columna izquierda); info ocupa ambas filas.
+      @include down(sm) {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-areas:
+          'avatar info'
+          'mark info';
+        align-content: start;
+        align-items: start;
+        column-gap: rem($space-3);
+        row-gap: rem($space-1);
+      }
+
+      @include up(sm) {
+        flex-wrap: nowrap;
+        align-items: center;
+      }
+    }
+
+    .eva-profile-kicker:not([hidden]),
+    .eva-profile-caption:not([hidden]) {
+      display: block;
+      align-self: flex-start;
+      max-width: 100%;
+      color: $textSecondary;
+      font-family: $font-body;
+      font-size: rem(12px);
+      font-weight: 400;
+      line-height: rem($line-height-body);
+      letter-spacing: 0.12em;
+      overflow-wrap: anywhere;
+      text-transform: uppercase;
+    }
+
+    .eva-profile-kicker:not([hidden]) {
+      margin-bottom: rem($space-1);
+      padding-bottom: rem($space-1);
+      border-bottom: 1px solid var(--eva-line);
+    }
+
+    .eva-profile-caption:not([hidden]) {
+      margin-top: rem($space-1);
+      padding-top: rem($space-1);
+      border-top: 1px solid var(--eva-line);
+    }
+
+    // Movil: fila propia alineada a la derecha; desde sm, en linea al extremo del container.
+    .eva-profile-mark:not([hidden]) {
+      flex: 0 0 100%;
+      padding-right: rem($section-gutter);
+      font-size: rem(32px);
+      text-align: right;
+
+      @include down(sm) {
+        grid-area: mark;
+        align-self: start;
+        width: rem(108px);
+        margin-left: rem($section-gutter);
+        padding-right: 0;
+        text-align: center;
+      }
+
+      @include up(sm) {
+        flex: none;
+        padding-right: 0;
+        font-size: rem(40px);
+      }
+
+      @include up(md) {
+        font-size: rem(48px);
+      }
+    }
+
+    .profile-avatar {
+      @include down(sm) {
+        grid-area: avatar;
+      }
+
+      border: 1px solid var(--eva-line);
+      border-radius: 0;
+      background-color: $backgroundAvatar;
+      box-shadow: none;
+    }
+
+    .profile-avatar-image {
+      border-radius: 0;
+    }
+
+    .profile-info {
+      @include down(sm) {
+        grid-area: info;
+        align-self: center;
+      }
+    }
+
+    .profile-name {
+      overflow: visible;
+      font-family: $eva-font-display;
+      font-size: rem(28px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+      text-overflow: clip;
+      text-transform: uppercase;
+      white-space: normal;
+
+      @include up(sm) {
+        font-size: rem(44px);
+      }
+    }
+
+    .profile-role,
+    .profile-location {
+      overflow: visible;
+      overflow-wrap: anywhere;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
+    .profile-role-cursor {
+      background-color: $textPrimary;
+      animation: none;
+    }
+  }
+
+  .window {
+    border: 1px solid var(--eva-line-soft);
+    border-radius: 0;
+    background-color: $backgroundPrimary;
+    box-shadow: none;
+
+    .window-bar {
+      position: relative;
+      gap: rem($space-3);
+      min-height: rem(34px);
+      padding-block: 0;
+      border-bottom: 1px solid $strokeSecondary;
+      background-color: $backgroundTintHover;
+      color: $textTertiary;
+    }
+
+    .window-name {
+      font-family: inherit;
+      font-size: rem(13px);
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .window-dots {
+      display: none;
+    }
+
+    .eva-window-mark:not([hidden]) {
+      margin-inline-start: auto;
+      color: $textTertiary;
+      font-size: rem(20px);
+    }
+  }
+
+  .pet-layout {
+    // Sin borde en la caja: el padding completa los 8px de inset del ojo.
+    @include up(md) {
+      padding: rem($space-2);
+    }
+
+    // Sin recuadro propio: solo las esquinas del canvas, como el ojo.
+    .pet-screen {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    .pet-canvas {
+      color: $textPrimary;
+    }
+
+    .pet-segments i.is-on {
+      border-color: $textPrimary;
+      background-color: $textPrimary;
+    }
+  }
+
+  .card-project {
+    border: 0;
+    border-bottom: 1px solid $strokeSecondary;
+    background-color: transparent;
+
+    @include up(md) {
+      border-right: 1px solid $strokeSecondary;
+    }
+
+    &:hover {
+      background-color: $backgroundTint;
+    }
+
+    .card-record:not([hidden]) {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: end;
+      gap: rem($space-2);
+      min-height: rem(48px);
+      margin-bottom: rem($space-3);
+
+      @include up(sm) {
+        min-height: rem(52px);
+      }
+      padding-block: rem($space-2);
+      border-top: 1px solid var(--eva-line);
+      border-bottom: 1px solid var(--eva-ink);
+      box-shadow: 0 1px rem(5px) var(--eva-halo);
+    }
+
+    .card-record-code {
+      color: var(--eva-ink);
+      font-family: $eva-font-display;
+      font-size: rem(26px);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .card-record-label {
+      min-width: 0;
+      padding-bottom: rem($space-0-5);
+      color: $textSecondary;
+      font-family: $eva-font-display;
+      font-size: rem(14px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .card-record-mark {
+      align-self: center;
+      font-size: rem(24px);
+    }
+
+    .card-media,
+    .card-slide {
+      border-radius: 0;
+    }
+
+    .card-header {
+      gap: rem($space-2);
+      padding-bottom: rem($space-2);
+      border-bottom: 1px solid $strokeSecondary;
+    }
+
+    .card-heading {
+      flex: 1 1 rem(140px);
+    }
+
+    .card-title {
+      font-family: $eva-font-display;
+      font-size: rem(26px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .card-status {
+      flex: 0 1 auto;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+
+    .card-footer {
+      border-top: 1px solid $strokeSecondary;
+    }
+
+  }
+
+  .button-primary,
+  .button-pixel,
+  .button-icon,
+  .tag,
+  .chip-tech,
+  .tab-filter {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .button-primary {
+    .button-shine {
+      display: none;
+    }
+
+    &:hover {
+      background-color: $textSoft;
+      color: $buttonText;
+    }
+  }
+
+  .button-primary,
+  .button-pixel,
+  .tab-filter {
+    font-family: $eva-font-display;
+    font-size: rem(16px);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .button-pixel {
+    border-style: solid;
+  }
+
+  .tab-filter.is-active {
+    border-color: var(--eva-ink);
+    background-color: $buttonBg;
+    color: $buttonText;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .theme-switcher {
+    .theme-menu,
+    .theme-option,
+    .theme-toggle {
+      border-radius: 0;
+    }
+
+    .theme-option::before {
+      border-radius: 0;
+    }
+  }
+
+  .card-contact {
+    .card-icon {
+      border: 1px solid $strokeSecondary;
+      border-radius: 0;
+      background-color: transparent;
+    }
+  }
+
+  .footer {
+    .footer-name {
+      color: $textPrimary;
+      font-family: $eva-font-display;
+      font-size: rem(20px);
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+  }
+}

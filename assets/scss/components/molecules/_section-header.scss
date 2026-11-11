@@ -9,6 +9,10 @@
   min-height: rem($header-height);
   padding-inline: rem($section-gutter);
 
+  @include down(md) {
+    padding-block: rem($section-gutter);
+  }
+
   &::after {
     @include full-bleed-line(bottom);
   }

@@ -14,7 +14,7 @@ $pet-label-width: 56px;
   }
 
   @include up(md) {
-    padding: rem($space-2);
+    padding: rem($space-2 - 1px);
   }
 
   .pet-screen {
@@ -30,6 +30,12 @@ $pet-label-width: 56px;
     @include up(sm) {
       flex: 1 1 0;
     }
+
+    // Como .eye-canvas: la caja ocupa todo el alto util y el canvas la llena.
+    @include up(md) {
+      position: relative;
+      padding: 0;
+    }
   }
 
   .pet-canvas {
@@ -41,6 +47,14 @@ $pet-label-width: 56px;
     color: $textPrimary;
     image-rendering: pixelated;
     object-fit: contain;
+
+    @include up(md) {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: fill;
+    }
   }
 
   .pet-panel {

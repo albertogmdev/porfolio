@@ -4,7 +4,6 @@
   const THEME_KEY = 'theme';
   const DEFAULT_THEME = 'bash';
   const DESKTOP_QUERY = '(min-width: 768px)';
-  const TABLET_QUERY = '(min-width: 640px)';
   const LEAVE_MS = 120;
   const FLIGHT_MS = 450;
   const FLIGHT_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
@@ -397,7 +396,214 @@
     list.replaceChildren(fragment);
   };
 
-  const createProjectCard = (project) => {
+  let stopProjectPreview = () => {};
+  let resumeProjectPreview = () => {};
+  const projectPreviewMode = window.matchMedia('(max-width: 767px), (hover: none), (pointer: coarse), (any-pointer: coarse)');
+  const projectPreviews = new WeakMap();
+
+  const attachProjectPreview = (card, media, slides, title) => {
+    if (slides.length < 2) return;
+    const video = slides.find((slide) => slide.tagName === 'VIDEO');
+    const controls = createElement('div', 'card-carousel-controls');
+    const previous = createElement('button', 'card-carousel-button card-carousel-button--prev');
+    const next = createElement('button', 'card-carousel-button card-carousel-button--next');
+    [[previous, 'Vista anterior'], [next, 'Vista siguiente']].forEach(([button, label]) => {
+      button.type = 'button';
+      button.setAttribute('aria-label', `${label} de ${title}`);
+      button.title = `${label} de ${title}`;
+      const icon = createElement('span', 'icon icon-arrow-right');
+      icon.setAttribute('aria-hidden', 'true');
+      button.append(icon);
+    });
+    const status = createElement('span', 'card-carousel-status visually-hidden');
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+    controls.append(previous, next);
+    media.append(controls, status);
+
+    let index = 0;
+    let timer = 0;
+    let hovered = false;
+    let focused = false;
+    let playing = false;
+    let generation = 0;
+    let swipeStart = null;
+
+    const updateControls = () => {
+      const first = index === 0;
+      const last = index === slides.length - 1;
+      if (projectPreviewMode.matches && ((first && document.activeElement === previous) || (last && document.activeElement === next))) {
+        const available = first ? next : previous;
+        available.hidden = false;
+        available.disabled = false;
+        available.focus({ preventScroll: true });
+      }
+      controls.hidden = !projectPreviewMode.matches;
+      status.hidden = !projectPreviewMode.matches;
+      previous.disabled = first;
+      previous.hidden = first;
+      next.disabled = last;
+      next.hidden = last;
+      if (projectPreviewMode.matches) status.textContent = `Vista ${index + 1} de ${slides.length}`;
+    };
+
+    const display = (target) => {
+      slides.forEach((slide) => {
+        const active = slide === target;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+        slide.inert = !active;
+      });
+    };
+
+    const show = async (targetIndex, manual = false) => {
+      const target = slides[targetIndex];
+      if (!target) return;
+      const request = ++generation;
+      const previousIndex = index;
+      index = targetIndex;
+      updateControls();
+      if (video) video.pause();
+
+      if (target.tagName === 'IMG') {
+        target.loading = 'eager';
+        try {
+          await target.decode();
+        } catch {
+          if (request === generation) {
+            index = previousIndex;
+            updateControls();
+          }
+          return;
+        }
+      }
+      if (request !== generation || !card.isConnected) return;
+      display(target);
+
+      if (target === video) {
+        video.controls = false;
+        video.tabIndex = -1;
+        if (!video.src) video.src = video.dataset.src;
+        video.currentTime = 0;
+        if (!document.hidden && (!reducedMotion.matches || manual)) {
+          video.play().catch(() => {
+            if (request === generation && !projectPreviewMode.matches) show(0);
+          });
+        }
+      }
+    };
+
+    const stop = () => {
+      playing = false;
+      generation += 1;
+      window.clearInterval(timer);
+      if (video) video.pause();
+      if (!projectPreviewMode.matches) {
+        index = 0;
+        display(slides[0]);
+        if (video && video.readyState) video.currentTime = 0;
+      }
+      updateControls();
+    };
+
+    const start = () => {
+      if (projectPreviewMode.matches || playing || reducedMotion.matches || document.hidden) return;
+      stopProjectPreview();
+      stopProjectPreview = stop;
+      playing = true;
+
+      if (video) {
+        show(slides.indexOf(video));
+        return;
+      }
+
+      let nextIndex = 1;
+      show(nextIndex);
+      if (slides.length > 2) {
+        timer = window.setInterval(() => {
+          if (!card.isConnected) {
+            stop();
+            return;
+          }
+          nextIndex = nextIndex === slides.length - 1 ? 1 : nextIndex + 1;
+          show(nextIndex);
+        }, 1500);
+      }
+    };
+
+    const step = (direction) => {
+      if (!projectPreviewMode.matches) return;
+      const target = Math.min(slides.length - 1, Math.max(0, index + direction));
+      if (target === index) return;
+      stopProjectPreview();
+      stopProjectPreview = stop;
+      resumeProjectPreview = () => {
+        if (card.isConnected && projectPreviewMode.matches && !document.hidden && !reducedMotion.matches && slides[index] === video) {
+          video.play().catch(() => {});
+        }
+      };
+      show(target, true);
+    };
+
+    previous.addEventListener('click', () => step(-1));
+    next.addEventListener('click', () => step(1));
+    media.addEventListener('keydown', (event) => {
+      if (!projectPreviewMode.matches || event.target.closest('video')) return;
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      step(event.key === 'ArrowLeft' ? -1 : 1);
+    });
+    media.addEventListener('pointerdown', (event) => {
+      if (!projectPreviewMode.matches || event.pointerType !== 'touch' || event.target.closest('button')) return;
+      swipeStart = { x: event.clientX, y: event.clientY };
+    });
+    media.addEventListener('pointerup', (event) => {
+      if (!swipeStart) return;
+      const distanceX = event.clientX - swipeStart.x;
+      const distanceY = event.clientY - swipeStart.y;
+      swipeStart = null;
+      if (Math.abs(distanceX) > 40 && Math.abs(distanceX) > Math.abs(distanceY) * 1.25) step(distanceX < 0 ? 1 : -1);
+    });
+    media.addEventListener('pointercancel', () => { swipeStart = null; });
+    card.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      hovered = true;
+      start();
+    });
+    card.addEventListener('pointerleave', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      hovered = false;
+      if (!focused && !projectPreviewMode.matches) stop();
+    });
+    card.addEventListener('focusin', () => {
+      focused = true;
+      start();
+    });
+    card.addEventListener('focusout', (event) => {
+      if (card.contains(event.relatedTarget)) return;
+      focused = false;
+      if (!hovered && !projectPreviewMode.matches) stop();
+    });
+    if (video) video.addEventListener('error', () => {
+      stop();
+      index = 0;
+      display(slides[0]);
+      updateControls();
+    });
+    projectPreviews.set(card, () => {
+      stop();
+      index = 0;
+      display(slides[0]);
+      if (video) {
+        video.controls = false;
+        video.tabIndex = -1;
+      }
+      updateControls();
+    });
+    updateControls();
+  };
+
+  const createProjectCard = (project, index) => {
     const title = cleanText(project.title);
     if (!title) return null;
 
@@ -405,27 +611,74 @@
     const live = safeUrl(links.live);
     const code = safeUrl(links.code);
     const image = safeAsset(project.image);
+    const mobileImage = safeAsset(project.mobileImage);
+    const videoUrl = safeAsset(project.video);
+    const previews = [...new Set((Array.isArray(project.previews) ? project.previews : []).map(safeAsset).filter((preview) => preview && preview !== image))];
     const tone = Math.min(4, Math.max(1, Number.parseInt(project.tone, 10) || 1));
 
-    const media = createElement(live ? 'a' : 'div', `card-media card-media--tone-${tone}`);
-    media.setAttribute('aria-hidden', 'true');
-    if (live) {
-      media.href = live;
-      media.tabIndex = -1;
-      media.target = '_blank';
-      media.rel = 'noopener noreferrer';
-    }
+    const media = createElement('div', `card-media card-media--tone-${tone}`);
+    media.setAttribute('role', 'group');
+    media.setAttribute('aria-roledescription', 'carrusel');
+    media.setAttribute('aria-label', `Vistas previas de ${title}`);
 
+    const slides = [];
     if (image) {
-      const preview = createElement('span', 'card-preview');
-      const picture = createElement('img', 'card-image');
+      const preview = createElement('div', 'card-preview');
+      const picture = createElement('img', mobileImage ? 'card-image card-image--desktop' : 'card-image card-slide is-active');
       picture.src = image;
       picture.alt = '';
-      picture.width = 360;
-      picture.height = 400;
+      picture.width = 1920;
+      picture.height = 1062;
       picture.loading = 'lazy';
       picture.decoding = 'async';
-      preview.append(picture);
+      if (mobileImage) {
+        const dual = createElement('span', 'card-slide card-slide--dual is-active');
+        const mobilePicture = createElement('img', 'card-image card-image--mobile');
+        mobilePicture.src = mobileImage;
+        mobilePicture.alt = '';
+        mobilePicture.width = 390;
+        mobilePicture.height = 844;
+        mobilePicture.loading = 'lazy';
+        mobilePicture.decoding = 'async';
+        dual.append(picture, mobilePicture);
+        preview.append(dual);
+        slides.push(dual);
+      } else {
+        preview.append(picture);
+        slides.push(picture);
+      }
+      previews.forEach((src) => {
+        const slide = createElement('img', 'card-image card-slide');
+        slide.src = src;
+        slide.alt = '';
+        slide.width = 1920;
+        slide.height = 1062;
+        slide.loading = 'lazy';
+        slide.decoding = 'async';
+        slide.setAttribute('aria-hidden', 'true');
+        slide.inert = true;
+        preview.append(slide);
+        slides.push(slide);
+      });
+      if (videoUrl) {
+        const video = createElement('video', 'card-video card-slide');
+        video.dataset.src = videoUrl;
+        video.poster = image;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.loop = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.preload = 'none';
+        video.tabIndex = -1;
+        video.setAttribute('aria-label', `Vídeo de ${title}`);
+        video.setAttribute('aria-hidden', 'true');
+        video.inert = true;
+        video.width = 1920;
+        video.height = 1062;
+        preview.insertBefore(video, preview.children[1] || null);
+        slides.splice(1, 0, video);
+      }
       media.append(preview);
     }
 
@@ -452,6 +705,21 @@
     const description = cleanText(project.description);
     if (description) body.append(createElement('p', 'card-text', description));
 
+    const sites = createElement('ul', 'card-sites');
+    (Array.isArray(links.sites) ? links.sites : []).forEach((site) => {
+      const label = cleanText(site.label);
+      const href = safeUrl(site.url);
+      if (!label || !href) return;
+      const entry = createElement('li');
+      const link = createElement('a', 'card-site', label);
+      link.href = href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      entry.append(link);
+      sites.append(entry);
+    });
+    if (sites.childElementCount) body.append(sites);
+
     const footer = createElement('div', 'card-footer');
     const tags = createElement('ul', 'card-tags');
     (Array.isArray(project.tags) ? project.tags : []).forEach((tag) => {
@@ -471,6 +739,7 @@
       action.target = '_blank';
       action.rel = 'noopener noreferrer';
       action.setAttribute('aria-label', label);
+      action.title = label;
       const glyph = createElement('span', `icon icon-${icon}`);
       glyph.setAttribute('aria-hidden', 'true');
       action.append(glyph);
@@ -480,7 +749,17 @@
     body.append(footer);
 
     const card = createElement('article', 'card-project');
-    card.append(media, body);
+    if (status === 'No activo') card.classList.add('card-project--inactive');
+    const record = createElement('header', 'card-record');
+    const recordCode = createElement('span', 'card-record-code', `PR-${String(index + 1).padStart(2, '0')}`);
+    const recordLabel = createElement('span', 'card-record-label', 'PROJECT FILE');
+    const recordMark = createElement('span', 'card-record-mark', '記録');
+    recordMark.lang = 'ja';
+    recordMark.setAttribute('aria-hidden', 'true');
+    recordMark.title = 'Registro';
+    record.append(recordCode, recordLabel, recordMark);
+    card.append(record, media, body);
+    attachProjectPreview(card, media, slides, title);
     const entry = createElement('li', 'projects-item');
     entry.append(card);
     return entry;
@@ -488,8 +767,8 @@
 
   const renderProjects = (list, items) => {
     const fragment = document.createDocumentFragment();
-    items.forEach((project) => {
-      const card = createProjectCard(project);
+    items.forEach((project, index) => {
+      const card = createProjectCard(project, index);
       if (card) fragment.append(card);
     });
     list.replaceChildren(fragment);
@@ -574,13 +853,6 @@
     document.addEventListener('click', (event) => {
       const button = event.target.closest('.tab-filter[data-filter]');
       if (button) applyFilter(button);
-    });
-
-    // Por debajo de 640px los filtros se ocultan: se vuelve a mostrar todo.
-    window.matchMedia(TABLET_QUERY).addEventListener('change', (event) => {
-      if (event.matches) return;
-      const all = document.querySelector('.tab-filter[data-filter="all"]');
-      if (all) applyFilter(all);
     });
   };
 
@@ -745,6 +1017,7 @@
         await wait(LEAVE_MS);
       }
       terminalDock.park();
+      stopProjectPreview();
       next.classList.add('is-entering');
       view.replaceChildren(next);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -858,6 +1131,16 @@
 
   const theme = initTheme();
   const navbar = initNavbar();
+  projectPreviewMode.addEventListener('change', () => {
+    stopProjectPreview();
+    document.querySelectorAll('.card-project').forEach((card) => projectPreviews.get(card)?.());
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopProjectPreview();
+    else resumeProjectPreview();
+  });
+  reducedMotion.addEventListener('change', () => stopProjectPreview());
+  window.addEventListener('pagehide', () => stopProjectPreview());
   initStackFilter();
   initRoleTyping();
   const dataReady = initData();

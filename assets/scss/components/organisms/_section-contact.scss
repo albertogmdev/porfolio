@@ -10,11 +10,7 @@
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0;
-    margin-inline: rem(-$space-4);
-
-    @include up(sm) {
-      margin-inline: rem(-$space-6);
-    }
+    margin-inline: 0;
 
     @include up(md) {
       margin-inline: rem(-$space-2);
