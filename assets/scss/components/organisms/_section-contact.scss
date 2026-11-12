@@ -1,5 +1,11 @@
 @use '../../abstracts' as *;
 
+.divider--band:has(+ .section-contact) {
+  @include down(md) {
+    margin-bottom: 0;
+  }
+}
+
 .section-contact {
   & + .divider--band {
     margin-top: 0;
@@ -8,17 +14,19 @@
   .contact-list {
     @include list-reset;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
     gap: 0;
     margin-inline: 0;
 
     @include up(md) {
       margin-inline: rem(-$space-2);
+      padding-block: 0;
     }
   }
 
   .contact-item {
-    height: rem(52px);
+    padding-block: rem(20px);
     border-right: 1px dashed $strokeSecondary;
 
     &:last-child {

@@ -46,7 +46,7 @@
     gap: rem($space-2);
 
     @include up(md) {
-      gap: rem($space-5);
+      gap: rem($space-1);
     }
   }
 
@@ -59,10 +59,28 @@
     }
   }
 
+  .lang-switcher::before {
+    display: none;
+    content: '';
+    flex: none;
+    width: 1px;
+    height: rem(20px);
+    margin-inline: rem($space-4) rem($space-2);
+    background-color: $separator;
+
+    @include up(md) {
+      display: block;
+    }
+  }
+
   .navbar-nav {
-    position: relative;
+    position: static;
     display: flex;
     align-items: center;
+
+    @include up(md) {
+      position: relative;
+    }
 
     &::before {
       content: '';
@@ -100,35 +118,35 @@
   .navbar-menu {
     @include list-reset;
     position: absolute;
-    top: calc(100% + #{rem($space-1)});
+    top: calc(100% + 1px);
     right: 0;
+    left: 0;
     display: none;
-    flex-direction: column;
-    gap: rem($space-0-5);
-    width: max-content;
-    min-width: rem(112px);
-    max-width: calc(100vw - #{rem($space-6)});
-    padding: rem($space-1-5);
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: rem($space-1) rem($space-2);
+    width: auto;
+    padding: $navbar-menu-padding-y rem($section-gutter);
     border: 1px solid $strokeSecondary;
-    border-radius: $radius-lg;
+    border-top: 0;
+    border-radius: 0;
     background-color: $backgroundMenu;
-    box-shadow: $shadow-menu;
-    --indicator-offset: #{rem(-$space-2)};
 
     @include up(md) {
       --indicator-offset: #{rem($space-1)};
       position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
       display: flex;
-      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: flex-start;
       gap: rem($space-5);
-      width: auto;
-      min-width: 0;
-      max-width: none;
       padding: 0;
       border: 0;
-      border-radius: 0;
       background: none;
-      box-shadow: none;
     }
   }
 
@@ -137,10 +155,11 @@
   }
 
   .navbar-link {
+    position: relative;
     display: flex;
     align-items: center;
     gap: rem($space-1-5);
-    padding: rem($space-2) rem($space-2-5) rem($space-3);
+    padding: rem($space-3) rem($space-2-5) rem($space-4);
     border-radius: $radius-md;
     color: $textSecondary;
     font-size: rem($font-size-body);
@@ -156,6 +175,25 @@
     &[aria-current='page'] {
       color: $textPrimary;
       font-weight: 600;
+
+      @include down(md) {
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: rem($space-1);
+          left: 50%;
+          width: 4px;
+          height: 4px;
+          border-radius: $radius-full;
+          background-color: $textPrimary;
+          transform: translateX(-50%);
+          pointer-events: none;
+
+          @include theme-bash {
+            box-shadow: $text-glow;
+          }
+        }
+      }
     }
 
     @include up(md) {
@@ -182,6 +220,10 @@
       calc(var(--indicator-y, 0px) + var(--indicator-offset))
     );
     pointer-events: none;
+
+    @include down(md) {
+      display: none;
+    }
 
     @include theme-bash {
       box-shadow: $text-glow;

@@ -6,7 +6,7 @@ $font-body: $font-mono;
 $base-font-size: 16px;
 $base-url: 'assets';
 
-$default-theme: bash;
+$default-theme: eva;
 $icon-names: menu, close, chevron-down, arrow-up-right, arrow-right, arrow-left, mail, paperclip, globe, code, github, linkedin, x,
   palette;
 $boot-failsafe-delay: 4s;
@@ -23,6 +23,7 @@ $breakpoints: (
 $container-width: 800px;
 $project-media-ratio: 1.824;
 $navbar-height: 48px;
+$navbar-menu-padding-y: 0.35rem;
 $section-gutter: 12px;
 $header-height: 40px;
 $terminal-height: 340px;
@@ -96,13 +97,11 @@ $radius-2xl: 4px;
 $radius-full: 2px;
 $radius-window: 10px;
 
-// Logo de centro de estudios: marco con fondo claro fijo (los logos suelen ser oscuros o tener transparencia y $backgroundAvatar es oscuro en la mayoria de temas).
 $card-logo-size: 48px;
 $card-logo-background: #f5f5f5;
 $card-logo-text-color: #1a1a1a;
 $card-logo-text-size: 11px;
 
-// Linea de tiempo de cargos: columna del punto, tamano del punto y desplazamiento para alinearlo con la primera linea del cargo.
 $timeline-gutter: 20px;
 $timeline-dot-size: 9px;
 $timeline-dot-top: 5px;

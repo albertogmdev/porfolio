@@ -24,7 +24,6 @@
     gap: rem($space-2);
   }
 
-  // Cabecera con logo opcional (estudios). Si el logo se elimina, queda solo el .card-heading.
   .card-identity {
     display: flex;
     align-items: center;
@@ -68,12 +67,10 @@
     object-fit: cover;
   }
 
-  // Detalles bajo la identidad (centro, años): lineas apiladas a todo el ancho, sin margen extra.
   .card-details {
     min-width: 0;
   }
 
-  // Siglas de respaldo cuando el centro no tiene imagen: ocupan todo el marco del logo.
   .card-logo-text {
     display: flex;
     align-items: center;
@@ -101,7 +98,6 @@
     overflow-wrap: anywhere;
   }
 
-  // Linea de tiempo de cargos dentro de una misma empresa (el mas reciente arriba).
   .card-timeline {
     @include list-reset;
     display: flex;
@@ -121,7 +117,6 @@
           padding-bottom: rem($timeline-item-gap-sm);
         }
 
-        // Conecta el punto con el del siguiente cargo.
         &::before {
           content: '';
           position: absolute;
@@ -151,7 +146,6 @@
       background-color: $accentLive;
     }
 
-    // Flujo en bloque: parrafos consecutivos apilan con la interlinea propia, sin margenes extra.
     .timeline-content {
       min-width: 0;
 

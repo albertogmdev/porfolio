@@ -6,7 +6,6 @@ $eva-band-height-sm: 16px;
 $eva-band-height-lg: 24px;
 $eva-stripe-width: 12px;
 
-// Franjas oblicuas de cinta de peligro (45 grados); el ancho de franja se ajusta por pieza.
 @function eva-stripes($width) {
   @return repeating-linear-gradient(
     135deg,
@@ -26,10 +25,8 @@ $eva-stripe-width: 12px;
   --eva-line: var(--strokeStrong);
   --eva-ink: var(--textPrimary);
   --eva-halo: color-mix(in srgb, var(--eva-ink) 9%, transparent);
-  // Rojo de emergencia (alerta de sudo); contrasta sobre #080808.
   --eva-alert: #ff2a1a;
   --eva-alert-halo: color-mix(in srgb, var(--eva-alert) 35%, transparent);
-  // Punto intermedio entre strokeSecondary y strokeStrong (~#4b4b4b) para bordes de ventana.
   --eva-line-soft: color-mix(in srgb, var(--strokeStrong) 30%, var(--strokeSecondary));
 
   .eva-mark:not([hidden]),
@@ -65,6 +62,13 @@ $eva-stripe-width: 12px;
 
     .navbar-link[aria-current='page'] {
       color: var(--eva-ink);
+
+      &::after {
+        height: 1px;
+        border-radius: 0;
+        background-color: var(--eva-ink);
+        box-shadow: 0 0 rem(5px) var(--eva-halo);
+      }
     }
 
     .navbar-indicator {
@@ -98,7 +102,6 @@ $eva-stripe-width: 12px;
       margin-inline-start: auto;
     }
 
-    // Fila 1: titulo + kanjis; fila 2: filtros o enlace alineados a la derecha.
     &--stack,
     &--link {
       display: grid;
@@ -126,12 +129,10 @@ $eva-stripe-width: 12px;
     }
   }
 
-  // La banda anterior ya aporta sus bordes: sin doble linea.
   .divider--band + section .section-header {
     border-top: 0;
   }
 
-  // Sin banda de peligro (Sobre mi -> Contacto, Proyectos -> Stack): la misma linea full-bleed que cierra cada cabecera.
   .section-about + .divider--band,
   .section-projects + .divider--band {
     height: 1px;
@@ -145,8 +146,6 @@ $eva-stripe-width: 12px;
       box-shadow: none;
     }
   }
-  // Ultima fila de cards cerrada por abajo (solo EVA). Los selectores replican las reglas globales que quitan
-  // el borde inferior de la ultima fila y las superan en especificidad.
   .section-projects:has(+ .divider--band) .projects-item:last-child .card-project,
   .section-projects:has(+ .divider--band) .projects-item:nth-last-child(2):nth-child(odd) .card-project,
   .panel-projects .section-projects .projects-item:last-child .card-project,
@@ -156,7 +155,6 @@ $eva-stripe-width: 12px;
     border-bottom: 1px solid $strokeSecondary;
   }
 
-  // Numero impar de cards en dos columnas: la linea inferior de la fila cubre tambien la celda vacia.
   .projects-grid:has(> .projects-item:last-child:nth-child(odd)),
   .experience-list:not(.experience-list--full):has(> .experience-item:last-child:nth-child(odd)) {
     @include up(md) {
@@ -167,7 +165,6 @@ $eva-stripe-width: 12px;
     }
   }
 
-  // La linea inferior de la card sustituye a la primera linea del divisor contiguo: sin doble linea ni hueco.
   .section-projects:has(.projects-item) + .divider--band,
   .section-experience:has(.experience-item) + .divider--band {
     margin-top: 0;
@@ -181,7 +178,12 @@ $eva-stripe-width: 12px;
     height: 0;
   }
 
-  // Paginas que terminan en una lista de cards: la banda del footer no repite la linea.
+  .section-contact + .divider--band {
+    @include down(md) {
+      margin-top: 0;
+    }
+  }
+
   .main:has(.panel-projects, .panel-experience) + .footer .divider--band {
     margin-top: 0;
 
@@ -218,7 +220,6 @@ $eva-stripe-width: 12px;
     border-top-style: solid;
   }
 
-  // Sin margen inferior: la banda se pega a la cabecera siguiente.
   .divider--band {
     height: rem($eva-band-height-sm);
     margin-top: rem($space-3);
@@ -228,7 +229,6 @@ $eva-stripe-width: 12px;
       height: rem($eva-band-height-lg);
     }
 
-    // Compensa el padding lateral del container (0 en movil, 8px desde md) para llegar a sus bordes.
     &::before {
       inset: 0;
       width: auto;
@@ -244,18 +244,15 @@ $eva-stripe-width: 12px;
     }
   }
 
-  // Banda del terminal-dock: 12px exactos desde la terminal (su padding) y pegada a la cabecera de la vista.
   .terminal-dock .divider--band {
     margin-top: 0;
     margin-bottom: 0;
   }
 
-  // Linea bajo el terminal-dock: sin doble linea con la cabecera de la vista.
   .terminal-dock:not([hidden]) + .view .section-header {
     border-top: 0;
   }
 
-  // Siguientes sin cabecera: conservan 12px bajo la banda.
   .divider--band + .section-widgets {
     margin-top: rem($space-3);
   }
@@ -263,7 +260,6 @@ $eva-stripe-width: 12px;
   .footer .divider--band {
     margin-bottom: rem($space-3);
 
-    // El footer conserva el padding del container en movil (12px) y 8px desde md: la banda llega a sus bordes interiores.
     &::before {
       inset-inline: rem(-$section-gutter);
 
@@ -278,7 +274,6 @@ $eva-stripe-width: 12px;
       flex-wrap: wrap;
       align-items: flex-start;
 
-      // Movil: kanjis bajo el avatar (columna izquierda); info ocupa ambas filas.
       @include down(sm) {
         display: grid;
         grid-template-columns: auto minmax(0, 1fr);
@@ -324,7 +319,6 @@ $eva-stripe-width: 12px;
       border-top: 1px solid var(--eva-line);
     }
 
-    // Movil: fila propia alineada a la derecha; desde sm, en linea al extremo del container.
     .eva-profile-mark:not([hidden]) {
       flex: 0 0 100%;
       padding-right: rem($section-gutter);
@@ -437,7 +431,6 @@ $eva-stripe-width: 12px;
       font-size: rem(20px);
     }
 
-    // Alerta (sudo): rojo de emergencia en borde, barra, marca y canvas.
     &.is-alert {
       border-color: var(--eva-alert);
       box-shadow: 0 0 rem(6px) var(--eva-alert-halo);
@@ -468,7 +461,6 @@ $eva-stripe-width: 12px;
       }
     }
 
-    // Ventana traida sobre la terminal (o invitada): halo discreto en vez de sombra suave.
     &.is-summoned,
     &.window--guest {
       box-shadow: 0 0 rem(8px) var(--eva-halo);
@@ -617,7 +609,6 @@ $eva-stripe-width: 12px;
 
   }
 
-  // La ficha de experiencia lleva solo codigo y etiqueta: dos columnas; si hubiera marca, entra como columna implicita.
   .card-experience .card-record:not([hidden]) {
     grid-template-columns: auto minmax(0, 1fr);
     grid-auto-flow: column;

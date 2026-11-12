@@ -1,8 +1,5 @@
 @use '../../abstracts' as *;
 
-// Zona superior de las paginas interiores: Volver -> divider -> terminal -> divider.
-// `.main` reserva navbar + 4px y el navbar mide navbar + 1px (borde incluido): 3px de hueco que el dock absorbe
-// para que el enlace Volver quede a $section-gutter del borde del navbar, igual que bajo el (hasta el divider).
 $dock-navbar-gap: ($navbar-height + 4px) - ($navbar-height + 1px);
 
 .terminal-dock {
@@ -23,8 +20,6 @@ $dock-navbar-gap: ($navbar-height + 4px) - ($navbar-height + 1px);
     }
   }
 
-  // La terminal ya aporta 12px de padding: la banda inferior no suma margen superior (12px exactos hasta la banda).
-  // El margen inferior de cada tema se conserva. EVA lo refuerza en `_theme-eva.scss` por orden de carga.
   .divider--band {
     margin-top: 0;
   }

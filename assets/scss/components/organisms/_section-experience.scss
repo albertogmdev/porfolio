@@ -18,16 +18,13 @@
       min-height: rem(200px);
     }
 
-    // Variante a ancho completo: una sola columna en todos los breakpoints.
     &--full {
       grid-template-columns: minmax(0, 1fr);
 
-      // Sin separador vertical: solo borde inferior entre cards.
       .card-experience {
         border-right: 0;
       }
 
-      // Desde sm: identidad, linea de tiempo, texto y tags ocupan toda la fila.
       @include up(sm) {
         .card-body {
           display: grid;
@@ -51,8 +48,6 @@
     }
   }
 
-  // Estudios (rejilla de dos columnas): identidad (logo + titulo) arriba y detalles (centro, años) anclados abajo,
-  // de modo que al igualar la altura de la fila los detalles empiezan en la misma posicion.
   .experience-list:not(.experience-list--full) {
     .card-experience {
       flex: 1;
@@ -79,7 +74,6 @@
     border-bottom: 0;
   }
 
-  // Solo en la rejilla de dos columnas; la variante --full no tiene fila compartida.
   &:has(+ .divider--band) .experience-list:not(.experience-list--full) {
     @include up(md) {
       .experience-item:nth-last-child(2):nth-child(odd) .card-experience {

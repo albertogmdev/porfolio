@@ -50,7 +50,6 @@ $seg-clip-v: polygon(
       opacity: $counter-opacity-idle;
     }
 
-    // Destello breve al fijarse el dato, estilo display NERV; sin animacion con reduced-motion.
     &[data-state='ready'] .counter-digits {
       @include motion-safe {
         animation: counter-flash $counter-flash-duration steps(1, end) 1;

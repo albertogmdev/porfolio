@@ -77,7 +77,6 @@
     }
   }
 
-  // Ventana traida temporalmente sobre la terminal (el movimiento lo aplica JS con transform).
   &.is-summoned {
     position: relative;
     z-index: $z-widget-summoned;
@@ -85,8 +84,6 @@
     pointer-events: auto;
   }
 
-  // Ojo invitado fuera de la home: flotante sobre todo el contenido; JS lo mueve con transform (origen 0 0).
-  // Se declara despues de .is-summoned con la misma especificidad para conservar position: fixed.
   &.window--guest {
     position: fixed;
     top: 0;

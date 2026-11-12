@@ -2,7 +2,7 @@
   'use strict';
 
   const THEME_KEY = 'theme';
-  const DEFAULT_THEME = 'bash';
+  const DEFAULT_THEME = 'eva';
   const DESKTOP_QUERY = '(min-width: 768px)';
   const LEAVE_MS = 120;
   const FLIGHT_MS = 450;
@@ -274,9 +274,9 @@
     const desktop = window.matchMedia(DESKTOP_QUERY);
     const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
 
-    // El indicador se mide sobre el enlace activo; con el menú móvil cerrado no hay layout que medir.
+    // El indicador deslizante solo existe en escritorio; en móvil el punto del enlace activo lo dibuja el CSS (sin medir nada al abrir el menú).
     const placeIndicator = () => {
-      if (!indicator) return;
+      if (!indicator || !desktop.matches) return;
       const active = menu.querySelector('a[aria-current="page"]');
       indicator.classList.toggle('is-visible', Boolean(active));
       if (!active || active.offsetParent === null) return;
@@ -315,7 +315,7 @@
 
     desktop.addEventListener('change', (event) => {
       if (event.matches) setOpen(false);
-      placeIndicator();
+      window.requestAnimationFrame(placeIndicator);
     });
 
     window.addEventListener('resize', placeIndicator);

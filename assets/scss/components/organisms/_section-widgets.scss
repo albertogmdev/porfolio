@@ -18,7 +18,6 @@ $eye-max-height: 190px;
     .window {
       align-self: stretch;
 
-      // Ojo (mobile/tablet): relacion 2/1 con tope de alto; la mascota se ajusta a su contenido.
       &:not(.window--wide):not(.window--terminal) {
         width: 100%;
         max-height: rem($eye-max-height);
@@ -36,7 +35,6 @@ $eye-max-height: 190px;
         }
       }
 
-      // Mobile: terminal -> ojo -> pet (el DOM trae pet antes que el ojo).
       @include down(md) {
         &[data-widget='eye'] {
           order: 1;

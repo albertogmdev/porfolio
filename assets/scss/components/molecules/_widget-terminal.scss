@@ -121,7 +121,6 @@ $terminal-line-height-touch: 14px;
   }
 }
 
-// Alerta de sudo: todo el texto de la terminal (historial, prompt, entrada y caret) en color de error.
 .window.is-alert .terminal-body {
   .terminal-output,
   .terminal-output .terminal-line,
@@ -133,7 +132,6 @@ $terminal-line-height-touch: 14px;
   }
 }
 
-// Terminal bloqueada durante la alerta: entrada atenuada y sin caret, sin cambiar el layout.
 .window--terminal.is-locked .terminal-body {
   .terminal-form {
     cursor: not-allowed;

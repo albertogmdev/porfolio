@@ -2,9 +2,9 @@
 
 $pet-cell: 10px;
 $pet-label-width: 56px;
+$pet-status-lines: 2;
 
 .pet-layout {
-  // Pantalla y panel en fila desde mobile para mantener el widget bajo.
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -16,8 +16,6 @@ $pet-label-width: 56px;
   }
 
   .pet-screen {
-    // Sin recuadro propio (como el ojo): el canvas llena la caja y solo se ven sus esquinas,
-    // a 8px del borde de la ventana gracias al padding de .pet-layout.
     position: relative;
     min-width: 0;
     padding: 0;
@@ -38,7 +36,6 @@ $pet-label-width: 56px;
     image-rendering: pixelated;
     object-fit: fill;
 
-    // Pantalla muy estrecha: relacion de caja fuera del rango que adapta pet.js.
     @media (max-width: 359.98px) {
       object-fit: contain;
     }
@@ -94,15 +91,19 @@ $pet-label-width: 56px;
   }
 
   .pet-status {
-    min-height: rem($line-height-body);
-
-    @include up(md) {
-      min-height: rem($line-height-body * 2);
-    }
-
+    min-height: rem($line-height-body * $pet-status-lines);
     color: $textSecondary;
     font-size: rem($font-size-body);
     line-height: rem($line-height-body);
+
+    @include down(md) {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: $pet-status-lines;
+      line-clamp: $pet-status-lines;
+      overflow-wrap: anywhere;
+    }
   }
 
   .pet-actions {
@@ -110,7 +111,6 @@ $pet-label-width: 56px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: rem($space-1);
 
-    // Viewports muy estrechos (~320px): evita que "[ Limpiar ]" desborde.
     @media (max-width: 359.98px) {
       .button-pixel {
         padding-inline: rem($space-0-5);
