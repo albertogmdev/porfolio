@@ -18,10 +18,10 @@
   const BOOT_PAUSE_MS = 200;
   const BOOT_READY_MAX_MS = 2500;
   const BUILD_STEP_MS = 40;
-  const BOOT_LINES = ['$ ./build albertogmdev', '> módulos ........ ok', '[##########] 100%'];
-  const ERROR_TITLE = 'Página no encontrada — Alberto Gonzalez';
+  const BOOT_LINES = ['$ ./build albertogmdev', '> modules ........ ok', '[##########] 100%'];
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const { t, pick } = window.i18n;
 
   const scriptUrl = document.currentScript ? document.currentScript.src : new URL('assets/js/main.js', document.baseURI).href;
   const siteRoot = new URL('../../', scriptUrl);
@@ -178,7 +178,7 @@
 
       const option = options.find((item) => item.dataset.themeValue === theme);
       const announcer = document.getElementById('route-announcer');
-      if (announcer) announcer.textContent = `Tema ${option.textContent.trim()}`;
+      if (announcer) announcer.textContent = t('theme.announce', { name: option.textContent.trim() });
       return true;
     };
 
@@ -290,7 +290,7 @@
 
     const setOpen = (open, restoreFocus = false) => {
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      toggle.setAttribute('aria-label', t(open ? 'nav.menu.close' : 'nav.menu.open'));
       if (icon) {
         icon.classList.toggle('icon-menu', !open);
         icon.classList.toggle('icon-close', open);
@@ -332,7 +332,10 @@
     return node;
   };
 
-  const cleanText = (value) => (typeof value === 'string' ? value.trim() : '');
+  const cleanText = (value) => {
+    const text = pick(value);
+    return typeof text === 'string' ? text.trim() : '';
+  };
 
   const safeUrl = (value) => {
     try {
@@ -407,10 +410,11 @@
     const controls = createElement('div', 'card-carousel-controls');
     const previous = createElement('button', 'card-carousel-button card-carousel-button--prev');
     const next = createElement('button', 'card-carousel-button card-carousel-button--next');
-    [[previous, 'Vista anterior'], [next, 'Vista siguiente']].forEach(([button, label]) => {
+    [[previous, 'projects.prev'], [next, 'projects.next']].forEach(([button, key]) => {
+      const label = t(key, { title });
       button.type = 'button';
-      button.setAttribute('aria-label', `${label} de ${title}`);
-      button.title = `${label} de ${title}`;
+      button.setAttribute('aria-label', label);
+      button.title = label;
       const icon = createElement('span', 'icon icon-arrow-right');
       icon.setAttribute('aria-hidden', 'true');
       button.append(icon);
@@ -444,7 +448,7 @@
       previous.hidden = first;
       next.disabled = last;
       next.hidden = last;
-      if (projectPreviewMode.matches) status.textContent = `Vista ${index + 1} de ${slides.length}`;
+      if (projectPreviewMode.matches) status.textContent = t('projects.view', { current: index + 1, total: slides.length });
     };
 
     const display = (target) => {
@@ -618,8 +622,8 @@
 
     const media = createElement('div', `card-media card-media--tone-${tone}`);
     media.setAttribute('role', 'group');
-    media.setAttribute('aria-roledescription', 'carrusel');
-    media.setAttribute('aria-label', `Vistas previas de ${title}`);
+    media.setAttribute('aria-roledescription', t('projects.carousel'));
+    media.setAttribute('aria-label', t('projects.previews', { title }));
 
     const slides = [];
     if (image) {
@@ -671,7 +675,7 @@
         video.playsInline = true;
         video.preload = 'none';
         video.tabIndex = -1;
-        video.setAttribute('aria-label', `Vídeo de ${title}`);
+        video.setAttribute('aria-label', t('projects.video', { title }));
         video.setAttribute('aria-hidden', 'true');
         video.inert = true;
         video.width = 1920;
@@ -695,7 +699,7 @@
       const state = createElement('p', 'card-status');
       const dot = createElement('span', 'card-status-dot', '•');
       dot.setAttribute('aria-hidden', 'true');
-      state.append(dot, ` ${status}`);
+      state.append(dot, ` ${t(`projects.status.${status}`)}`);
       header.append(state);
     }
 
@@ -730,8 +734,8 @@
 
     const actions = createElement('div', 'card-actions');
     [
-      [live, 'globe', `Ver ${title} en línea`],
-      [code, 'github', `Ver código de ${title}`],
+      [live, 'globe', t('projects.live', { title })],
+      [code, 'github', t('projects.code', { title })],
     ].forEach(([href, icon, label]) => {
       if (!href) return;
       const action = createElement('a', 'button-icon');
@@ -749,14 +753,14 @@
     body.append(footer);
 
     const card = createElement('article', 'card-project');
-    if (status === 'No activo') card.classList.add('card-project--inactive');
+    if (status === 'inactive') card.classList.add('card-project--inactive');
     const record = createElement('header', 'card-record');
     const recordCode = createElement('span', 'card-record-code', `PR-${String(index + 1).padStart(2, '0')}`);
     const recordLabel = createElement('span', 'card-record-label', 'PROJECT FILE');
     const recordMark = createElement('span', 'card-record-mark', '記録');
     recordMark.lang = 'ja';
     recordMark.setAttribute('aria-hidden', 'true');
-    recordMark.title = 'Registro';
+    recordMark.title = t('kanji.record');
     record.append(recordCode, recordLabel, recordMark);
     card.append(record, media, body);
     attachProjectPreview(card, media, slides, title);
@@ -767,14 +771,67 @@
 
   const renderProjects = (list, items) => {
     const fragment = document.createDocumentFragment();
-    items.forEach((project, index) => {
+    const visible = list.hasAttribute('data-featured') ? items.filter((project) => project.featured === true) : items;
+    visible.forEach((project, index) => {
       const card = createProjectCard(project, index);
       if (card) fragment.append(card);
     });
     list.replaceChildren(fragment);
   };
 
-  const dataRenderers = { tech: renderTech, projects: renderProjects };
+  const renderExperience = (list, items) => {
+    const group = list.dataset.group;
+    const fragment = document.createDocumentFragment();
+
+    items
+      .filter((item) => item.group === group)
+      .forEach((item, index) => {
+        const role = cleanText(item.role);
+        if (!role) return;
+
+        const heading = createElement('div', 'card-heading');
+        heading.append(createElement('h3', 'card-title', role));
+        const subtitle = [cleanText(item.org), cleanText(item.location)].filter(Boolean).join(' · ');
+        if (subtitle) heading.append(createElement('p', 'card-subtitle', subtitle));
+
+        const body = createElement('div', 'card-body');
+        body.append(heading);
+        const period = cleanText(item.period);
+        if (period) body.append(createElement('p', 'card-period', period));
+        const description = cleanText(item.description);
+        if (description) body.append(createElement('p', 'card-text', description));
+
+        const tags = (Array.isArray(item.tags) ? item.tags : []).map(cleanText).filter(Boolean);
+        if (tags.length) {
+          const tagList = createElement('ul', 'card-tags');
+          tags.forEach((tag) => tagList.append(createElement('li', 'tag', tag)));
+          body.append(tagList);
+        }
+
+        const work = group === 'work';
+        const record = createElement('header', 'card-record');
+        const recordMark = createElement('span', 'card-record-mark', work ? '経歴' : '学歴');
+        recordMark.lang = 'ja';
+        recordMark.setAttribute('aria-hidden', 'true');
+        record.append(
+          createElement('span', 'card-record-code', `${work ? 'EX' : 'ED'}-${String(index + 1).padStart(2, '0')}`),
+          createElement('span', 'card-record-label', work ? 'WORK FILE' : 'EDU FILE'),
+          recordMark,
+        );
+
+        const card = createElement('article', 'card-experience');
+        card.append(record, body);
+        const entry = createElement('li', 'experience-item');
+        entry.append(card);
+        fragment.append(entry);
+      });
+
+    list.replaceChildren(fragment);
+  };
+
+  const dataRenderers = { tech: renderTech, projects: renderProjects, experience: renderExperience };
+  // Fuentes con texto por idioma: se repintan al cambiar de idioma.
+  const localizedSources = ['projects', 'experience'];
 
   const initData = (scope = document) => {
     const jobs = [];
@@ -784,8 +841,8 @@
       list.dataset.loaded = 'true';
 
       jobs.push(
-        loadData(list.dataset.source)
-          .then((items) => {
+        Promise.all([loadData(list.dataset.source), window.i18n.ready])
+          .then(([items]) => {
             if (list.isConnected) render(list, items);
           })
           .catch((error) => console.error(error))
@@ -794,6 +851,18 @@
     });
     return Promise.all(jobs);
   };
+
+  document.addEventListener('app:lang-change', () => {
+    stopProjectPreview();
+    document.querySelectorAll('[data-source]').forEach((list) => {
+      if (!localizedSources.includes(list.dataset.source) || list.dataset.loaded !== 'true') return;
+      loadData(list.dataset.source)
+        .then((items) => {
+          if (list.isConnected) dataRenderers[list.dataset.source](list, items);
+        })
+        .catch((error) => console.error(error));
+    });
+  });
 
   const initRoleTyping = (scope = document) => {
     scope.querySelectorAll('.profile-role[data-roles]').forEach((role) => {
@@ -986,24 +1055,24 @@
       const panel = document.createElement('div');
       panel.className = 'panel panel-error';
       panel.dataset.panel = 'error';
-      panel.dataset.title = ERROR_TITLE;
+      panel.dataset.titleKey = 'meta.title.error';
 
       const container = document.createElement('div');
       container.className = 'error-container';
 
       const title = document.createElement('h1');
       title.className = 'error-title';
-      title.textContent = 'No se pudo cargar la página';
+      title.dataset.i18n = 'error.title';
 
       const text = document.createElement('p');
       text.className = 'error-text';
-      text.textContent = 'La página que buscas no existe todavía o no está disponible.';
+      text.dataset.i18n = 'error.text';
 
       const link = document.createElement('a');
       link.className = 'link-more';
       link.href = document.querySelector('.navbar-logo')?.href || './';
       link.dataset.link = '';
-      link.textContent = 'Volver al inicio';
+      link.dataset.i18n = 'error.back';
 
       container.append(title, text, link);
       panel.append(container);
@@ -1050,6 +1119,7 @@
     };
 
     const navigate = async (url, push = true, fromTerminal = false) => {
+      await terminalReady;
       if (controller) controller.abort();
       const request = new AbortController();
       controller = request;
@@ -1072,6 +1142,7 @@
       if (request.signal.aborted) return;
 
       const next = panel ? importPanel(panel) : createErrorPanel();
+      window.i18n.apply(next);
       await swapPanel(next, fromTerminal);
       if (request.signal.aborted) return;
       initRoleTyping(next);
@@ -1081,7 +1152,7 @@
       if (panel && push) window.history.pushState({}, '', url.href);
       currentKey = routeKey(url);
 
-      document.title = next.dataset.title || document.title;
+      document.title = window.i18n.panelTitle(next);
       updateCurrentLink(url);
       navbar.close();
       navbar.refresh();
@@ -1129,6 +1200,24 @@
       navigate(url, false);
     });
   };
+
+  /* La terminal vive en assets/partials/terminal.html y se inserta en su hueco: la home usa el slot del panel; el resto de páginas, el dock. */
+  const mountTerminal = async () => {
+    const host = document.querySelector('#view .panel [data-terminal-slot]') || document.querySelector('.terminal-dock-slot');
+    if (!host || document.querySelector('[data-widget="terminal"]')) return;
+    try {
+      const response = await fetch(new URL('assets/partials/terminal.html', siteRoot));
+      if (!response.ok) throw new Error(`No se pudo cargar la terminal (${response.status})`);
+      const template = document.createElement('template');
+      template.innerHTML = await response.text();
+      host.append(template.content);
+      window.i18n.apply(host);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const terminalReady = mountTerminal();
+  window.terminalReady = terminalReady;
 
   const theme = initTheme();
   const navbar = initNavbar();

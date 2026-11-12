@@ -171,24 +171,6 @@
     gap: rem($space-2);
   }
 
-  .card-heading {
-    min-width: 0;
-  }
-
-  .card-title {
-    color: $textPrimary;
-    overflow-wrap: anywhere;
-    font-size: rem($font-size-subtitle);
-    font-weight: 600;
-    line-height: rem($line-height-subtitle);
-  }
-
-  .card-subtitle {
-    color: $textTertiary;
-    font-size: rem($font-size-body);
-    line-height: rem($line-height-body);
-  }
-
   .card-status {
     flex: none;
     color: $textSecondary;
@@ -204,12 +186,6 @@
 
   &--inactive .card-status-dot {
     color: $textTertiary;
-  }
-
-  .card-text {
-    color: $textSecondary;
-    font-size: rem($font-size-body);
-    line-height: rem($line-height-body);
   }
 
   .card-sites {

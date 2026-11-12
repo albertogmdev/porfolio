@@ -1,0 +1,46 @@
+@use '../../abstracts' as *;
+
+.card-experience {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: rem($space-3);
+  border-bottom: 1px dashed $strokeSecondary;
+  @include transition($duration-card, background-color);
+
+  &:hover {
+    background-color: $backgroundTint;
+  }
+
+  @include up(md) {
+    border-right: 1px dashed $strokeSecondary;
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: rem($space-2);
+  }
+
+  .card-period {
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    line-height: rem($line-height-body);
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .card-tags {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 0;
+    gap: rem($space-1);
+    margin-top: auto;
+    padding-top: rem($space-1);
+  }
+}

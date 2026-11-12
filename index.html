@@ -14,40 +14,53 @@
         if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy' || theme === 'eva') {
           document.documentElement.dataset.theme = theme;
         }
+        var lang = localStorage.getItem('lang');
+        if (lang === 'es' || lang === 'en') document.documentElement.lang = lang;
       } catch (error) {}
     })();
   </script>
   <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/i18n.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script type="module" src="assets/js/widgets.js"></script>
 </head>
 <body>
   <div class="terminal-boot terminal-boot--loader" id="boot-loader" aria-hidden="true"><pre class="terminal-boot-output"><span class="terminal-boot-cursor"></span></pre></div>
   <div class="page">
-    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+    <a class="skip-link" href="#main-content" data-i18n="a11y.skip">Saltar al contenido</a>
     <p class="visually-hidden" id="route-announcer" aria-live="polite"></p>
 
     <header class="navbar">
       <div class="navbar-container container">
         <a class="navbar-logo" href="./" data-link>albertogmdev</a>
         <div class="navbar-actions">
-          <nav class="navbar-nav" aria-label="Principal">
-            <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú">
+          <nav class="navbar-nav" aria-label="Principal" data-i18n-attr="aria-label:nav.main">
+            <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú" data-i18n-attr="aria-label:nav.menu.open">
               <span class="icon icon-menu" aria-hidden="true"></span>
             </button>
             <ul class="navbar-menu" id="navbar-menu">
-              <li><a class="navbar-link" href="./" data-link aria-current="page">Home</a></li>
-              <li><a class="navbar-link" href="projects.html" data-link>Proyectos</a></li>
+              <li><a class="navbar-link" href="./" data-link aria-current="page" data-i18n="nav.home">Home</a></li>
+              <li><a class="navbar-link" href="projects.html" data-link data-i18n="nav.projects">Proyectos</a></li>
+              <li><a class="navbar-link" href="experience.html" data-link data-i18n="nav.experience">Experiencia</a></li>
               <li class="navbar-indicator" aria-hidden="true"></li>
             </ul>
           </nav>
+          <div class="lang-switcher">
+            <button class="lang-toggle" type="button" id="lang-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Cambiar idioma" data-i18n-attr="aria-label:nav.language">
+              <span class="icon icon-globe" aria-hidden="true"></span>
+            </button>
+            <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Idioma" data-i18n-attr="aria-label:lang.menu" hidden>
+              <li class="lang-option" role="option" tabindex="-1" data-lang-value="es" aria-selected="true">ES</li>
+              <li class="lang-option" role="option" tabindex="-1" data-lang-value="en" aria-selected="false">EN</li>
+            </ul>
+          </div>
           <div class="theme-switcher">
-            <button class="theme-toggle" type="button" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" aria-label="Cambiar tema">
+            <button class="theme-toggle" type="button" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" aria-label="Cambiar tema" data-i18n-attr="aria-label:nav.theme">
               <span class="icon icon-palette" aria-hidden="true"></span>
             </button>
-            <ul class="theme-menu" id="theme-menu" role="listbox" aria-label="Tema" hidden>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false">Oscuro</li>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false">Claro</li>
+            <ul class="theme-menu" id="theme-menu" role="listbox" aria-label="Tema" data-i18n-attr="aria-label:theme.menu" hidden>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false" data-i18n="theme.dark">Oscuro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false" data-i18n="theme.light">Claro</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
               <li class="theme-option" role="option" tabindex="-1" data-theme-value="eva" aria-selected="false">EVA</li>
@@ -59,13 +72,13 @@
 
     <main class="main container" id="main-content" tabindex="-1">
       <div class="view-loader" role="status" hidden>
-        <span class="visually-hidden">Cargando…</span>
+        <span class="visually-hidden" data-i18n="a11y.loading">Cargando…</span>
       </div>
       <div class="terminal-dock" id="terminal-dock" hidden>
         <div class="dock-nav">
           <a class="link-back" href="./" data-link>
             <span class="icon icon-arrow-left" aria-hidden="true"></span>
-            <span class="link-back-label">Volver</span>
+            <span class="link-back-label" data-i18n="nav.back">Volver</span>
           </a>
         </div>
         <div class="divider divider--line" aria-hidden="true"></div>
@@ -73,9 +86,9 @@
         <div class="divider divider--band" aria-hidden="true"></div>
       </div>
       <div class="view" id="view" aria-busy="false">
-        <div class="panel panel-home" data-panel="home" data-title="Inicio — Alberto Gonzalez">
+        <div class="panel panel-home" data-panel="home" data-title="Inicio — Alberto Gonzalez" data-title-key="meta.title.home">
 
-          <section class="section-banner" aria-label="Portada">
+          <section class="section-banner" aria-label="Portada" data-i18n-attr="aria-label:home.banner">
             <div class="banner-container">
               <img class="banner-image" src="assets/images/placeholder.svg" alt="" width="1600" height="400">
             </div>
@@ -85,25 +98,25 @@
           <section class="section-profile" aria-labelledby="profile-name">
             <div class="profile-container">
               <div class="profile-avatar">
-                <img class="profile-avatar-image" src="assets/images/photo-avatar.jpg" alt="Foto de perfil de Alberto Gonzalez" width="112" height="112">
+                <img class="profile-avatar-image" src="assets/images/photo-avatar.jpg" alt="Foto de perfil de Alberto Gonzalez" data-i18n-attr="alt:profile.photo" width="112" height="112">
               </div>
               <div class="profile-info">
                 <p class="eva-profile-kicker">PERSONAL ARCHIVE</p>
                 <h1 class="profile-name" id="profile-name">Alberto Gonzalez</h1>
                 <p class="profile-role" data-roles="Senior Full Stack Developer|Cybersecurity Enthusiast">
-                  <span class="visually-hidden">Senior Full Stack Developer y Cybersecurity Enthusiast</span>
+                  <span class="visually-hidden" data-i18n="profile.roles">Senior Full Stack Developer y Cybersecurity Enthusiast</span>
                   <span class="profile-role-text" aria-hidden="true">Senior Full Stack Developer</span><span class="profile-role-cursor" aria-hidden="true"></span>
                 </p>
-                <p class="profile-location">Madrid, España</p>
+                <p class="profile-location" data-i18n="profile.location">Madrid, España</p>
                 <p class="eva-profile-caption">DEVELOPMENT / SYSTEMS</p>
               </div>
-              <span class="eva-mark eva-profile-mark" lang="ja" aria-hidden="true" title="Observación">監視</span>
+              <span class="eva-mark eva-profile-mark" lang="ja" aria-hidden="true" title="Observación" data-i18n-attr="title:kanji.observation">監視</span>
             </div>
           </section>
 
-          <section class="section-counter" aria-label="Contador de visitas">
+          <section class="section-counter" aria-label="Contador de visitas" data-i18n-attr="aria-label:counter.label">
             <div class="counter-container" data-widget="counter" data-state="loading">
-              <span class="counter-label" aria-hidden="true">VISITS</span>
+              <span class="counter-label" aria-hidden="true" data-i18n="counter.title">VISITAS</span>
               <p class="counter-value">
                 <span class="visually-hidden" data-counter-text>Visitas: cargando</span>
                 <span class="counter-digits" data-counter-digits aria-hidden="true"></span>
@@ -112,29 +125,14 @@
           </section>
           <div class="divider divider--band" aria-hidden="true"></div>
 
-          <section class="section-widgets" aria-label="Módulos interactivos">
+          <section class="section-widgets" aria-label="Módulos interactivos" data-i18n-attr="aria-label:widgets.label">
             <div class="widgets-grid">
-              <div class="terminal-slot" data-terminal-slot>
-                <article class="window window--terminal" data-widget="terminal" aria-label="Terminal">
-                  <header class="window-bar">
-                    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span class="window-name">terminal.sh</span>
-                    <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Terminal">端末</span>
-                  </header>
-                  <div class="window-body terminal-body">
-                    <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
-                    <form class="terminal-form" autocomplete="off">
-                      <label class="terminal-prompt" for="terminal-input">visitor@portfolio:/$</label>
-                      <textarea class="terminal-input" id="terminal-input" rows="1" wrap="soft" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send"></textarea>
-                    </form>
-                  </div>
-                </article>
-              </div>
-              <article class="window window--wide" data-widget="pet" aria-label="Mascota virtual ADAM">
+              <div class="terminal-slot" data-terminal-slot></div>
+              <article class="window window--wide" data-widget="pet" aria-label="Mascota virtual ADAM" data-i18n-attr="aria-label:widgets.pet.label">
                 <header class="window-bar">
                   <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                   <span class="window-name">pet.sys</span>
-                  <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Cultivo">培養</span>
+                  <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Cultivo" data-i18n-attr="title:kanji.culture">培養</span>
                 </header>
                 <div class="window-body pet-layout">
                   <div class="pet-screen">
@@ -142,28 +140,28 @@
                   </div>
                   <div class="pet-panel">
                     <ul class="pet-stats">
-                      <li class="pet-stat" data-stat="food"><span class="pet-stat-label">Comida</span><span class="pet-segments" role="img" aria-label="Comida"><i></i><i></i><i></i><i></i><i></i></span></li>
-                      <li class="pet-stat" data-stat="joy"><span class="pet-stat-label">Ánimo</span><span class="pet-segments" role="img" aria-label="Ánimo"><i></i><i></i><i></i><i></i><i></i></span></li>
-                      <li class="pet-stat" data-stat="energy"><span class="pet-stat-label">Energía</span><span class="pet-segments" role="img" aria-label="Energía"><i></i><i></i><i></i><i></i><i></i></span></li>
+                      <li class="pet-stat" data-stat="food"><span class="pet-stat-label" data-i18n="widgets.pet.food">Comida</span><span class="pet-segments" role="img" aria-label="Comida"><i></i><i></i><i></i><i></i><i></i></span></li>
+                      <li class="pet-stat" data-stat="joy"><span class="pet-stat-label" data-i18n="widgets.pet.joy">Ánimo</span><span class="pet-segments" role="img" aria-label="Ánimo"><i></i><i></i><i></i><i></i><i></i></span></li>
+                      <li class="pet-stat" data-stat="energy"><span class="pet-stat-label" data-i18n="widgets.pet.energy">Energía</span><span class="pet-segments" role="img" aria-label="Energía"><i></i><i></i><i></i><i></i><i></i></span></li>
                     </ul>
                     <p class="pet-status" aria-live="polite"></p>
                     <div class="pet-actions">
-                      <button class="button-pixel" type="button" data-action="feed">Comer</button>
-                      <button class="button-pixel" type="button" data-action="play">Jugar</button>
+                      <button class="button-pixel" type="button" data-action="feed" data-i18n="widgets.pet.feed">Comer</button>
+                      <button class="button-pixel" type="button" data-action="play" data-i18n="widgets.pet.play">Jugar</button>
                       <button class="button-pixel" type="button" data-action="sleep" aria-pressed="false">Dormir</button>
-                      <button class="button-pixel" type="button" data-action="clean">Limpiar</button>
+                      <button class="button-pixel" type="button" data-action="clean" data-i18n="widgets.pet.clean">Limpiar</button>
                     </div>
                   </div>
                 </div>
               </article>
-              <article class="window" data-widget="eye" aria-label="Ojo cibernético">
+              <article class="window" data-widget="eye" aria-label="Ojo cibernético" data-i18n-attr="aria-label:widgets.eye.label">
                 <header class="window-bar">
                   <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                   <span class="window-name">watcher.sys</span>
-                  <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Observación">観測</span>
+                  <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Observación" data-i18n-attr="title:kanji.observation">観測</span>
                 </header>
                 <div class="window-body eye-screen">
-                  <canvas class="eye-canvas" width="64" height="64" role="img" aria-label="Ojo cibernético en pixel art que sigue al cursor"></canvas>
+                  <canvas class="eye-canvas" width="64" height="64" role="img" aria-label="Ojo cibernético en pixel art que sigue al cursor" data-i18n-attr="aria-label:widgets.eye.canvas"></canvas>
                 </div>
               </article>
             </div>
@@ -172,14 +170,14 @@
 
           <section class="section-about" aria-labelledby="about-title">
             <div class="section-header">
-              <h2 class="title-section" id="about-title">Sobre mí</h2>
-              <span class="eva-mark" lang="ja" aria-hidden="true" title="Perfil personal">個人</span>
+              <h2 class="title-section" id="about-title" data-i18n="about.title">Sobre mí</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Perfil personal" data-i18n-attr="title:kanji.profile">個人</span>
             </div>
             <div class="about-container">
               <ul class="about-list">
-                <li class="about-item"><p class="about-text">He estado trabajando como <strong class="text-highlight">Full-Stack Developer</strong> en diversos proyectos web, e-commerces y landing pages, para diferentes clientes, usando numerosas tecnologías y lenguajes de programación.</p></li>
-                <li class="about-item"><p class="about-text">En el front trabajo con <strong class="text-highlight">HTML, CSS, SASS y JavaScript</strong>, y con frameworks como ReactJS, VueJS, NextJS, NuxtJS y Astro. En el back, con PHP y CodeIgniter, bases de datos MySQL, PostgreSQL y MongoDB.</p></li>
-                <li class="about-item"><p class="about-text">Tengo experiencia con <strong class="text-highlight">Shopify</strong> y CMS como WordPress, Storyblok, Sitecore, Strapi o Sanity, con servicios de <strong class="text-highlight">AWS</strong> como S3, Route53, Lambda y Cloud9, y con control de versiones en GitHub y bash/shell.</p></li>
+                <li class="about-item"><p class="about-text" data-i18n-rich="about.p1">He estado trabajando como <strong class="text-highlight">Full-Stack Developer</strong> en diversos proyectos web, e-commerces y landing pages, para diferentes clientes, usando numerosas tecnologías y lenguajes de programación.</p></li>
+                <li class="about-item"><p class="about-text" data-i18n-rich="about.p2">En el front trabajo con <strong class="text-highlight">HTML, CSS, SASS y JavaScript</strong>, y con frameworks como ReactJS, VueJS, NextJS, NuxtJS y Astro. En el back, con PHP y CodeIgniter, bases de datos MySQL, PostgreSQL y MongoDB.</p></li>
+                <li class="about-item"><p class="about-text" data-i18n-rich="about.p3">Tengo experiencia con <strong class="text-highlight">Shopify</strong> y CMS como WordPress, Storyblok, Sitecore, Strapi o Sanity, con servicios de <strong class="text-highlight">AWS</strong> como S3, Route53, Lambda y Cloud9, y con control de versiones en GitHub y bash/shell.</p></li>
               </ul>
             </div>
           </section>
@@ -187,8 +185,8 @@
 
           <section class="section-contact" aria-labelledby="contact-title">
             <div class="section-header">
-              <h2 class="title-section" id="contact-title">Contacto</h2>
-              <span class="eva-mark" lang="ja" aria-hidden="true" title="Contacto">連絡</span>
+              <h2 class="title-section" id="contact-title" data-i18n="contact.title">Contacto</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Contacto" data-i18n-attr="title:kanji.contact">連絡</span>
             </div>
             <ul class="contact-list">
               <li class="contact-item">
@@ -232,11 +230,11 @@
 
           <section class="section-projects" aria-labelledby="projects-title">
             <div class="section-header section-header--link">
-              <h2 class="title-section" id="projects-title">Proyectos</h2>
-              <span class="eva-mark" lang="ja" aria-hidden="true" title="Registro">記録</span>
-              <a class="link-more" href="projects.html" data-link>Ver todos <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+              <h2 class="title-section" id="projects-title" data-i18n="projects.title">Proyectos</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Registro" data-i18n-attr="title:kanji.record">記録</span>
+              <a class="link-more" href="projects.html" data-link><span data-i18n="projects.viewAll">Ver todos</span> <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
             </div>
-            <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
+            <ul class="projects-grid" data-source="projects" data-featured aria-busy="true"></ul>
           </section>
           <div class="divider divider--band" aria-hidden="true"></div>
 
@@ -244,15 +242,15 @@
             <div class="stack-container">
               <div class="section-header section-header--stack">
                 <h2 class="title-section" id="stack-title">Stack</h2>
-                <span class="eva-mark" lang="ja" aria-hidden="true" title="Tecnología">技術</span>
-                <div class="tabs-filter" role="group" aria-label="Filtrar por categoría">
-                  <button class="tab-filter is-active" type="button" data-filter="all" aria-pressed="true">Todos</button>
+                <span class="eva-mark" lang="ja" aria-hidden="true" title="Tecnología" data-i18n-attr="title:kanji.tech">技術</span>
+                <div class="tabs-filter" role="group" aria-label="Filtrar por categoría" data-i18n-attr="aria-label:stack.filter">
+                  <button class="tab-filter is-active" type="button" data-filter="all" aria-pressed="true" data-i18n="stack.all">Todos</button>
                   <button class="tab-filter" type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
                   <button class="tab-filter" type="button" data-filter="backend" aria-pressed="false">Backend</button>
                   <button class="tab-filter" type="button" data-filter="cms" aria-pressed="false">CMS</button>
                   <button class="tab-filter" type="button" data-filter="cloud" aria-pressed="false">Cloud</button>
-                  <button class="tab-filter" type="button" data-filter="data" aria-pressed="false">Datos</button>
-                  <button class="tab-filter" type="button" data-filter="tools" aria-pressed="false">Herramientas</button>
+                  <button class="tab-filter" type="button" data-filter="data" aria-pressed="false" data-i18n="stack.data">Datos</button>
+                  <button class="tab-filter" type="button" data-filter="tools" aria-pressed="false" data-i18n="stack.tools">Herramientas</button>
                 </div>
               </div>
               <ul class="stack-list" data-source="tech" aria-busy="true"></ul>
@@ -262,14 +260,14 @@
 
           <section class="section-cta" aria-labelledby="cta-title">
             <div class="section-header">
-              <h2 class="title-section" id="cta-title">¿Hablamos?</h2>
-              <span class="eva-mark" lang="ja" aria-hidden="true" title="Conexión">接続</span>
+              <h2 class="title-section" id="cta-title" data-i18n="cta.title">¿Hablamos?</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Conexión" data-i18n-attr="title:kanji.connection">接続</span>
             </div>
             <div class="cta-container">
-              <p class="cta-text">Texto de invitación a contactar, de una o dos líneas, provisional.</p>
+              <p class="cta-text" data-i18n="cta.text">Texto de invitación a contactar, de una o dos líneas, provisional.</p>
               <a class="button-primary" href="mailto:hello@example.com">
                 <span class="button-shine" aria-hidden="true"></span>
-                <span class="button-label">Hablemos</span>
+                <span class="button-label" data-i18n="cta.button">Hablemos</span>
                 <span class="icon icon-arrow-right" aria-hidden="true"></span>
               </a>
             </div>
@@ -282,8 +280,8 @@
     <footer class="footer container">
       <div class="divider divider--band divider--mobile-only" aria-hidden="true"></div>
       <div class="footer-container">
-        <p class="footer-text">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
-        <p class="footer-text">© 2026 Todos los derechos reservados.</p>
+        <p class="footer-text" data-i18n-rich="footer.credit" data-i18n-strong="footer-name">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
+        <p class="footer-text" data-i18n="footer.rights">© 2026 Todos los derechos reservados.</p>
       </div>
     </footer>
   </div>

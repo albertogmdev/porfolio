@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es" data-theme="bash">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Experiencia laboral y estudios de Alberto Gonzalez, Senior Full Stack Developer en Madrid, España.">
+  <title>Experiencia — Alberto Gonzalez</title>
+  <link rel="icon" href="data:,">
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy' || theme === 'eva') {
+          document.documentElement.dataset.theme = theme;
+        }
+        var lang = localStorage.getItem('lang');
+        if (lang === 'es' || lang === 'en') document.documentElement.lang = lang;
+      } catch (error) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script type="module" src="assets/js/widgets.js"></script>
+</head>
+<body>
+  <div class="terminal-boot terminal-boot--loader" id="boot-loader" aria-hidden="true"><pre class="terminal-boot-output"><span class="terminal-boot-cursor"></span></pre></div>
+  <div class="page">
+    <a class="skip-link" href="#main-content" data-i18n="a11y.skip">Saltar al contenido</a>
+    <p class="visually-hidden" id="route-announcer" aria-live="polite"></p>
+
+    <header class="navbar">
+      <div class="navbar-container container">
+        <a class="navbar-logo" href="./" data-link>albertogmdev</a>
+        <div class="navbar-actions">
+          <nav class="navbar-nav" aria-label="Principal" data-i18n-attr="aria-label:nav.main">
+            <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú" data-i18n-attr="aria-label:nav.menu.open">
+              <span class="icon icon-menu" aria-hidden="true"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+              <li><a class="navbar-link" href="./" data-link data-i18n="nav.home">Home</a></li>
+              <li><a class="navbar-link" href="projects.html" data-link data-i18n="nav.projects">Proyectos</a></li>
+              <li><a class="navbar-link" href="experience.html" data-link aria-current="page" data-i18n="nav.experience">Experiencia</a></li>
+              <li class="navbar-indicator" aria-hidden="true"></li>
+            </ul>
+          </nav>
+          <div class="lang-switcher">
+            <button class="lang-toggle" type="button" id="lang-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Cambiar idioma" data-i18n-attr="aria-label:nav.language">
+              <span class="icon icon-globe" aria-hidden="true"></span>
+            </button>
+            <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Idioma" data-i18n-attr="aria-label:lang.menu" hidden>
+              <li class="lang-option" role="option" tabindex="-1" data-lang-value="es" aria-selected="true">ES</li>
+              <li class="lang-option" role="option" tabindex="-1" data-lang-value="en" aria-selected="false">EN</li>
+            </ul>
+          </div>
+          <div class="theme-switcher">
+            <button class="theme-toggle" type="button" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" aria-label="Cambiar tema" data-i18n-attr="aria-label:nav.theme">
+              <span class="icon icon-palette" aria-hidden="true"></span>
+            </button>
+            <ul class="theme-menu" id="theme-menu" role="listbox" aria-label="Tema" data-i18n-attr="aria-label:theme.menu" hidden>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false" data-i18n="theme.dark">Oscuro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false" data-i18n="theme.light">Claro</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="true">Bash</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
+              <li class="theme-option" role="option" tabindex="-1" data-theme-value="eva" aria-selected="false">EVA</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main container" id="main-content" tabindex="-1">
+      <div class="view-loader" role="status" hidden>
+        <span class="visually-hidden" data-i18n="a11y.loading">Cargando…</span>
+      </div>
+      <div class="terminal-dock" id="terminal-dock">
+        <div class="dock-nav">
+          <a class="link-back" href="./" data-link>
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+            <span class="link-back-label" data-i18n="nav.back">Volver</span>
+          </a>
+        </div>
+        <div class="divider divider--line" aria-hidden="true"></div>
+        <div class="terminal-dock-slot"></div>
+        <div class="divider divider--band" aria-hidden="true"></div>
+      </div>
+      <div class="view" id="view" aria-busy="false">
+        <div class="panel panel-experience" data-panel="experience" data-title="Experiencia — Alberto Gonzalez" data-title-key="meta.title.experience">
+
+          <section class="section-experience" aria-labelledby="experience-title">
+            <div class="section-header">
+              <h1 class="title-section" id="experience-title" data-i18n="experience.title">Experiencia</h1>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Trayectoria" data-i18n-attr="title:kanji.career">経歴</span>
+            </div>
+            <ul class="experience-list experience-list--full" data-source="experience" data-group="work" aria-busy="true"></ul>
+          </section>
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <section class="section-experience" aria-labelledby="education-title">
+            <div class="section-header">
+              <h2 class="title-section" id="education-title" data-i18n="education.title">Estudios</h2>
+              <span class="eva-mark" lang="ja" aria-hidden="true" title="Formación" data-i18n-attr="title:kanji.education">学歴</span>
+            </div>
+            <ul class="experience-list" data-source="experience" data-group="education" aria-busy="true"></ul>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer container">
+      <div class="divider divider--band" aria-hidden="true"></div>
+      <div class="footer-container">
+        <p class="footer-text" data-i18n-rich="footer.credit" data-i18n-strong="footer-name">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
+        <p class="footer-text" data-i18n="footer.rights">© 2026 Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

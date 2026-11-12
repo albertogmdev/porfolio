@@ -1,0 +1,570 @@
+{
+  "a11y.skip": {
+    "es": "Saltar al contenido",
+    "en": "Skip to content"
+  },
+  "a11y.loading": {
+    "es": "Cargando…",
+    "en": "Loading…"
+  },
+  "meta.title.home": {
+    "es": "Inicio — Alberto Gonzalez",
+    "en": "Home — Alberto Gonzalez"
+  },
+  "meta.title.projects": {
+    "es": "Proyectos — Alberto Gonzalez",
+    "en": "Projects — Alberto Gonzalez"
+  },
+  "meta.title.experience": {
+    "es": "Experiencia — Alberto Gonzalez",
+    "en": "Experience — Alberto Gonzalez"
+  },
+  "meta.title.error": {
+    "es": "Página no encontrada — Alberto Gonzalez",
+    "en": "Page not found — Alberto Gonzalez"
+  },
+  "nav.main": {
+    "es": "Principal",
+    "en": "Main"
+  },
+  "nav.menu.open": {
+    "es": "Abrir menú",
+    "en": "Open menu"
+  },
+  "nav.menu.close": {
+    "es": "Cerrar menú",
+    "en": "Close menu"
+  },
+  "nav.home": {
+    "es": "Home",
+    "en": "Home"
+  },
+  "nav.projects": {
+    "es": "Proyectos",
+    "en": "Projects"
+  },
+  "nav.experience": {
+    "es": "Experiencia",
+    "en": "Experience"
+  },
+  "nav.back": {
+    "es": "Volver",
+    "en": "Back"
+  },
+  "nav.language": {
+    "es": "Cambiar idioma",
+    "en": "Change language"
+  },
+  "nav.theme": {
+    "es": "Cambiar tema",
+    "en": "Change theme"
+  },
+  "lang.menu": {
+    "es": "Idioma",
+    "en": "Language"
+  },
+  "lang.changed": {
+    "es": "Idioma cambiado a español",
+    "en": "Language changed to English"
+  },
+  "theme.menu": {
+    "es": "Tema",
+    "en": "Theme"
+  },
+  "theme.dark": {
+    "es": "Oscuro",
+    "en": "Dark"
+  },
+  "theme.light": {
+    "es": "Claro",
+    "en": "Light"
+  },
+  "theme.announce": {
+    "es": "Tema {name}",
+    "en": "Theme {name}"
+  },
+  "kanji.observation": {
+    "es": "Observación",
+    "en": "Observation"
+  },
+  "kanji.culture": {
+    "es": "Cultivo",
+    "en": "Cultivation"
+  },
+  "kanji.profile": {
+    "es": "Perfil personal",
+    "en": "Personal profile"
+  },
+  "kanji.contact": {
+    "es": "Contacto",
+    "en": "Contact"
+  },
+  "kanji.record": {
+    "es": "Registro",
+    "en": "Record"
+  },
+  "kanji.tech": {
+    "es": "Tecnología",
+    "en": "Technology"
+  },
+  "kanji.connection": {
+    "es": "Conexión",
+    "en": "Connection"
+  },
+  "kanji.career": {
+    "es": "Trayectoria",
+    "en": "Career"
+  },
+  "kanji.education": {
+    "es": "Formación",
+    "en": "Education"
+  },
+  "home.banner": {
+    "es": "Portada",
+    "en": "Cover"
+  },
+  "profile.photo": {
+    "es": "Foto de perfil de Alberto Gonzalez",
+    "en": "Alberto Gonzalez profile picture"
+  },
+  "profile.roles": {
+    "es": "Senior Full Stack Developer y Cybersecurity Enthusiast",
+    "en": "Senior Full Stack Developer and Cybersecurity Enthusiast"
+  },
+  "profile.location": {
+    "es": "Madrid, España",
+    "en": "Madrid, Spain"
+  },
+  "counter.label": {
+    "es": "Contador de visitas",
+    "en": "Visit counter"
+  },
+  "counter.title": {
+    "es": "VISITAS",
+    "en": "VISITS"
+  },
+  "counter.loading": {
+    "es": "Visitas: cargando",
+    "en": "Visits: loading"
+  },
+  "counter.visits": {
+    "es": "Visitas: {count}",
+    "en": "Visits: {count}"
+  },
+  "counter.unavailable": {
+    "es": "Visitas: no disponible",
+    "en": "Visits: unavailable"
+  },
+  "widgets.label": {
+    "es": "Módulos interactivos",
+    "en": "Interactive modules"
+  },
+  "widgets.terminal.output": {
+    "es": "Salida de la terminal",
+    "en": "Terminal output"
+  },
+  "widgets.pet.label": {
+    "es": "Mascota virtual ADAM",
+    "en": "ADAM virtual pet"
+  },
+  "widgets.pet.food": {
+    "es": "Comida",
+    "en": "Food"
+  },
+  "widgets.pet.joy": {
+    "es": "Ánimo",
+    "en": "Mood"
+  },
+  "widgets.pet.energy": {
+    "es": "Energía",
+    "en": "Energy"
+  },
+  "widgets.pet.feed": {
+    "es": "Comer",
+    "en": "Feed"
+  },
+  "widgets.pet.play": {
+    "es": "Jugar",
+    "en": "Play"
+  },
+  "widgets.pet.clean": {
+    "es": "Limpiar",
+    "en": "Clean"
+  },
+  "widgets.eye.label": {
+    "es": "Ojo cibernético",
+    "en": "Cybernetic eye"
+  },
+  "widgets.eye.canvas": {
+    "es": "Ojo cibernético en pixel art que sigue al cursor",
+    "en": "Pixel art cybernetic eye that follows the cursor"
+  },
+  "about.title": {
+    "es": "Sobre mí",
+    "en": "About me"
+  },
+  "about.p1": {
+    "es": "He estado trabajando como **Full-Stack Developer** en diversos proyectos web, e-commerces y landing pages, para diferentes clientes, usando numerosas tecnologías y lenguajes de programación.",
+    "en": "I have been working as a **Full-Stack Developer** on a wide range of web projects, e-commerce sites and landing pages for different clients, using many technologies and programming languages."
+  },
+  "about.p2": {
+    "es": "En el front trabajo con **HTML, CSS, SASS y JavaScript**, y con frameworks como ReactJS, VueJS, NextJS, NuxtJS y Astro. En el back, con PHP y CodeIgniter, bases de datos MySQL, PostgreSQL y MongoDB.",
+    "en": "On the front end I work with **HTML, CSS, SASS and JavaScript**, and with frameworks such as ReactJS, VueJS, NextJS, NuxtJS and Astro. On the back end, with PHP and CodeIgniter, and MySQL, PostgreSQL and MongoDB databases."
+  },
+  "about.p3": {
+    "es": "Tengo experiencia con **Shopify** y CMS como WordPress, Storyblok, Sitecore, Strapi o Sanity, con servicios de **AWS** como S3, Route53, Lambda y Cloud9, y con control de versiones en GitHub y bash/shell.",
+    "en": "I have experience with **Shopify** and CMSs such as WordPress, Storyblok, Sitecore, Strapi or Sanity, with **AWS** services such as S3, Route53, Lambda and Cloud9, and with version control on GitHub and bash/shell."
+  },
+  "contact.title": {
+    "es": "Contacto",
+    "en": "Contact"
+  },
+  "projects.title": {
+    "es": "Proyectos",
+    "en": "Projects"
+  },
+  "projects.viewAll": {
+    "es": "Ver todos",
+    "en": "View all"
+  },
+  "projects.status.active": {
+    "es": "Activo",
+    "en": "Active"
+  },
+  "projects.status.inactive": {
+    "es": "No activo",
+    "en": "Inactive"
+  },
+  "projects.prev": {
+    "es": "Vista anterior de {title}",
+    "en": "Previous view of {title}"
+  },
+  "projects.next": {
+    "es": "Vista siguiente de {title}",
+    "en": "Next view of {title}"
+  },
+  "projects.view": {
+    "es": "Vista {current} de {total}",
+    "en": "View {current} of {total}"
+  },
+  "projects.carousel": {
+    "es": "carrusel",
+    "en": "carousel"
+  },
+  "projects.previews": {
+    "es": "Vistas previas de {title}",
+    "en": "Previews of {title}"
+  },
+  "projects.video": {
+    "es": "Vídeo de {title}",
+    "en": "Video of {title}"
+  },
+  "projects.live": {
+    "es": "Ver {title} en línea",
+    "en": "View {title} online"
+  },
+  "projects.code": {
+    "es": "Ver código de {title}",
+    "en": "View code of {title}"
+  },
+  "stack.filter": {
+    "es": "Filtrar por categoría",
+    "en": "Filter by category"
+  },
+  "stack.all": {
+    "es": "Todos",
+    "en": "All"
+  },
+  "stack.data": {
+    "es": "Datos",
+    "en": "Data"
+  },
+  "stack.tools": {
+    "es": "Herramientas",
+    "en": "Tools"
+  },
+  "cta.title": {
+    "es": "¿Hablamos?",
+    "en": "Let's talk?"
+  },
+  "cta.text": {
+    "es": "Texto de invitación a contactar, de una o dos líneas, provisional.",
+    "en": "Provisional text inviting visitors to get in touch, one or two lines long."
+  },
+  "cta.button": {
+    "es": "Hablemos",
+    "en": "Let's talk"
+  },
+  "experience.title": {
+    "es": "Experiencia",
+    "en": "Experience"
+  },
+  "education.title": {
+    "es": "Estudios",
+    "en": "Education"
+  },
+  "footer.credit": {
+    "es": "Diseñado y desarrollado por **Alberto Gonzalez**",
+    "en": "Designed and developed by **Alberto Gonzalez**"
+  },
+  "footer.rights": {
+    "es": "© 2026 Todos los derechos reservados.",
+    "en": "© 2026 All rights reserved."
+  },
+  "error.title": {
+    "es": "No se pudo cargar la página",
+    "en": "The page could not be loaded"
+  },
+  "error.text": {
+    "es": "La página que buscas no existe todavía o no está disponible.",
+    "en": "The page you are looking for does not exist yet or is unavailable."
+  },
+  "error.back": {
+    "es": "Volver al inicio",
+    "en": "Back to home"
+  },
+  "terminal.denied.1": {
+    "es": "Permiso denegado: visitor no está en el archivo sudoers. Este incidente será reportado.",
+    "en": "Permission denied: visitor is not in the sudoers file. This incident will be reported."
+  },
+  "terminal.denied.2": {
+    "es": "Acceso denegado. Intento de escalada de privilegios registrado.",
+    "en": "Access denied. Privilege escalation attempt logged."
+  },
+  "terminal.denied.3": {
+    "es": "Autenticación fallida. Contramedidas activadas.",
+    "en": "Authentication failed. Countermeasures activated."
+  },
+  "terminal.go.already": {
+    "es": "Ya estás en {page}.",
+    "en": "You are already in {page}."
+  },
+  "terminal.go.navigating": {
+    "es": "Navegando a {page}...",
+    "en": "Navigating to {page}..."
+  },
+  "terminal.go.opening": {
+    "es": "Abriendo {url} en una pestaña nueva...",
+    "en": "Opening {url} in a new tab..."
+  },
+  "terminal.go.invalid_url": {
+    "es": "{name}: URL no válida.",
+    "en": "{name}: invalid URL."
+  },
+  "terminal.go.not_found": {
+    "es": "{name}: '{target}' no existe. Páginas: {pages}",
+    "en": "{name}: '{target}' does not exist. Pages: {pages}"
+  },
+  "terminal.help.title": {
+    "es": "Comandos disponibles:",
+    "en": "Available commands:"
+  },
+  "terminal.help.footer": {
+    "es": "Otros comandos de bash requieren un usuario administrador.",
+    "en": "Other bash commands require an administrator user."
+  },
+  "terminal.cmd.help.description": {
+    "es": "Muestra los comandos disponibles",
+    "en": "Shows the available commands"
+  },
+  "terminal.cmd.clear.description": {
+    "es": "Limpia la terminal",
+    "en": "Clears the terminal"
+  },
+  "terminal.cmd.theme.usage": {
+    "es": "theme [nombre]",
+    "en": "theme [name]"
+  },
+  "terminal.cmd.theme.description": {
+    "es": "Cambia el tema",
+    "en": "Changes the theme"
+  },
+  "terminal.cmd.lang.description": {
+    "es": "Cambia el idioma",
+    "en": "Changes the language"
+  },
+  "terminal.cmd.goto.usage": {
+    "es": "goto|navigate [página]",
+    "en": "goto|navigate [page]"
+  },
+  "terminal.cmd.goto.description": {
+    "es": "Navega a una página o URL",
+    "en": "Navigates to a page or URL"
+  },
+  "terminal.cmd.cd.usage": {
+    "es": "cd [ruta]",
+    "en": "cd [path]"
+  },
+  "terminal.cmd.cd.description": {
+    "es": "Como goto; cd .. vuelve a home",
+    "en": "Like goto; cd .. goes back to home"
+  },
+  "terminal.cmd.ls.description": {
+    "es": "Lista las rutas disponibles",
+    "en": "Lists the available routes"
+  },
+  "terminal.cmd.sudo.usage": {
+    "es": "sudo [comando]",
+    "en": "sudo [command]"
+  },
+  "terminal.cmd.sudo.description": {
+    "es": "Ejecuta un comando como administrador",
+    "en": "Runs a command as administrator"
+  },
+  "terminal.theme.current": {
+    "es": "Tema actual: {theme}",
+    "en": "Current theme: {theme}"
+  },
+  "terminal.theme.available": {
+    "es": "Disponibles: {themes}",
+    "en": "Available: {themes}"
+  },
+  "terminal.theme.usage": {
+    "es": "Uso: theme [nombre]",
+    "en": "Usage: theme [name]"
+  },
+  "terminal.theme.not_found": {
+    "es": "theme: '{target}' no existe. Disponibles: {themes}",
+    "en": "theme: '{target}' does not exist. Available: {themes}"
+  },
+  "terminal.theme.already": {
+    "es": "El tema ya es {theme}.",
+    "en": "The theme is already {theme}."
+  },
+  "terminal.theme.changed": {
+    "es": "Tema cambiado a {theme}.",
+    "en": "Theme changed to {theme}."
+  },
+  "terminal.lang.current": {
+    "es": "Idioma actual: {lang}",
+    "en": "Current language: {lang}"
+  },
+  "terminal.lang.available": {
+    "es": "Disponibles: {langs}",
+    "en": "Available: {langs}"
+  },
+  "terminal.lang.usage": {
+    "es": "Uso: lang [es|en]",
+    "en": "Usage: lang [es|en]"
+  },
+  "terminal.lang.not_found": {
+    "es": "lang: '{target}' no existe. Disponibles: {langs}",
+    "en": "lang: '{target}' does not exist. Available: {langs}"
+  },
+  "terminal.lang.already": {
+    "es": "El idioma ya es {lang}.",
+    "en": "The language is already {lang}."
+  },
+  "terminal.lang.changed": {
+    "es": "Idioma cambiado a {lang}.",
+    "en": "Language changed to {lang}."
+  },
+  "terminal.goto.usage": {
+    "es": "Uso: goto [página|url]",
+    "en": "Usage: goto [page|url]"
+  },
+  "terminal.goto.pages": {
+    "es": "Páginas: {pages}",
+    "en": "Pages: {pages}"
+  },
+  "terminal.ls.empty": {
+    "es": "(vacío)",
+    "en": "(empty)"
+  },
+  "terminal.sudo.password_su": {
+    "es": "Contraseña: ********",
+    "en": "Password: ********"
+  },
+  "terminal.sudo.password": {
+    "es": "[sudo] contraseña para visitor: ********",
+    "en": "[sudo] password for visitor: ********"
+  },
+  "terminal.bash.denied": {
+    "es": "bash: {name}: permiso denegado. Se necesita un usuario administrador para ejecutarlo.",
+    "en": "bash: {name}: permission denied. An administrator user is required to run it."
+  },
+  "terminal.bash.unknown": {
+    "es": "bash: {name}: comando no reconocido. Escribe 'help'.",
+    "en": "bash: {name}: command not found. Type 'help'."
+  },
+  "terminal.welcome.hint": {
+    "es": "Escribe 'help' para ver los comandos.",
+    "en": "Type 'help' to see the commands."
+  },
+  "pet.mood.sleep": {
+    "es": "ADAM está descansando.",
+    "en": "ADAM is resting."
+  },
+  "pet.mood.sad": {
+    "es": "ADAM necesita cuidados.",
+    "en": "ADAM needs care."
+  },
+  "pet.mood.hungry": {
+    "es": "ADAM tiene hambre.",
+    "en": "ADAM is hungry."
+  },
+  "pet.mood.happy": {
+    "es": "Respuesta estable.",
+    "en": "Stable response."
+  },
+  "pet.mood.normal": {
+    "es": "ADAM en observación.",
+    "en": "ADAM under observation."
+  },
+  "pet.mood.eat": {
+    "es": "Alimentando a ADAM.",
+    "en": "Feeding ADAM."
+  },
+  "pet.mood.play": {
+    "es": "Respondiendo a estímulos.",
+    "en": "Responding to stimuli."
+  },
+  "pet.event.woke_energy": {
+    "es": "ADAM se ha despertado con energía.",
+    "en": "ADAM has woken up energized."
+  },
+  "pet.event.needs_rest": {
+    "es": "ADAM necesita descansar.",
+    "en": "ADAM needs to rest."
+  },
+  "pet.event.needs_cleaning": {
+    "es": "El cultivo necesita limpieza.",
+    "en": "The culture needs cleaning."
+  },
+  "pet.action.not_hungry": {
+    "es": "No tiene hambre.",
+    "en": "It isn't hungry."
+  },
+  "pet.action.rest_first": {
+    "es": "ADAM necesita descansar antes de jugar.",
+    "en": "ADAM needs to rest before playing."
+  },
+  "pet.action.woke": {
+    "es": "ADAM se ha despertado.",
+    "en": "ADAM has woken up."
+  },
+  "pet.action.clean_already": {
+    "es": "El cultivo está limpio.",
+    "en": "The culture is clean."
+  },
+  "pet.action.cleaned": {
+    "es": "Cultivo limpio.",
+    "en": "Culture cleaned."
+  },
+  "pet.canvas.label": {
+    "es": "ADAM embrionario, de cuerpo curvado y ojo circular. {mood}",
+    "en": "Embryonic ADAM, with a curved body and a circular eye. {mood}"
+  },
+  "pet.stat.level": {
+    "es": "{label} {on} de {total}",
+    "en": "{label} {on} of {total}"
+  },
+  "pet.sleep.wake": {
+    "es": "Despertar",
+    "en": "Wake up"
+  },
+  "pet.sleep.sleep": {
+    "es": "Dormir",
+    "en": "Sleep"
+  }
+}

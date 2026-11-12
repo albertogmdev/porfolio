@@ -1,90 +1,221 @@
 [
   {
     "title": "Cruzcampo",
-    "status": "Activo",
-    "tags": ["HTML", "JavaScript"],
+    "type": "work",
+    "featured": true,
+    "status": "active",
+    "description": {
+      "es": "Web de marca con un enfoque muy visual, construida en HTML y JavaScript para cuidar al máximo el rendimiento y las animaciones.",
+      "en": "Brand website with a strongly visual approach, built in HTML and JavaScript to get the best possible performance and animations."
+    },
+    "tags": [
+      "HTML",
+      "JavaScript"
+    ],
     "image": "assets/images/cruzcampo-screenshot.png",
     "video": "assets/video/cruzcampo-video.mp4",
-    "links": { "live": "https://cruzcampo.es/" }
+    "links": {
+      "live": "https://cruzcampo.es/"
+    }
   },
   {
     "title": "Accumin",
-    "status": "Activo",
-    "tags": ["Strapi", "Next.js"],
+    "type": "work",
+    "featured": true,
+    "status": "active",
+    "description": {
+      "es": "Sitio corporativo sobre Strapi y Next.js, con contenido editable por el equipo de marketing.",
+      "en": "Corporate site built on Strapi and Next.js, with content the marketing team can edit on their own."
+    },
+    "tags": [
+      "Strapi",
+      "Next.js"
+    ],
     "image": "assets/images/accumin-screenshot.png",
     "video": "assets/video/accumin-video.mp4",
-    "links": { "live": "https://www.accumin.com/" }
+    "links": {
+      "live": "https://www.accumin.com/"
+    }
   },
   {
     "title": "Neolith",
-    "status": "Activo",
-    "tags": ["Storyblok", "Nuxt.js"],
+    "type": "work",
+    "featured": true,
+    "status": "active",
+    "description": {
+      "es": "Catálogo internacional de superficies de alta gama, montado sobre Storyblok y Nuxt.js. Los editores componen cada página con bloques reutilizables y publican en varios idiomas sin depender de desarrollo. Me encargué del front, de los componentes del sistema de diseño y de la carga optimizada de imágenes de gran formato.",
+      "en": "International catalogue of premium surfaces, built on Storyblok and Nuxt.js. Editors assemble each page from reusable blocks and publish in several languages without needing a developer. I worked on the front end, the design-system components and the optimised loading of large-format images."
+    },
+    "tags": [
+      "Storyblok",
+      "Nuxt.js"
+    ],
     "image": "assets/images/neolith-screenshot.png",
-    "previews": ["assets/images/neolith-screenshot1.png"],
+    "previews": [
+      "assets/images/neolith-screenshot1.png"
+    ],
     "video": "assets/video/neolith-video.mp4",
-    "links": { "live": "https://www.neolith.com/" }
+    "links": {
+      "live": "https://www.neolith.com/"
+    }
   },
   {
     "title": "Cinfa",
-    "status": "Activo",
-    "tags": ["WordPress", "ACF"],
+    "type": "work",
+    "featured": true,
+    "status": "active",
+    "description": {
+      "es": "Conjunto de microsites de salud y farmacia sobre WordPress y campos personalizados con ACF. Comparten tema y componentes, lo que permite lanzar una nueva marca en poco tiempo manteniendo la coherencia visual.",
+      "en": "A set of health and pharmacy microsites on WordPress with ACF custom fields. They share a theme and components, so a new brand can be launched quickly while keeping a consistent look."
+    },
+    "tags": [
+      "WordPress",
+      "ACF"
+    ],
     "image": "assets/images/cinfa-screenshot.png",
-    "previews": ["assets/images/cinfa-screenshot1.png", "assets/images/cinfa-screenshot2.png"],
+    "previews": [
+      "assets/images/cinfa-screenshot1.png",
+      "assets/images/cinfa-screenshot2.png"
+    ],
     "links": {
       "live": "https://pharmagrip.cinfa.com/",
       "sites": [
-        { "label": "Pharmagrip", "url": "https://pharmagrip.cinfa.com/" },
-        { "label": "Respibien", "url": "https://respibien.cinfa.com/" },
-        { "label": "Cinfatós", "url": "https://cinfatos.cinfa.com/" },
-        { "label": "Optiben", "url": "https://optiben.cinfa.com/" }
+        {
+          "label": "Pharmagrip",
+          "url": "https://pharmagrip.cinfa.com/"
+        },
+        {
+          "label": "Respibien",
+          "url": "https://respibien.cinfa.com/"
+        },
+        {
+          "label": "Cinfatós",
+          "url": "https://cinfatos.cinfa.com/"
+        },
+        {
+          "label": "Optiben",
+          "url": "https://optiben.cinfa.com/"
+        }
       ]
     }
   },
   {
     "title": "El Águila",
-    "status": "Activo",
+    "type": "work",
+    "featured": true,
+    "status": "active",
+    "description": {
+      "es": "Web de marca de cerveza con identidad muy marcada y contenido pensado para campañas.",
+      "en": "Beer brand website with a strong identity and content designed for campaigns."
+    },
     "tags": [],
     "image": "assets/images/elaguila-screenshot.png",
     "video": "assets/video/elaguila-video.mp4",
-    "links": { "live": "https://www.cervezaelaguila.es/" }
+    "links": {
+      "live": "https://www.cervezaelaguila.es/"
+    }
   },
   {
     "title": "Mapfre",
-    "status": "Activo",
-    "tags": ["Next.js", "GSAP"],
+    "type": "work",
+    "featured": true,
+    "status": "active",
+    "description": {
+      "es": "Plataforma de marca en Next.js con animaciones GSAP, pensada para contar la historia de la compañía a través del scroll. Prioricé una experiencia fluida en móvil y que las animaciones respetaran la preferencia de movimiento reducido.",
+      "en": "Brand platform in Next.js with GSAP animations, designed to tell the company's story through scrolling. I focused on a smooth mobile experience and on animations that respect the reduced-motion preference."
+    },
+    "tags": [
+      "Next.js",
+      "GSAP"
+    ],
     "image": "assets/images/mapfre-screenshot.png",
-    "previews": ["assets/images/mapfre-screenshot1.png", "assets/images/mapfre-screenshot2.png"],
+    "previews": [
+      "assets/images/mapfre-screenshot1.png",
+      "assets/images/mapfre-screenshot2.png"
+    ],
     "video": "assets/video/mapfre-video.mp4",
-    "links": { "live": "https://www.mapfrebrand.com/" }
+    "links": {
+      "live": "https://www.mapfrebrand.com/"
+    }
   },
   {
     "title": "Vuse",
-    "status": "No activo",
-    "tags": ["PHP", "Shopify"],
+    "type": "work",
+    "featured": false,
+    "status": "inactive",
+    "description": {
+      "es": "Tienda online sobre Shopify con partes a medida en PHP. Actualmente fuera de servicio.",
+      "en": "Online store on Shopify with custom PHP parts. No longer online."
+    },
+    "tags": [
+      "PHP",
+      "Shopify"
+    ],
     "image": "assets/images/vuse-screenshot.png",
     "video": "assets/video/vuse-video.mp4",
-    "links": { "live": "https://web.archive.org/web/20240325181949/https://vuse.es/" }
+    "links": {
+      "live": "https://web.archive.org/web/20240325181949/https://vuse.es/"
+    }
   },
   {
     "title": "Avolta",
-    "tags": ["Magento", "Umbraco", "Python"],
+    "type": "work",
+    "featured": false,
+    "description": {
+      "es": "Comercio electrónico de duty free con Magento y Umbraco, más una app móvil. Integré servicios en Python para sincronizar catálogo y pedidos entre sistemas, y trabajé en el checkout, que concentra la mayor parte de la conversión.",
+      "en": "Duty-free e-commerce on Magento and Umbraco, plus a mobile app. I built Python services to sync catalogue and orders between systems and worked on the checkout, where most conversions happen."
+    },
+    "tags": [
+      "Magento",
+      "Umbraco",
+      "Python"
+    ],
     "image": "assets/images/avolta-screenshot.png",
     "mobileImage": "assets/images/avolta-app-screenshot.png",
-    "links": { "live": "https://madrid.shopdutyfree.com/" }
+    "links": {
+      "live": "https://madrid.shopdutyfree.com/"
+    }
   },
   {
     "title": "Mychef",
-    "tags": ["WordPress", "ACF"],
+    "type": "work",
+    "featured": false,
+    "description": {
+      "es": "Plataforma profesional para chefs sobre WordPress y ACF, con fichas de producto y contenido gestionable.",
+      "en": "Professional platform for chefs on WordPress and ACF, with product pages and manageable content."
+    },
+    "tags": [
+      "WordPress",
+      "ACF"
+    ],
     "image": "assets/images/mychef-screenshot.png",
-    "previews": ["assets/images/mychef-screenshot1.png"],
+    "previews": [
+      "assets/images/mychef-screenshot1.png"
+    ],
     "video": "assets/video/mychef-video.mp4",
-    "links": { "live": "https://mychefpro.com/" }
+    "links": {
+      "live": "https://mychefpro.com/"
+    }
   },
   {
     "title": "Farmacias Direct",
-    "tags": ["React", "Hydrogen", "Tailwind", "Shopify", "Oxygen"],
+    "type": "work",
+    "featured": false,
+    "description": {
+      "es": "Tienda headless con React y Hydrogen sobre Shopify, con estilos en Tailwind. Al separar el front del backend de la tienda se consiguen cargas rápidas y total libertad de diseño, manteniendo la gestión de catálogo y pedidos en Shopify.",
+      "en": "Headless storefront with React and Hydrogen on Shopify, styled with Tailwind. Decoupling the front end from the shop backend gives fast loads and full design freedom while catalogue and orders stay managed in Shopify."
+    },
+    "tags": [
+      "React",
+      "Hydrogen",
+      "Tailwind",
+      "Shopify",
+      "Oxygen"
+    ],
     "image": "assets/images/farmacias-screenshot.png",
     "video": "assets/video/farmacias-video.mp4",
-    "links": { "live": "https://www.farmaciasdirect.es/" }
+    "links": {
+      "live": "https://www.farmaciasdirect.es/"
+    }
   }
 ]

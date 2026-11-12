@@ -401,7 +401,8 @@ $eva-stripe-width: 12px;
     }
   }
 
-  .card-project {
+  .card-project,
+  .card-experience {
     border: 0;
     border-bottom: 1px solid $strokeSecondary;
     background-color: transparent;
@@ -469,7 +470,7 @@ $eva-stripe-width: 12px;
       border-bottom: 1px solid $strokeSecondary;
     }
 
-    .card-heading {
+    .card-header .card-heading {
       flex: 1 1 rem(140px);
     }
 
@@ -536,14 +537,19 @@ $eva-stripe-width: 12px;
     transform: none;
   }
 
-  .theme-switcher {
+  .theme-switcher,
+  .lang-switcher {
     .theme-menu,
     .theme-option,
-    .theme-toggle {
+    .theme-toggle,
+    .lang-menu,
+    .lang-option,
+    .lang-toggle {
       border-radius: 0;
     }
 
-    .theme-option::before {
+    .theme-option::before,
+    .lang-option::before {
       border-radius: 0;
     }
   }

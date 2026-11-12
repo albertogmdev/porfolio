@@ -1,0 +1,87 @@
+@use '../../abstracts' as *;
+
+.section-experience {
+  .experience-list {
+    @include list-reset;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin: rem($space-1) 0 0;
+
+    @include up(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-inline: rem(-$space-2);
+    }
+
+    &:empty,
+    &[aria-busy='true'] {
+      min-height: rem(200px);
+    }
+
+    // Variante a ancho completo: una sola columna en todos los breakpoints.
+    &--full {
+      grid-template-columns: minmax(0, 1fr);
+
+      // Sin separador vertical: solo borde inferior entre cards.
+      .card-experience {
+        border-right: 0;
+      }
+
+      // Desde sm: puesto/empresa a la izquierda y periodo a la derecha; texto y tags ocupan todo el ancho.
+      @include up(sm) {
+        .card-body {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-content: start;
+          align-items: start;
+          gap: rem($space-2) rem($space-4);
+        }
+
+        .card-period {
+          grid-column: 2;
+          grid-row: 1;
+          text-align: end;
+          white-space: nowrap;
+        }
+
+        .card-text,
+        .card-tags {
+          grid-column: 1 / -1;
+        }
+
+        .card-tags {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  .experience-item {
+    display: flex;
+
+    @include up(md) {
+      &:nth-child(even) .card-experience {
+        border-right: 0;
+      }
+    }
+  }
+
+  &:has(+ .divider--band) .experience-item:last-child .card-experience {
+    border-bottom: 0;
+  }
+
+  // Solo en la rejilla de dos columnas; la variante --full no tiene fila compartida.
+  &:has(+ .divider--band) .experience-list:not(.experience-list--full) {
+    @include up(md) {
+      .experience-item:nth-last-child(2):nth-child(odd) .card-experience {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .panel-experience &:last-child .experience-item:last-child .card-experience {
+    @include down(sm) {
+      border-bottom: 0;
+    }
+  }
+}

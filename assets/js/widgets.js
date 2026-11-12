@@ -19,6 +19,7 @@ const init = (scope = document) => {
     if (root.dataset.ready === 'true') return;
     root.dataset.ready = 'true';
 
+    await window.i18n?.ready;
     const module = await loadModule(root.dataset.widget);
     if (module && typeof module.init === 'function' && root.isConnected) module.init(root);
   });
@@ -26,3 +27,5 @@ const init = (scope = document) => {
 
 document.addEventListener('panel:ready', (event) => init(event.detail.panel));
 init();
+// La terminal se inserta desde un parcial: se inicializa cuando ya está en el DOM.
+Promise.resolve(window.terminalReady).then(() => init());

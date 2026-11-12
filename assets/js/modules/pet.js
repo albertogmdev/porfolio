@@ -1,5 +1,7 @@
 import { bayer, clamp, inkOf, paintRows, reducedMotion, watchTheme } from '../utils.js';
 
+const t = (...args) => window.i18n.t(...args);
+
 const PET_KEY = 'pet';
 const PET_STEP_MS = 250;
 const PET_SAVE_MS = 10000;
@@ -23,15 +25,7 @@ const GLYPHS = {
   target: ['..#..', '.###.', '##.##', '.###.', '..#..'],
 };
 
-const MOOD_TEXT = {
-  sleep: 'ADAM est\u00e1 descansando.',
-  sad: 'ADAM necesita cuidados.',
-  hungry: 'ADAM tiene hambre.',
-  happy: 'Respuesta estable.',
-  normal: 'ADAM en observaci\u00f3n.',
-  eat: 'Alimentando a ADAM.',
-  play: 'Respondiendo a est\u00edmulos.',
-};
+const moodText = (mood) => t(`pet.mood.${mood}`);
 
 const createAdamSprite = () => {
   const mask = document.createElement('canvas');
@@ -179,9 +173,10 @@ export const init = (root) => {
   const sleepButton = root.querySelector('[data-action="sleep"]');
   const stats = ['food', 'joy', 'energy'].map((key) => {
     const item = root.querySelector(`[data-stat="${key}"]`);
+    const labelNode = item.querySelector('.pet-stat-label');
     return {
       key,
-      label: item.querySelector('.pet-stat-label').textContent.trim(),
+      get label() { return labelNode.textContent.trim(); },
       bar: item.querySelector('.pet-segments'),
       cells: Array.from(item.querySelectorAll('.pet-segments i')),
     };
@@ -203,7 +198,7 @@ export const init = (root) => {
       state.joy -= dt / 30000;
       if (state.energy >= 100) {
         state.sleeping = false;
-        event = 'ADAM se ha despertado con energ\u00eda.';
+        event = 'pet.event.woke_energy';
       }
     } else {
       state.food -= dt / 6000;
@@ -211,10 +206,10 @@ export const init = (root) => {
       state.energy -= dt / 14000;
       if (state.energy <= 0) {
         state.sleeping = true;
-        event = 'ADAM necesita descansar.';
+        event = 'pet.event.needs_rest';
       } else if (!state.poop && state.food > 25 && Math.random() < dt / 60000) {
         state.poop = true;
-        event = 'El cultivo necesita limpieza.';
+        event = 'pet.event.needs_cleaning';
       }
     }
     state.food = clamp(state.food, 0, 100);
@@ -274,8 +269,8 @@ export const init = (root) => {
     if (state.poop) paintRows(ctx, GLYPHS.waste, 8, height - 26, GLYPH_SCALE);
 
     if (mood !== lastMood) {
-      canvas.setAttribute('aria-label', `ADAM embrionario, de cuerpo curvado y ojo circular. ${MOOD_TEXT[mood]}`);
-      if (lastMood) say(MOOD_TEXT[mood]);
+      canvas.setAttribute('aria-label', t('pet.canvas.label', { mood: moodText(mood) }));
+      if (lastMood) say(moodText(mood));
       lastMood = mood;
     }
   };
@@ -284,11 +279,11 @@ export const init = (root) => {
     stats.forEach(({ key, label, bar, cells }) => {
       const on = state[key] > 0 ? Math.ceil(state[key] / 20) : 0;
       cells.forEach((cell, index) => cell.classList.toggle('is-on', index < on));
-      bar.setAttribute('aria-label', `${label} ${on} de ${cells.length}`);
+      bar.setAttribute('aria-label', t('pet.stat.level', { label, on, total: cells.length }));
     });
     if (sleepButton) {
       sleepButton.setAttribute('aria-pressed', String(state.sleeping));
-      sleepButton.textContent = state.sleeping ? 'Despertar' : 'Dormir';
+      sleepButton.textContent = t(state.sleeping ? 'pet.sleep.wake' : 'pet.sleep.sleep');
     }
   };
 
@@ -298,33 +293,33 @@ export const init = (root) => {
 
   const actions = {
     feed: () => {
-      if (state.sleeping) return MOOD_TEXT.sleep;
-      if (state.food >= 95) return 'No tiene hambre.';
+      if (state.sleeping) return moodText('sleep');
+      if (state.food >= 95) return t('pet.action.not_hungry');
       state.food = clamp(state.food + 30, 0, 100);
       state.joy = clamp(state.joy + 3, 0, 100);
       setAnim('eat', 1400);
       if (Math.random() < 0.4) poopAt = Date.now() + 12000;
-      return MOOD_TEXT.eat;
+      return moodText('eat');
     },
     play: () => {
-      if (state.sleeping) return MOOD_TEXT.sleep;
-      if (state.energy < 15) return 'ADAM necesita descansar antes de jugar.';
+      if (state.sleeping) return moodText('sleep');
+      if (state.energy < 15) return t('pet.action.rest_first');
       state.joy = clamp(state.joy + 25, 0, 100);
       state.energy = clamp(state.energy - 12, 0, 100);
       state.food = clamp(state.food - 5, 0, 100);
       setAnim('play', 1600);
-      return MOOD_TEXT.play;
+      return moodText('play');
     },
     sleep: () => {
       state.sleeping = !state.sleeping;
       anim = null;
-      return state.sleeping ? MOOD_TEXT.sleep : 'ADAM se ha despertado.';
+      return state.sleeping ? moodText('sleep') : t('pet.action.woke');
     },
     clean: () => {
-      if (!state.poop) return 'El cultivo est\u00e1 limpio.';
+      if (!state.poop) return t('pet.action.clean_already');
       state.poop = false;
       state.joy = clamp(state.joy + 5, 0, 100);
-      return 'Cultivo limpio.';
+      return t('pet.action.cleaned');
     },
   };
 
@@ -349,10 +344,10 @@ export const init = (root) => {
       poopAt = 0;
       if (!state.poop && !state.sleeping) {
         state.poop = true;
-        say('El cultivo necesita limpieza.');
+        say(t('pet.event.needs_cleaning'));
       }
     }
-    if (event) say(event);
+    if (event) say(t(event));
 
     renderStats();
     if (!document.hidden) draw(now);
@@ -373,8 +368,20 @@ export const init = (root) => {
     });
     resizeObserver.observe(canvas);
   }
+  const refreshLang = () => {
+    if (!root.isConnected) {
+      document.removeEventListener('app:lang-change', refreshLang);
+      return;
+    }
+    const now = performance.now();
+    lastMood = '';
+    renderStats();
+    draw(now);
+    say(moodText(moodOf(now)));
+  };
+  document.addEventListener('app:lang-change', refreshLang);
   renderStats();
   draw(performance.now());
-  say(MOOD_TEXT[moodOf(performance.now())]);
+  say(moodText(moodOf(performance.now())));
   window.setTimeout(step, PET_STEP_MS);
 };

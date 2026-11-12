@@ -1,4 +1,5 @@
 [
   { "name": "home", "path": "./", "description": "Inicio" },
-  { "name": "projects", "path": "projects.html", "description": "Todos los proyectos" }
+  { "name": "projects", "path": "projects.html", "description": "Todos los proyectos" },
+  { "name": "experience", "path": "experience.html", "description": "Experiencia y estudios" }
 ]

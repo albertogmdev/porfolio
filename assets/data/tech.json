@@ -28,7 +28,6 @@
   { "icon": "assets/icons/icon-tech-strapi.svg", "name": "Strapi", "url": "https://strapi.io/", "tags": ["cms"] },
   { "icon": "assets/icons/icon-tech-sanity.svg", "name": "Sanity", "url": "https://www.sanity.io/", "tags": ["cms"] },
   { "icon": "assets/icons/icon-tech-aws.svg", "name": "AWS", "url": "https://aws.amazon.com/", "tags": ["cloud"] },
-  { "icon": "assets/icons/icon-tech-shopify.svg", "name": "Oxygen", "url": "https://shopify.dev/docs/storefronts/headless/hydrogen/oxygen", "tags": ["cloud"] },
   { "icon": "assets/icons/icon-tech-mysql.svg", "name": "MySQL", "url": "https://www.mysql.com/", "tags": ["data"] },
   { "icon": "assets/icons/icon-tech-postgresql.svg", "name": "PostgreSQL", "url": "https://www.postgresql.org/", "tags": ["data"] },
   { "icon": "assets/icons/icon-tech-mongodb.svg", "name": "MongoDB", "url": "https://www.mongodb.com/", "tags": ["data"] },

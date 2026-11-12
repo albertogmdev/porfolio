@@ -39,6 +39,14 @@ export const init = async (root) => {
   const setAll = (value) => digits.forEach((digit) => (digit.dataset.value = value));
   setAll('-');
 
+  // El texto accesible sigue al idioma activo.
+  let labelState = ['counter.loading'];
+  const renderLabel = () => {
+    if (root.isConnected) label.textContent = window.i18n.t(...labelState);
+  };
+  document.addEventListener('app:lang-change', renderLabel);
+  renderLabel();
+
   // Animacion de los digitos
   let target = null;
   let ticks = 0;
@@ -58,7 +66,7 @@ export const init = async (root) => {
   try {
     const count = await getCount();
     target = String(count).padStart(DIGITS, '0').slice(-DIGITS);
-    label.textContent = `Visitas: ${count}`;
+    labelState = ['counter.visits', { count }];
     if (!timer) {
       digits.forEach((digit, i) => (digit.dataset.value = target[i]));
       root.dataset.state = 'ready';
@@ -66,7 +74,8 @@ export const init = async (root) => {
   } catch (error) {
     clearInterval(timer);
     setAll('-');
-    label.textContent = 'Visitas: no disponible';
+    labelState = ['counter.unavailable'];
     root.dataset.state = 'error';
   }
+  renderLabel();
 };

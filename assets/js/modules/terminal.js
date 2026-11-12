@@ -6,12 +6,13 @@ const HISTORY_MAX = 50;
 const SUDO_DELAY_MS = 700;
 const siteRoot = new URL('../../../', import.meta.url);
 
+const t = (...args) => window.i18n.t(...args);
+// Texto traducible diferido: print lo resuelve al imprimir y al cambiar de idioma.
+const tr = (key, vars) => () => t(key, vars);
+
 const THEME_ALIASES = { oscuro: 'dark', claro: 'light' };
-const DENIED = [
-  'Permiso denegado: visitor no est\u00e1 en el archivo sudoers. Este incidente ser\u00e1 reportado.',
-  'Acceso denegado. Intento de escalada de privilegios registrado.',
-  'Autenticaci\u00f3n fallida. Contramedidas activadas.',
-];
+const LANGS = ['es', 'en'];
+const DENIED_KEYS = ['terminal.denied.1', 'terminal.denied.2', 'terminal.denied.3'];
 
 const jsonCache = new Map();
 const loadJson = (file) => {
@@ -49,10 +50,10 @@ const go = ({ name, target, print, pages }) => {
   const page = pages.find((item) => item.name === target.toLowerCase());
   if (page) {
     if (page === currentPage(pages)) {
-      print(`Ya est\u00e1s en ${page.name}.`, 'muted');
+      print(tr('terminal.go.already', { page: page.name }), 'muted');
       return;
     }
-    print(`Navegando a ${page.name}...`);
+    print(tr('terminal.go.navigating', { page: page.name }));
     emit(APP_EVENTS.navigate, { url: new URL(page.path, siteRoot).href, source: 'terminal' });
     return;
   }
@@ -61,14 +62,14 @@ const go = ({ name, target, print, pages }) => {
     try {
       const url = new URL(target);
       window.open(url.href, '_blank', 'noopener,noreferrer');
-      print(`Abriendo ${url.href} en una pesta\u00f1a nueva...`);
+      print(tr('terminal.go.opening', { url: url.href }));
     } catch {
-      print(`${name}: URL no v\u00e1lida.`, 'error');
+      print(tr('terminal.go.invalid_url', { name }), 'error');
     }
     return;
   }
 
-  print(`${name}: '${target}' no existe. P\u00e1ginas: ${pageNames(pages)}`, 'error');
+  print(tr('terminal.go.not_found', { name, target, pages: pageNames(pages) }), 'error');
 };
 
 const cdTarget = (target) => {
@@ -80,60 +81,85 @@ const commands = [
   {
     name: 'help',
     usage: 'help',
-    description: 'Muestra los comandos disponibles',
+    get description() { return t('terminal.cmd.help.description'); },
     run: ({ print }) => {
-      print('Comandos disponibles:');
+      print(tr('terminal.help.title'));
       const compact = window.matchMedia('(max-width: 767px)').matches;
       const width = Math.max(...commands.map((command) => command.usage.length)) + 2;
-      commands.forEach((command) => print(compact
+      commands.forEach((command) => print(() => (compact
         ? `${command.usage} > ${command.description}`
-        : `  ${command.usage.padEnd(width)}${command.description}`));
-      print('Otros comandos de bash requieren un usuario administrador.', 'muted');
+        : `  ${command.usage.padEnd(width)}${command.description}`)));
+      print(tr('terminal.help.footer'), 'muted');
     },
   },
   {
     name: 'clear',
     usage: 'clear',
-    description: 'Limpia la terminal',
+    get description() { return t('terminal.cmd.clear.description'); },
     run: ({ clear }) => clear(),
   },
   {
     name: 'theme',
-    usage: 'theme [nombre]',
-    description: 'Cambia el tema',
+    get usage() { return t('terminal.cmd.theme.usage'); },
+    get description() { return t('terminal.cmd.theme.description'); },
     run: ({ args, print }) => {
       const themes = readThemes();
       const current = document.documentElement.dataset.theme;
       if (!args.length) {
-        print(`Tema actual: ${current}`);
-        print(`Disponibles: ${themes.join(', ')}`, 'muted');
-        print('Uso: theme [nombre]', 'muted');
+        print(tr('terminal.theme.current', { theme: current }));
+        print(tr('terminal.theme.available', { themes: themes.join(', ') }), 'muted');
+        print(tr('terminal.theme.usage'), 'muted');
         return;
       }
       const asked = args[0].toLowerCase();
       const theme = THEME_ALIASES[asked] || asked;
       if (!themes.includes(theme)) {
-        print(`theme: '${args[0]}' no existe. Disponibles: ${themes.join(', ')}`, 'error');
+        print(tr('terminal.theme.not_found', { target: args[0], themes: themes.join(', ') }), 'error');
         return;
       }
       if (theme === current) {
-        print(`El tema ya es ${theme}.`, 'muted');
+        print(tr('terminal.theme.already', { theme }), 'muted');
         return;
       }
       emit(APP_EVENTS.setTheme, { theme });
-      print(`Tema cambiado a ${theme}.`);
+      print(tr('terminal.theme.changed', { theme }));
+    },
+  },
+  {
+    name: 'lang',
+    usage: 'lang [es|en]',
+    get description() { return t('terminal.cmd.lang.description'); },
+    run: ({ args, print }) => {
+      const current = window.i18n.lang;
+      if (!args.length) {
+        print(tr('terminal.lang.current', { lang: current }));
+        print(tr('terminal.lang.available', { langs: LANGS.join(', ') }), 'muted');
+        print(tr('terminal.lang.usage'), 'muted');
+        return;
+      }
+      const lang = args[0].toLowerCase();
+      if (!LANGS.includes(lang)) {
+        print(tr('terminal.lang.not_found', { target: args[0], langs: LANGS.join(', ') }), 'error');
+        return;
+      }
+      if (lang === current) {
+        print(tr('terminal.lang.already', { lang }), 'muted');
+        return;
+      }
+      emit(APP_EVENTS.setLang, { lang });
+      print(tr('terminal.lang.changed', { lang }));
     },
   },
   {
     name: 'goto',
     aliases: ['navigate'],
-    usage: 'goto|navigate [p\u00e1gina]',
-    description: 'Navega a una p\u00e1gina o URL',
+    get usage() { return t('terminal.cmd.goto.usage'); },
+    get description() { return t('terminal.cmd.goto.description'); },
     run: ({ name, args, print, pages }) => {
       const target = args.join(' ').trim();
       if (!target) {
-        print('Uso: goto [p\u00e1gina|url]', 'muted');
-        print(`P\u00e1ginas: ${pageNames(pages)}`, 'muted');
+        print(tr('terminal.goto.usage'), 'muted');
+        print(tr('terminal.goto.pages', { pages: pageNames(pages) }), 'muted');
         return;
       }
       go({ name, target, print, pages });
@@ -141,8 +167,8 @@ const commands = [
   },
   {
     name: 'cd',
-    usage: 'cd [ruta]',
-    description: 'Como goto; cd .. vuelve a home',
+    get usage() { return t('terminal.cmd.cd.usage'); },
+    get description() { return t('terminal.cmd.cd.description'); },
     run: ({ name, args, print, pages }) => {
       const raw = args.join(' ').trim();
       if (/^\.\/?$/.test(raw)) return;
@@ -152,25 +178,25 @@ const commands = [
   {
     name: 'ls',
     usage: 'ls',
-    description: 'Lista las rutas disponibles',
+    get description() { return t('terminal.cmd.ls.description'); },
     run: ({ print, pages }) => {
       const here = currentPage(pages);
       const routes = here && here.name === 'home' ? pages.filter((page) => page.name !== 'home') : [];
-      if (!routes.length) print('(vac\u00edo)', 'muted');
+      if (!routes.length) print(tr('terminal.ls.empty'), 'muted');
       else print(routes.map((page) => `${page.name}/`).join('  '));
     },
   },
   {
     name: 'sudo',
     aliases: ['root', 'su'],
-    usage: 'sudo [comando]',
-    description: 'Ejecuta un comando como administrador',
+    get usage() { return t('terminal.cmd.sudo.usage'); },
+    get description() { return t('terminal.cmd.sudo.description'); },
     run: ({ name, print, root }) => {
-      if (name === 'su') print('Contrase\u00f1a: ********', 'muted');
-      else print('[sudo] contrase\u00f1a para visitor: ********', 'muted');
+      if (name === 'su') print(tr('terminal.sudo.password_su'), 'muted');
+      else print(tr('terminal.sudo.password'), 'muted');
       window.setTimeout(() => {
         if (!root.isConnected) return;
-        print(DENIED[Math.floor(Math.random() * DENIED.length)], 'error');
+        print(tr(DENIED_KEYS[Math.floor(Math.random() * DENIED_KEYS.length)]), 'error');
         emit(APP_EVENTS.intrusion);
       }, SUDO_DELAY_MS);
     },
@@ -222,16 +248,35 @@ export const init = (root) => {
     pagesCache = pages;
   });
 
+  const show = (line) => {
+    const text = typeof line.source === 'function' ? line.source() : line.source;
+    line.node.textContent = text === '' ? '\u00a0' : text;
+  };
+  const lines = new Map();
+
   const print = (text, kind = 'text') => {
-    const line = document.createElement('div');
-    line.className = `terminal-line terminal-line--${kind}`;
-    line.textContent = text === '' ? '\u00a0' : text;
-    output.append(line);
-    while (output.childElementCount > LINES_MAX) output.firstElementChild.remove();
+    const node = document.createElement('div');
+    node.className = `terminal-line terminal-line--${kind}`;
+    const line = { node, source: text };
+    show(line);
+    if (typeof text === 'function') lines.set(node, line);
+    output.append(node);
+    while (output.childElementCount > LINES_MAX) {
+      lines.delete(output.firstElementChild);
+      output.firstElementChild.remove();
+    }
     output.scrollTop = output.scrollHeight;
   };
 
-  const clear = () => output.replaceChildren();
+  const clear = () => {
+    lines.clear();
+    output.replaceChildren();
+  };
+
+  document.addEventListener('app:lang-change', () => {
+    if (!root.isConnected) return;
+    lines.forEach((line) => show(line));
+  });
 
   const prompt = root.querySelector('.terminal-prompt');
   const promptText = () => {
@@ -253,8 +298,8 @@ export const init = (root) => {
     const command = findCommand(name);
     if (!command) {
       const known = await loadShellCommands();
-      if (known.has(name)) print(`bash: ${name}: permiso denegado. Se necesita un usuario administrador para ejecutarlo.`, 'error');
-      else print(`bash: ${name}: comando no reconocido. Escribe 'help'.`, 'error');
+      if (known.has(name)) print(tr('terminal.bash.denied', { name }), 'error');
+      else print(tr('terminal.bash.unknown', { name }), 'error');
       return;
     }
     const pages = await loadPages();
@@ -267,6 +312,7 @@ export const init = (root) => {
     let pool = [];
     if (parts.length === 1) pool = commands.flatMap((command) => [command.name, ...(command.aliases || [])]);
     else if (parts[0].toLowerCase() === 'theme') pool = readThemes();
+    else if (parts[0].toLowerCase() === 'lang') pool = LANGS;
     else if (['goto', 'navigate'].includes(parts[0].toLowerCase())) pool = pagesCache.map((page) => page.name);
     else if (parts[0].toLowerCase() === 'cd') pool = ['..', ...pagesCache.map((page) => page.name)];
 
@@ -329,5 +375,5 @@ export const init = (root) => {
   }
 
   print('albertogmdev terminal v1.0');
-  print("Escribe 'help' para ver los comandos.", 'muted');
+  print(tr('terminal.welcome.hint'), 'muted');
 };

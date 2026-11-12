@@ -15,7 +15,9 @@
 @use 'components/atoms/button-pixel';
 
 @use 'components/molecules/section-header';
+@use 'components/molecules/card-copy';
 @use 'components/molecules/card-project';
+@use 'components/molecules/card-experience';
 @use 'components/molecules/card-contact';
 @use 'components/molecules/theme-switcher';
 @use 'components/molecules/tabs-filter';
@@ -36,6 +38,7 @@
 @use 'components/organisms/section-about';
 @use 'components/organisms/section-contact';
 @use 'components/organisms/section-projects';
+@use 'components/organisms/section-experience';
 @use 'components/organisms/section-stack';
 @use 'components/organisms/section-cta';
 @use 'components/organisms/theme-eva';

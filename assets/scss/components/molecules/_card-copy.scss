@@ -1,0 +1,30 @@
+@use '../../abstracts' as *;
+
+// Tipografia de texto compartida por las fichas (proyectos y experiencia).
+.card-project,
+.card-experience {
+  .card-heading {
+    min-width: 0;
+  }
+
+  .card-title {
+    color: $textPrimary;
+    overflow-wrap: anywhere;
+    font-size: rem($font-size-subtitle);
+    font-weight: 600;
+    line-height: rem($line-height-subtitle);
+  }
+
+  .card-subtitle {
+    color: $textTertiary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+    overflow-wrap: anywhere;
+  }
+
+  .card-text {
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+  }
+}

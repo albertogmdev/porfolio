@@ -1,0 +1,38 @@
+[
+  {
+    "group": "work",
+    "role": { "es": "Puesto provisional", "en": "Placeholder role" },
+    "org": { "es": "Empresa provisional", "en": "Placeholder company" },
+    "location": { "es": "Madrid, España", "en": "Madrid, Spain" },
+    "period": { "es": "2022 — Actualidad", "en": "2022 — Present" },
+    "description": {
+      "es": "Descripción provisional de las responsabilidades y logros del puesto.",
+      "en": "Placeholder description of the role's responsibilities and achievements."
+    },
+    "tags": ["HTML", "JavaScript"]
+  },
+  {
+    "group": "work",
+    "role": { "es": "Puesto provisional", "en": "Placeholder role" },
+    "org": { "es": "Empresa provisional", "en": "Placeholder company" },
+    "location": { "es": "Madrid, España", "en": "Madrid, Spain" },
+    "period": { "es": "2019 — 2022", "en": "2019 — 2022" },
+    "description": {
+      "es": "Descripción provisional de las responsabilidades y logros del puesto.",
+      "en": "Placeholder description of the role's responsibilities and achievements."
+    },
+    "tags": []
+  },
+  {
+    "group": "education",
+    "role": { "es": "Titulación provisional", "en": "Placeholder degree" },
+    "org": { "es": "Centro de estudios provisional", "en": "Placeholder school" },
+    "location": { "es": "Madrid, España", "en": "Madrid, Spain" },
+    "period": { "es": "2015 — 2019", "en": "2015 — 2019" },
+    "description": {
+      "es": "Descripción provisional de los estudios.",
+      "en": "Placeholder description of the studies."
+    },
+    "tags": []
+  }
+]

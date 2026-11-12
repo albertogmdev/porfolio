@@ -1,11 +1,13 @@
 @use '../../abstracts' as *;
 
-.theme-switcher {
+.theme-switcher,
+.lang-switcher {
   position: relative;
   display: inline-flex;
   align-items: center;
 
-  .theme-toggle {
+  .theme-toggle,
+  .lang-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +38,8 @@
     }
   }
 
-  .theme-menu {
+  .theme-menu,
+  .lang-menu {
     @include list-reset;
     position: absolute;
     top: calc(100% + #{rem($space-1-5)});
@@ -57,7 +60,8 @@
     }
   }
 
-  .theme-option {
+  .theme-option,
+  .lang-option {
     display: flex;
     align-items: center;
     gap: rem($space-2);
@@ -103,5 +107,9 @@
         outline-color: $buttonText;
       }
     }
+  }
+
+  .lang-menu {
+    min-width: rem(72px);
   }
 }
