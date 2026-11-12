@@ -1,11 +1,9 @@
 @use '../../abstracts' as *;
 
 $terminal-form-height: 24px;
-$terminal-form-height-touch: 32px;
-$terminal-input-size-touch: 16px;
+$terminal-input-size-touch: 11px;
 $terminal-output-size-touch: 10px;
 $terminal-line-height-touch: 14px;
-$terminal-stack-width: 420px;
 
 .terminal-body {
   display: flex;
@@ -65,21 +63,16 @@ $terminal-stack-width: 420px;
     flex: none;
     align-items: center;
     gap: rem($space-2);
-    min-height: rem($terminal-form-height-touch);
     border-bottom: 1px solid transparent;
-
-    @media (max-width: #{$terminal-stack-width - 0.02px}) {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-    }
 
     @include up(md) {
       min-height: rem($terminal-form-height);
     }
 
     @include down(md) {
-      gap: rem($space-1);
+      display: block;
+      position: relative;
+      padding-block: rem($space-0-5);
     }
 
     &:focus-within {
@@ -94,7 +87,11 @@ $terminal-stack-width: 420px;
     white-space: nowrap;
 
     @include down(md) {
-      font-size: rem($terminal-output-size-touch);
+      position: absolute;
+      top: rem($space-0-5);
+      left: 0;
+      pointer-events: none;
+      font-size: rem($terminal-input-size-touch);
       line-height: rem($terminal-line-height-touch);
     }
   }
@@ -110,16 +107,16 @@ $terminal-stack-width: 420px;
     color: $textPrimary;
     font: inherit;
     outline: none;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    resize: none;
 
     @include down(md) {
-      min-height: rem($terminal-form-height-touch);
-      font-size: rem($terminal-input-size-touch);
-    }
-
-    @media (max-width: #{$terminal-stack-width - 0.02px}) {
-      flex: none;
+      display: block;
       width: 100%;
-      min-height: rem($terminal-form-height-touch);
+      text-indent: var(--terminal-prompt-width, 0px);
+      font-size: rem($terminal-input-size-touch);
+      line-height: rem($terminal-line-height-touch);
     }
   }
 }

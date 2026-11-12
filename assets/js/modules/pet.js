@@ -14,7 +14,7 @@ const GRID_WIDTH = 32;
 const GRID_HEIGHT = 36;
 const EYE_CELL = { x: 21.5, y: 16 };
 const GLYPH_SCALE = 2;
-const BRACKET_CSS = { thickness: 3, length: 18, inset: 6 };
+const BRACKET_CSS = { thickness: 3, length: 18, inset: 0 };
 const GLYPHS = {
   sync: ['..#..', '.#.#.', '#.#.#', '.#.#.', '..#..'],
   food: ['...##...', '...##...', '..####..', '..####..', '.######.', '.######.', '########', '########', '.######.', '..####..'],

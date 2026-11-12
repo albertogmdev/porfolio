@@ -1,22 +1,32 @@
 @use '../../abstracts' as *;
 
-.terminal-dock {
-  position: relative;
-  height: rem($terminal-dock-height-mobile + $section-gutter * 2);
-  margin-bottom: rem($band-height + $space-2 * 2);
-  padding: rem($section-gutter);
+// Zona superior de las paginas interiores: Volver -> divider -> terminal -> divider.
+// `.main` reserva navbar + 4px y el navbar mide navbar + 1px (borde incluido): 3px de hueco que el dock absorbe
+// para que el enlace Volver quede a $section-gutter del borde del navbar, igual que bajo el (hasta el divider).
+$dock-navbar-gap: ($navbar-height + 4px) - ($navbar-height + 1px);
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    height: rem($band-height);
-    margin-top: rem($space-2);
-    @include full-bleed-band;
+.terminal-dock {
+  margin-top: rem(-$dock-navbar-gap);
+
+  .dock-nav {
+    display: flex;
+    align-items: center;
+    padding: rem($section-gutter);
   }
 
-  @include up(md) {
-    height: rem($terminal-dock-height + $section-gutter * 2);
+  .terminal-dock-slot {
+    height: rem($terminal-dock-height-mobile + $section-gutter * 2);
+    padding: rem($section-gutter);
+
+    @include up(md) {
+      height: rem($terminal-dock-height + $section-gutter * 2);
+    }
+  }
+
+  // La terminal ya aporta 12px de padding: la banda inferior no suma margen superior (12px exactos hasta la banda).
+  // El margen inferior de cada tema se conserva. EVA lo refuerza en `_theme-eva.scss` por orden de carga.
+  .divider--band {
+    margin-top: 0;
   }
 
   &[hidden] {

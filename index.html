@@ -61,7 +61,17 @@
       <div class="view-loader" role="status" hidden>
         <span class="visually-hidden">Cargando…</span>
       </div>
-      <div class="terminal-dock" id="terminal-dock" hidden></div>
+      <div class="terminal-dock" id="terminal-dock" hidden>
+        <div class="dock-nav">
+          <a class="link-back" href="./" data-link>
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+            <span class="link-back-label">Volver</span>
+          </a>
+        </div>
+        <div class="divider divider--line" aria-hidden="true"></div>
+        <div class="terminal-dock-slot"></div>
+        <div class="divider divider--band" aria-hidden="true"></div>
+      </div>
       <div class="view" id="view" aria-busy="false">
         <div class="panel panel-home" data-panel="home" data-title="Inicio — Alberto Gonzalez">
 
@@ -105,7 +115,7 @@
                     <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
                     <form class="terminal-form" autocomplete="off">
                       <label class="terminal-prompt" for="terminal-input">visitor@portfolio:/$</label>
-                      <input class="terminal-input" id="terminal-input" type="text" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send">
+                      <textarea class="terminal-input" id="terminal-input" rows="1" wrap="soft" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send"></textarea>
                     </form>
                   </div>
                 </article>

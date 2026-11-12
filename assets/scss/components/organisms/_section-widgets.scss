@@ -1,6 +1,6 @@
 @use '../../abstracts' as *;
 
-$eye-max-height: 280px;
+$eye-max-height: 190px;
 
 .section-widgets {
   padding: rem($section-gutter);
@@ -18,10 +18,11 @@ $eye-max-height: 280px;
     .window {
       align-self: stretch;
 
+      // Ojo (mobile/tablet): relacion 2/1 con tope de alto; la mascota se ajusta a su contenido.
       &:not(.window--wide):not(.window--terminal) {
         width: 100%;
         max-height: rem($eye-max-height);
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 2 / 1;
 
         @include up(md) {
           max-height: none;

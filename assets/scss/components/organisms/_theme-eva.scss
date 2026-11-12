@@ -78,7 +78,7 @@ $eva-stripe-width: 12px;
     justify-content: flex-start;
     gap: rem($space-2) rem($space-3);
     min-height: rem(56px);
-    padding-block: rem($space-2);
+    padding: rem($section-gutter);
     border-top: 1px solid var(--eva-line);
     background-color: transparent;
 
@@ -154,6 +154,18 @@ $eva-stripe-width: 12px;
     text-transform: uppercase;
   }
 
+  .link-back {
+    font-family: $eva-font-display;
+    font-size: rem(16px);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    border-radius: 0;
+
+    &:hover {
+      color: var(--eva-ink);
+    }
+  }
+
   .divider--line::after {
     border-top-style: solid;
   }
@@ -184,6 +196,17 @@ $eva-stripe-width: 12px;
     }
   }
 
+  // Banda del terminal-dock: 12px exactos desde la terminal (su padding) y pegada a la cabecera de la vista.
+  .terminal-dock .divider--band {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  // Linea bajo el terminal-dock: sin doble linea con la cabecera de la vista.
+  .terminal-dock:not([hidden]) + .view .section-header {
+    border-top: 0;
+  }
+
   // Siguientes sin cabecera: conservan 12px bajo la banda.
   .divider--band + .section-widgets {
     margin-top: rem($space-3);
@@ -192,8 +215,13 @@ $eva-stripe-width: 12px;
   .footer .divider--band {
     margin-bottom: rem($space-3);
 
+    // El footer conserva el padding del container en movil (12px) y 8px desde md: la banda llega a sus bordes interiores.
     &::before {
       inset-inline: rem(-$section-gutter);
+
+      @include up(md) {
+        inset-inline: rem(-$space-2);
+      }
     }
   }
 
@@ -363,19 +391,6 @@ $eva-stripe-width: 12px;
   }
 
   .pet-layout {
-    // Sin borde en la caja: el padding completa los 8px de inset del ojo.
-    @include up(md) {
-      padding: rem($space-2);
-    }
-
-    // Sin recuadro propio: solo las esquinas del canvas, como el ojo.
-    .pet-screen {
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background-color: transparent;
-    }
-
     .pet-canvas {
       color: $textPrimary;
     }

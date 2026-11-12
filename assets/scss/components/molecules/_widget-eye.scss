@@ -16,13 +16,6 @@
     image-rendering: pixelated;
     object-fit: contain;
     transition: none;
-
-    @include down(md) {
-      top: rem($section-gutter);
-      left: rem($section-gutter);
-      width: calc(100% - #{rem($section-gutter * 2)});
-      height: calc(100% - #{rem($section-gutter * 2)});
-    }
   }
 }
 

@@ -62,20 +62,30 @@
         <span class="visually-hidden">Cargando…</span>
       </div>
       <div class="terminal-dock" id="terminal-dock">
-        <article class="window window--terminal" data-widget="terminal" aria-label="Terminal">
-          <header class="window-bar">
-            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="window-name">terminal.sh</span>
-            <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Terminal">端末</span>
-          </header>
-          <div class="window-body terminal-body">
-            <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
-            <form class="terminal-form" autocomplete="off">
-              <label class="terminal-prompt" for="terminal-input">visitor@portfolio:/projects$</label>
-              <input class="terminal-input" id="terminal-input" type="text" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send">
-            </form>
-          </div>
-        </article>
+        <div class="dock-nav">
+          <a class="link-back" href="./" data-link>
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+            <span class="link-back-label">Volver</span>
+          </a>
+        </div>
+        <div class="divider divider--line" aria-hidden="true"></div>
+        <div class="terminal-dock-slot">
+          <article class="window window--terminal" data-widget="terminal" aria-label="Terminal">
+            <header class="window-bar">
+              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="window-name">terminal.sh</span>
+              <span class="eva-mark eva-window-mark" lang="ja" aria-hidden="true" title="Terminal">端末</span>
+            </header>
+            <div class="window-body terminal-body">
+              <div class="terminal-output" role="log" aria-label="Salida de la terminal" aria-live="polite" tabindex="0"></div>
+              <form class="terminal-form" autocomplete="off">
+                <label class="terminal-prompt" for="terminal-input">visitor@portfolio:/projects$</label>
+                <textarea class="terminal-input" id="terminal-input" rows="1" wrap="soft" spellcheck="false" autocapitalize="none" autocomplete="off" autocorrect="off" enterkeyhint="send"></textarea>
+              </form>
+            </div>
+          </article>
+        </div>
+        <div class="divider divider--band" aria-hidden="true"></div>
       </div>
       <div class="view" id="view" aria-busy="false">
         <div class="panel panel-projects" data-panel="projects" data-title="Proyectos — Alberto Gonzalez">
@@ -93,7 +103,7 @@
     </main>
 
     <footer class="footer container">
-      <div class="divider divider--band divider--mobile-only" aria-hidden="true"></div>
+      <div class="divider divider--band" aria-hidden="true"></div>
       <div class="footer-container">
         <p class="footer-text">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
         <p class="footer-text">© 2026 Todos los derechos reservados.</p>

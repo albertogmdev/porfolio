@@ -10,9 +10,12 @@ const BLINK_MS = 180;
 const ALERT_MS = 2000;
 const ALERT_BLINKS = [0, 330, 660];
 const ALERT_JITTER_MS = 110;
+const BRACKET_CSS = { thickness: 3, length: 18 };
 
-const drawEye = (ctx, ink, look, blink) => {
-  ctx.clearRect(0, 0, EYE_SIZE, EYE_SIZE);
+const drawEye = (ctx, ink, look, blink, scale, extra) => {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, EYE_SIZE + extra * 2, EYE_SIZE);
+  ctx.translate(extra, 0);
   ctx.fillStyle = ink;
 
   const aperture = new Array(EYE_SIZE);
@@ -75,11 +78,16 @@ const drawEye = (ctx, ink, look, blink) => {
       pixel(x, y + sy * i);
     }
   };
+  // Esquinas a ras del canvas y con el mismo grosor/largo en px CSS que las de la mascota.
+  const thickness = Math.max(1, Math.round(BRACKET_CSS.thickness / scale));
+  const length = Math.max(thickness + 1, Math.round(BRACKET_CSS.length / scale));
+  const last = EYE_SIZE - 1;
+  const first = -extra;
+  const end = last + extra;
   ctx.globalAlpha = 0.7;
-  bracket(2, 2, 1, 1, 6);
-  bracket(EYE_SIZE - 3, 2, -1, 1, 6);
-  bracket(2, EYE_SIZE - 3, 1, -1, 6);
-  bracket(EYE_SIZE - 3, EYE_SIZE - 3, -1, -1, 6);
+  [[first, 0, 1, 1], [end, 0, -1, 1], [first, last, 1, -1], [end, last, -1, -1]].forEach(([x, y, dx, dy]) => {
+    for (let t = 0; t < thickness; t += 1) bracket(x + dx * t, y + dy * t, dx, dy, length);
+  });
   ctx.globalAlpha = 1;
   bracket(irisX - 8, irisY - 6, 1, 1, 3);
   bracket(irisX + 8, irisY - 6, -1, 1, 3);
@@ -104,7 +112,15 @@ export const init = (root) => {
     return t >= 0 && t <= 1 ? 1 - Math.abs(2 * t - 1) : 0;
   };
 
-  const render = (now) => drawEye(ctx, inkOf(canvas), look, blinkAmount(now));
+  // El bitmap crece a los lados hasta la proporcion de la caja: el ojo conserva su tamano y las esquinas llegan a los bordes.
+  const render = (now) => {
+    const { clientWidth, clientHeight } = canvas;
+    const extra = clientWidth && clientHeight ? clamp(Math.round((EYE_SIZE * clientWidth / clientHeight - EYE_SIZE) / 2), 0, EYE_SIZE * 2) : 0;
+    const width = EYE_SIZE + extra * 2;
+    if (canvas.width !== width) canvas.width = width;
+    const scale = (clientHeight ? Math.min(clientHeight, (clientWidth * EYE_SIZE) / width) : EYE_SIZE * 2) / EYE_SIZE;
+    drawEye(ctx, inkOf(canvas), look, blinkAmount(now), scale, extra);
+  };
   const alerting = () => performance.now() < alertUntil;
 
   const frame = (now) => {
@@ -171,6 +187,17 @@ export const init = (root) => {
 
   watchTheme(root, () => render(performance.now()));
   render(performance.now());
+
+  if ('ResizeObserver' in window) {
+    const resizeObserver = new ResizeObserver(() => {
+      if (!root.isConnected) {
+        resizeObserver.disconnect();
+        return;
+      }
+      render(performance.now());
+    });
+    resizeObserver.observe(canvas);
+  }
 
   const onMove = (event) => {
     if (!root.isConnected) {

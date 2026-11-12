@@ -859,6 +859,7 @@
   /* Terminal persistente: un único elemento que se muda entre el slot de la home y el dock de las páginas interiores. */
   const initTerminalDock = (view) => {
     const dock = document.getElementById('terminal-dock');
+    const dockSlot = dock?.querySelector('.terminal-dock-slot');
     const findTerminal = () => document.querySelector('[data-widget="terminal"]');
     const focusInput = (terminal) => terminal.querySelector('.terminal-input')?.focus({ preventScroll: true });
     const box = (rect) => ({ transform: `translate(${rect.left}px, ${rect.top}px)`, width: `${rect.width}px`, height: `${rect.height}px` });
@@ -916,9 +917,9 @@
 
       place: (panel) => {
         const terminal = findTerminal();
-        const host = panel.querySelector('[data-terminal-slot]') || dock;
+        const host = panel.querySelector('[data-terminal-slot]') || dockSlot;
         if (!terminal || !host) return;
-        if (dock) dock.hidden = host !== dock;
+        if (dock) dock.hidden = host !== dockSlot;
         if (flight && flight.host) endFlight();
 
         if (flight && flight.terminal === terminal) {

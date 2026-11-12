@@ -1,0 +1,35 @@
+@use '../../abstracts' as *;
+
+.link-back {
+  display: inline-flex;
+  align-items: center;
+  gap: rem($space-1);
+  min-height: rem($space-6);
+  border-radius: $radius-sm;
+  color: $textSecondary;
+  font-size: rem($font-size-body);
+  line-height: rem($line-height-body);
+  text-decoration: none;
+  @include transition($duration-base, color);
+
+  .icon {
+    flex: none;
+    width: rem($icon-size-sm);
+    height: rem($icon-size-sm);
+    @include transition($duration-base, transform);
+  }
+
+  &:hover {
+    color: $textPrimary;
+
+    .icon {
+      @include motion-safe {
+        transform: translateX(-2px);
+      }
+    }
+
+    @include theme-bash {
+      text-shadow: $text-glow;
+    }
+  }
+}

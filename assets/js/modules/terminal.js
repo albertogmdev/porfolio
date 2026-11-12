@@ -1,4 +1,4 @@
-import { APP_EVENTS, emit } from '../utils.js';
+import { APP_EVENTS, clamp, emit } from '../utils.js';
 
 const PROMPT_USER = 'visitor@portfolio';
 const LINES_MAX = 200;
@@ -190,6 +190,31 @@ export const init = (root) => {
     if (touchMode.matches && document.activeElement === input) input.blur();
   };
 
+  // El textarea reemplaza al input para que un comando largo pase a la linea siguiente; crece por filas, sin estilos inline.
+  const INPUT_ROWS_MAX = 6;
+  // En mobile el prompt se superpone al textarea y su ancho se publica como sangria de la 1ª linea; en desktop la sangria no se usa.
+  const PROMPT_GAP = 4;
+  const publishPromptWidth = () => {
+    const prompt = root.querySelector('.terminal-prompt');
+    if (prompt) form.style.setProperty('--terminal-prompt-width', `${Math.ceil(prompt.getBoundingClientRect().width) + PROMPT_GAP}px`);
+  };
+  const fitInput = () => {
+    publishPromptWidth();
+    input.rows = 1;
+    const lineHeight = parseFloat(getComputedStyle(input).lineHeight) || parseFloat(getComputedStyle(input).fontSize) * 1.2;
+    input.rows = clamp(Math.round(input.scrollHeight / lineHeight), 1, INPUT_ROWS_MAX);
+  };
+  const setInput = (value) => {
+    input.value = value;
+    fitInput();
+  };
+  input.addEventListener('input', () => {
+    if (/[\r\n]/.test(input.value)) input.value = input.value.replace(/[\r\n]+/g, ' ');
+    fitInput();
+  });
+  window.addEventListener('resize', fitInput);
+  input.addEventListener('focus', fitInput);
+
   const history = [];
   let historyIndex = 0;
   let pagesCache = [];
@@ -216,6 +241,7 @@ export const init = (root) => {
   };
   const updatePrompt = () => {
     if (prompt) prompt.textContent = promptText();
+    fitInput();
   };
   updatePrompt();
   document.addEventListener('panel:ready', updatePrompt);
@@ -247,7 +273,7 @@ export const init = (root) => {
     const matches = pool.filter((candidate) => candidate.startsWith(last));
     if (matches.length === 1) {
       parts[parts.length - 1] = matches[0];
-      input.value = `${parts.join(' ')} `;
+      setInput(`${parts.join(' ')} `);
     } else if (matches.length > 1) {
       print(matches.join('  '), 'muted');
     }
@@ -256,7 +282,7 @@ export const init = (root) => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const line = input.value.trim();
-    input.value = '';
+    setInput('');
     dismissKeyboard();
     if (!line) return;
     history.push(line);
@@ -266,14 +292,17 @@ export const init = (root) => {
   });
 
   input.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowUp' && history.length) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      form.requestSubmit();
+    } else if (event.key === 'ArrowUp' && history.length) {
       event.preventDefault();
       historyIndex = Math.max(0, historyIndex - 1);
-      input.value = history[historyIndex];
+      setInput(history[historyIndex]);
     } else if (event.key === 'ArrowDown') {
       event.preventDefault();
       historyIndex = Math.min(history.length, historyIndex + 1);
-      input.value = history[historyIndex] || '';
+      setInput(history[historyIndex] || '');
     } else if (event.key === 'Tab') {
       event.preventDefault();
       complete();
