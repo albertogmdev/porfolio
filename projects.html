@@ -89,9 +89,14 @@
         <div class="panel panel-projects" data-panel="projects" data-title="Proyectos — Alberto Gonzalez" data-title-key="meta.title.projects">
 
           <section class="section-projects" aria-labelledby="projects-title">
-            <div class="section-header">
+            <div class="section-header section-header--stack">
               <h1 class="title-section" id="projects-title" data-i18n="projects.title">Proyectos</h1>
               <span class="eva-mark" lang="ja" aria-hidden="true" title="Registro" data-i18n-attr="title:kanji.record">記録</span>
+              <div class="tabs-filter" role="group" aria-label="Filtrar por tipo" data-i18n-attr="aria-label:projects.filter">
+                <button class="tab-filter is-active" type="button" data-filter="all" aria-pressed="true" data-i18n="stack.all">Todos</button>
+                <button class="tab-filter" type="button" data-filter="work" aria-pressed="false" data-i18n="projects.type.work">Trabajo</button>
+                <button class="tab-filter" type="button" data-filter="personal" aria-pressed="false" data-i18n="projects.type.personal">Personal</button>
+              </div>
             </div>
             <ul class="projects-grid" data-source="projects" aria-busy="true"></ul>
           </section>

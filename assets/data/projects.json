@@ -10,7 +10,8 @@
     },
     "tags": [
       "HTML",
-      "JavaScript"
+      "JavaScript",
+      "CSS"
     ],
     "image": "assets/images/cruzcampo-screenshot.png",
     "video": "assets/video/cruzcampo-video.mp4",
@@ -108,7 +109,11 @@
       "es": "Web de marca de cerveza con identidad muy marcada y contenido pensado para campañas.",
       "en": "Beer brand website with a strong identity and content designed for campaigns."
     },
-    "tags": [],
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
     "image": "assets/images/elaguila-screenshot.png",
     "video": "assets/video/elaguila-video.mp4",
     "links": {
@@ -216,6 +221,128 @@
     "video": "assets/video/farmacias-video.mp4",
     "links": {
       "live": "https://www.farmaciasdirect.es/"
+    }
+  },
+  {
+    "title": "Webscavul",
+    "type": "personal",
+    "featured": false,
+    "description": {
+      "es": "Escáner de vulnerabilidades web que identifica, reporta y gestiona fallos de seguridad comunes en aplicaciones. Desarrollado con Python en la API y Next.js en la aplicación web, y documentado en un PDF adjunto.",
+      "en": "Web vulnerability scanner that identifies, reports and manages common security flaws in web applications. Built with Python for the API and Next.js for the web app, with an attached PDF document."
+    },
+    "tags": [
+      "Python",
+      "Next.js"
+    ],
+    "image": "assets/images/webscavul-screenshot.png",
+    "previews": [
+      "assets/images/webscavul-screenshot1.png",
+      "assets/images/webscavul-screenshot2.png",
+      "assets/images/webscavul-screenshot3.png"
+    ],
+    "links": {
+      "code": "https://github.com/albertogmdev/webscavul",
+      "file": "assets/files/webscavul.pdf"
+    }
+  },
+  {
+    "title": "Bnomio Studio",
+    "type": "personal",
+    "featured": false,
+    "description": {
+      "es": "Web de un estudio de diseño nómada y consultoría creativa, con sus proyectos recientes y su identidad. Tema a medida para WordPress en PHP.",
+      "en": "Website for a nomad design studio and creative consultancy, showcasing its recent projects and identity. Custom WordPress theme built in PHP."
+    },
+    "tags": [
+      "PHP",
+      "WordPress",
+      "Carbon Fields"
+    ],
+    "image": "assets/images/bnomiostudio-screenshot.png",
+    "video": "assets/video/bnomiostudio-video.mp4",
+    "links": {
+      "live": "https://www.bnomio.com/",
+      "code": "https://github.com/albertogmdev/binomio-portfolio"
+    }
+  },
+  {
+    "title": "Hayunlugar",
+    "type": "personal",
+    "featured": false,
+    "description": {
+      "es": "Web de espíritu minimalista que invita a volver a lo primario, a la esencia.",
+      "en": "Minimalist website that invites people to return to the primal, to the essence."
+    },
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "image": "assets/images/hayunlugar-screenshot.png",
+    "video": "assets/video/hayunlugar-video.mp4",
+    "links": {
+      "live": "https://hayunlugar.com/"
+    }
+  },
+  {
+    "title": "LaTulipana",
+    "type": "personal",
+    "featured": false,
+    "description": {
+      "es": "Web de un estudio floral que trabaja de forma cercana a la naturaleza y la temporada. Identidad visual, diseño UX/UI y desarrollo para mostrar sus servicios, talleres y encargos a medida.",
+      "en": "Website for a floral studio that works closely with nature and the seasons. Visual identity, UX/UI design and development to showcase its services, workshops and bespoke commissions."
+    },
+    "tags": [
+      "Squarespace",
+      "HTML",
+      "JavaScript"
+    ],
+    "image": "assets/images/latulipana-screenshot.png",
+    "video": "assets/video/latulipana-video.mp4",
+    "links": {
+      "live": "https://www.latulipana.com/"
+    }
+  },
+  {
+    "title": "Word Counter",
+    "type": "personal",
+    "featured": false,
+    "description": {
+      "es": "Aplicación donde pegas un texto y obtienes información detallada sobre él o lo conviertes a distintos formatos. Publicada en GitHub Pages.",
+      "en": "App where you paste a text to get detailed information about it or convert it to different formats. Hosted on GitHub Pages."
+    },
+    "tags": [
+      "Astro",
+      "HTML",
+      "JavaScript"
+    ],
+    "image": "assets/images/wordcounter-screenshot.png",
+    "video": "assets/video/wordcounter-video.mp4",
+    "links": {
+      "live": "https://albertogmdev.github.io/word-counter/",
+      "code": "https://github.com/albertogmdev/word-counter"
+    }
+  },
+  {
+    "title": "Bomose",
+    "type": "personal",
+    "featured": false,
+    "description": {
+      "es": "Proyecto personal. Más información en el PDF adjunto.",
+      "en": "Personal project. More information in the attached PDF."
+    },
+    "tags": [
+      "Springboot",
+      "React"
+    ],
+    "image": "assets/images/bomose-screenshot.png",
+    "previews": [
+      "assets/images/bomose-screenshot1.png",
+      "assets/images/bomose-screenshot2.png"
+    ],
+    "links": {
+      "file": "assets/files/bomose.pdf"
     }
   }
 ]

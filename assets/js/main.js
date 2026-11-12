@@ -614,6 +614,7 @@
     const links = project.links || {};
     const live = safeUrl(links.live);
     const code = safeUrl(links.code);
+    const file = safeAsset(links.file);
     const image = safeAsset(project.image);
     const mobileImage = safeAsset(project.mobileImage);
     const videoUrl = safeAsset(project.video);
@@ -736,6 +737,7 @@
     [
       [live, 'globe', t('projects.live', { title })],
       [code, 'github', t('projects.code', { title })],
+      [file, 'paperclip', t('projects.file', { title })],
     ].forEach(([href, icon, label]) => {
       if (!href) return;
       const action = createElement('a', 'button-icon');
@@ -771,7 +773,10 @@
 
   const renderProjects = (list, items) => {
     const fragment = document.createDocumentFragment();
-    const visible = list.hasAttribute('data-featured') ? items.filter((project) => project.featured === true) : items;
+    const type = list.dataset.type;
+    const visible = items
+      .filter((project) => !list.hasAttribute('data-featured') || project.featured === true)
+      .filter((project) => !type || type === 'all' || project.type === type);
     visible.forEach((project, index) => {
       const card = createProjectCard(project, index);
       if (card) fragment.append(card);
@@ -990,7 +995,7 @@
   /* Filtros del stack: delegación en document para que sigan activos tras cambiar de panel. */
   const initStackFilter = () => {
     const applyFilter = (button) => {
-      const section = button.closest('.section-stack');
+      const section = button.closest('.section-stack, .section-projects');
       if (!section) return;
 
       const filter = button.dataset.filter;
@@ -999,6 +1004,20 @@
         tab.classList.toggle('is-active', active);
         tab.setAttribute('aria-pressed', String(active));
       });
+
+      // Proyectos: se vuelve a pintar la lista para que los bordes de la rejilla sigan la posición real de cada card.
+      const projects = section.querySelector('[data-source="projects"]');
+      if (projects) {
+        projects.dataset.type = filter;
+        stopProjectPreview();
+        loadData('projects')
+          .then((items) => {
+            if (projects.isConnected) renderProjects(projects, items);
+          })
+          .catch((error) => console.error(error));
+        return;
+      }
+
       section.querySelectorAll('.stack-item').forEach((item) => {
         item.hidden = filter !== 'all' && !item.dataset.tags.split(' ').includes(filter);
       });

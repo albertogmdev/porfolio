@@ -594,5 +594,21 @@
   "duration.months": {
     "es": "{n} meses",
     "en": "{n} mos"
+  },
+  "projects.file": {
+    "es": "Ver documento PDF de {title}",
+    "en": "View PDF document of {title}"
+  },
+  "projects.filter": {
+    "es": "Filtrar por tipo",
+    "en": "Filter by type"
+  },
+  "projects.type.work": {
+    "es": "Trabajo",
+    "en": "Work"
+  },
+  "projects.type.personal": {
+    "es": "Personal",
+    "en": "Personal"
   }
 }
