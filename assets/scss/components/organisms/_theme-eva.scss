@@ -142,6 +142,51 @@ $eva-stripe-width: 12px;
       box-shadow: none;
     }
   }
+  // Ultima fila de cards cerrada por abajo (solo EVA). Los selectores replican las reglas globales que quitan
+  // el borde inferior de la ultima fila y las superan en especificidad.
+  .section-projects:has(+ .divider--band) .projects-item:last-child .card-project,
+  .section-projects:has(+ .divider--band) .projects-item:nth-last-child(2):nth-child(odd) .card-project,
+  .panel-projects .section-projects .projects-item:last-child .card-project,
+  .section-experience:has(+ .divider--band) .experience-item:last-child .card-experience,
+  .section-experience:has(+ .divider--band) .experience-list:not(.experience-list--full) .experience-item:nth-last-child(2):nth-child(odd) .card-experience,
+  .panel-experience .section-experience:last-child .experience-item:last-child .card-experience {
+    border-bottom: 1px solid $strokeSecondary;
+  }
+
+  // Numero impar de cards en dos columnas: la linea inferior de la fila cubre tambien la celda vacia.
+  .projects-grid:has(> .projects-item:last-child:nth-child(odd)),
+  .experience-list:not(.experience-list--full):has(> .experience-item:last-child:nth-child(odd)) {
+    @include up(md) {
+      &::after {
+        content: '';
+        border-bottom: 1px solid $strokeSecondary;
+      }
+    }
+  }
+
+  // La linea inferior de la card sustituye a la primera linea del divisor contiguo: sin doble linea ni hueco.
+  .section-projects:has(.projects-item) + .divider--band,
+  .section-experience:has(.experience-item) + .divider--band {
+    margin-top: 0;
+
+    &::before {
+      border-top: 0;
+    }
+  }
+
+  .section-projects:has(.projects-item) + .divider--band {
+    height: 0;
+  }
+
+  // Paginas que terminan en una lista de cards: la banda del footer no repite la linea.
+  .main:has(.panel-projects, .panel-experience) + .footer .divider--band {
+    margin-top: 0;
+
+    &::before {
+      border-top: 0;
+    }
+  }
+
   .title-section {
     min-width: 0;
     color: $textPrimary;
@@ -464,6 +509,39 @@ $eva-stripe-width: 12px;
       border-radius: 0;
     }
 
+    .card-logo {
+      border: 1px solid var(--eva-line);
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .card-logo-image {
+      border-radius: 0;
+    }
+
+    .card-logo-text {
+      font-family: $eva-font-display;
+      font-size: rem(15px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .timeline-dot {
+      border-radius: 0;
+    }
+
+    .timeline-role {
+      font-family: $eva-font-display;
+      font-size: rem(20px);
+      font-weight: 400;
+      line-height: rem($line-height-subtitle);
+      letter-spacing: 0;
+    }
+
+    .timeline-item::before {
+      border-left-style: solid;
+    }
+
     .card-header {
       gap: rem($space-2);
       padding-bottom: rem($space-2);
@@ -493,6 +571,13 @@ $eva-stripe-width: 12px;
       border-top: 1px solid $strokeSecondary;
     }
 
+  }
+
+  // La ficha de experiencia lleva solo codigo y etiqueta: dos columnas; si hubiera marca, entra como columna implicita.
+  .card-experience .card-record:not([hidden]) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
   }
 
   .button-primary,

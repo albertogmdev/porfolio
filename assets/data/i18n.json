@@ -566,5 +566,33 @@
   "pet.sleep.sleep": {
     "es": "Dormir",
     "en": "Sleep"
+  },
+  "experience.present": {
+    "es": "Actualidad",
+    "en": "Present"
+  },
+  "experience.type.fulltime": {
+    "es": "Jornada completa",
+    "en": "Full-time"
+  },
+  "experience.type.internship": {
+    "es": "Prácticas",
+    "en": "Internship"
+  },
+  "duration.year": {
+    "es": "{n} año",
+    "en": "{n} yr"
+  },
+  "duration.years": {
+    "es": "{n} años",
+    "en": "{n} yrs"
+  },
+  "duration.month": {
+    "es": "{n} mes",
+    "en": "{n} mo"
+  },
+  "duration.months": {
+    "es": "{n} meses",
+    "en": "{n} mos"
   }
 }

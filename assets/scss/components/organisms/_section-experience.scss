@@ -27,23 +27,18 @@
         border-right: 0;
       }
 
-      // Desde sm: puesto/empresa a la izquierda y periodo a la derecha; texto y tags ocupan todo el ancho.
+      // Desde sm: identidad, linea de tiempo, texto y tags ocupan toda la fila.
       @include up(sm) {
         .card-body {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) auto;
+          grid-template-columns: minmax(0, 1fr);
           align-content: start;
           align-items: start;
           gap: rem($space-2) rem($space-4);
         }
 
-        .card-period {
-          grid-column: 2;
-          grid-row: 1;
-          text-align: end;
-          white-space: nowrap;
-        }
-
+        .card-identity,
+        .card-timeline,
         .card-text,
         .card-tags {
           grid-column: 1 / -1;
@@ -53,6 +48,20 @@
           margin-top: 0;
         }
       }
+    }
+  }
+
+  // Estudios (rejilla de dos columnas): identidad (logo + titulo) arriba y detalles (centro, años) anclados abajo,
+  // de modo que al igualar la altura de la fila los detalles empiezan en la misma posicion.
+  .experience-list:not(.experience-list--full) {
+    .card-experience {
+      flex: 1;
+    }
+
+    .card-body {
+      flex: 1;
+      justify-content: space-between;
+      gap: rem($space-3);
     }
   }
 

@@ -1,38 +1,78 @@
 [
   {
     "group": "work",
-    "role": { "es": "Puesto provisional", "en": "Placeholder role" },
-    "org": { "es": "Empresa provisional", "en": "Placeholder company" },
-    "location": { "es": "Madrid, España", "en": "Madrid, Spain" },
-    "period": { "es": "2022 — Actualidad", "en": "2022 — Present" },
-    "description": {
-      "es": "Descripción provisional de las responsabilidades y logros del puesto.",
-      "en": "Placeholder description of the role's responsibilities and achievements."
+    "logo": "assets/images/logo-wpp-production.jpg",
+    "org": "WPP Production",
+    "location": {
+      "es": "Madrid, España",
+      "en": "Madrid, Spain"
     },
-    "tags": ["HTML", "JavaScript"]
+    "roles": [
+      {
+        "title": {
+          "es": "Full Stack Developer",
+          "en": "Full Stack Developer"
+        },
+        "type": "fulltime",
+        "start": "2026-02",
+        "end": null
+      }
+    ]
   },
   {
     "group": "work",
-    "role": { "es": "Puesto provisional", "en": "Placeholder role" },
-    "org": { "es": "Empresa provisional", "en": "Placeholder company" },
-    "location": { "es": "Madrid, España", "en": "Madrid, Spain" },
-    "period": { "es": "2019 — 2022", "en": "2019 — 2022" },
-    "description": {
-      "es": "Descripción provisional de las responsabilidades y logros del puesto.",
-      "en": "Placeholder description of the role's responsibilities and achievements."
+    "logo": "assets/images/logo-hogarth.jpg",
+    "org": "Hogarth Worldwide",
+    "location": {
+      "es": "Madrid, España",
+      "en": "Madrid, Spain"
     },
-    "tags": []
+    "roles": [
+      {
+        "title": {
+          "es": "Full Stack Developer",
+          "en": "Full Stack Developer"
+        },
+        "type": "fulltime",
+        "start": "2021-10",
+        "end": "2026-03"
+      },
+      {
+        "title": {
+          "es": "Becario de desarrollo web",
+          "en": "Web Development Intern"
+        },
+        "type": "internship",
+        "start": "2021-04",
+        "end": "2021-10"
+      }
+    ]
   },
   {
     "group": "education",
-    "role": { "es": "Titulación provisional", "en": "Placeholder degree" },
-    "org": { "es": "Centro de estudios provisional", "en": "Placeholder school" },
-    "location": { "es": "Madrid, España", "en": "Madrid, Spain" },
-    "period": { "es": "2015 — 2019", "en": "2015 — 2019" },
-    "description": {
-      "es": "Descripción provisional de los estudios.",
-      "en": "Placeholder description of the studies."
+    "role": {
+      "es": "Máster en Ciberseguridad",
+      "en": "Master's Degree in Cybersecurity"
     },
-    "tags": []
+    "org": {
+      "es": "UNIR · Universidad Internacional de La Rioja",
+      "en": "UNIR · Universidad Internacional de La Rioja"
+    },
+    "period": "2024 — 2025",
+    "logoText": "UNIR",
+    "logo": "assets/images/logo-unir.png"
+  },
+  {
+    "group": "education",
+    "logo": "assets/images/logo-uah.jpg",
+    "role": {
+      "es": "Grado en Ingeniería Informática",
+      "en": "Bachelor's Degree in Computer Engineering"
+    },
+    "org": {
+      "es": "Universidad de Alcalá (UAH)",
+      "en": "University of Alcalá (UAH)"
+    },
+    "period": "2017 — 2021"
   }
 ]

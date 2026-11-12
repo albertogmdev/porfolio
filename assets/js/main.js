@@ -779,25 +779,115 @@
     list.replaceChildren(fragment);
   };
 
+  /* Fechas "AAAA-MM"; sin fin = cargo vigente. La duración cuenta ambos meses extremos, como LinkedIn. */
+  const monthIndex = (value) => {
+    const [year, month] = String(value).split('-').map(Number);
+    return year * 12 + (month - 1);
+  };
+  const nowMonth = () => {
+    const now = new Date();
+    return now.getFullYear() * 12 + now.getMonth();
+  };
+  const endOf = (role) => (role.end ? monthIndex(role.end) : nowMonth());
+  const formatDuration = (total) => {
+    const years = Math.floor(total / 12);
+    const months = total % 12;
+    const parts = [];
+    if (years) parts.push(t(years === 1 ? 'duration.year' : 'duration.years', { n: years }));
+    if (months || !years) parts.push(t(months === 1 ? 'duration.month' : 'duration.months', { n: months }));
+    return parts.join(' ');
+  };
+  const formatMonth = (value) => {
+    const [year, month] = String(value).split('-').map(Number);
+    const text = new Intl.DateTimeFormat(window.i18n.lang, { month: 'short', year: 'numeric' }).format(new Date(year, month - 1, 1));
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
+  const createTimelineItem = (role) => {
+    const title = cleanText(role.title);
+    if (!title || !role.start) return null;
+
+    const current = !role.end;
+    const range = `${formatMonth(role.start)} — ${current ? t('experience.present') : formatMonth(role.end)}`;
+
+    const dot = createElement('span', 'timeline-dot');
+    dot.setAttribute('aria-hidden', 'true');
+    const content = createElement('div', 'timeline-content');
+    content.append(createElement('h4', 'timeline-role', title));
+    if (role.type) content.append(createElement('p', 'timeline-meta', t(`experience.type.${role.type}`)));
+    content.append(createElement('p', 'timeline-meta', `${range} · ${formatDuration(endOf(role) - monthIndex(role.start) + 1)}`));
+    const description = cleanText(role.description);
+    if (description) content.append(createElement('p', 'card-text', description));
+
+    const entry = createElement('li', current ? 'timeline-item timeline-item--current' : 'timeline-item');
+    entry.append(dot, content);
+    return entry;
+  };
+
   const renderExperience = (list, items) => {
     const group = list.dataset.group;
+    const work = group === 'work';
     const fragment = document.createDocumentFragment();
 
     items
       .filter((item) => item.group === group)
       .forEach((item, index) => {
-        const role = cleanText(item.role);
-        if (!role) return;
+        // Con cargos (roles) el título es la empresa y el subtítulo su duración total; sin cargos, el título es el propio puesto o titulación.
+        const roles = (Array.isArray(item.roles) ? item.roles : []).filter((role) => role && role.start);
+        const title = roles.length ? cleanText(item.org) : cleanText(item.role);
+        if (!title) return;
 
+        // Cada dato en su línea: empresa/titulación, duración total o centro, lugar y años.
+        const lines = roles.length
+          ? [formatDuration(Math.max(...roles.map(endOf)) - Math.min(...roles.map((role) => monthIndex(role.start))) + 1), cleanText(item.location)]
+          : [cleanText(item.org), cleanText(item.location), cleanText(item.period)];
         const heading = createElement('div', 'card-heading');
-        heading.append(createElement('h3', 'card-title', role));
-        const subtitle = [cleanText(item.org), cleanText(item.location)].filter(Boolean).join(' · ');
-        if (subtitle) heading.append(createElement('p', 'card-subtitle', subtitle));
+        heading.append(createElement('h3', 'card-title', title));
+        // Trabajo: las líneas van junto al título. Estudios: el título va con el logo y las líneas en un bloque aparte.
+        const details = createElement('div', 'card-details');
+        lines.filter(Boolean).forEach((line) => (work ? heading : details).append(createElement('p', 'card-subtitle', line)));
 
         const body = createElement('div', 'card-body');
-        body.append(heading);
-        const period = cleanText(item.period);
-        if (period) body.append(createElement('p', 'card-period', period));
+        const logoSrc = safeAsset(item.logo);
+        const logoText = cleanText(item.logoText);
+        if (logoSrc || logoText) {
+          const logo = createElement('span', 'card-logo');
+          if (logoSrc) {
+            const image = createElement('img', 'card-logo-image');
+            image.src = logoSrc;
+            image.alt = '';
+            image.width = 48;
+            image.height = 48;
+            image.decoding = 'async';
+            // Si falla el fichero, se muestran las siglas (o nada).
+            image.addEventListener('error', () => {
+              if (logoText) image.replaceWith(createElement('span', 'card-logo-text', logoText));
+              else logo.remove();
+            });
+            logo.append(image);
+          } else {
+            logo.append(createElement('span', 'card-logo-text', logoText));
+          }
+          const identity = createElement('div', 'card-identity');
+          identity.append(logo, heading);
+          body.append(identity);
+        } else {
+          body.append(heading);
+        }
+        if (details.childElementCount) body.append(details);
+
+        if (roles.length) {
+          const timeline = createElement('ol', 'card-timeline');
+          roles
+            .slice()
+            .sort((a, b) => monthIndex(b.start) - monthIndex(a.start))
+            .forEach((role) => {
+              const entry = createTimelineItem(role);
+              if (entry) timeline.append(entry);
+            });
+          body.append(timeline);
+        }
+
         const description = cleanText(item.description);
         if (description) body.append(createElement('p', 'card-text', description));
 
@@ -808,15 +898,10 @@
           body.append(tagList);
         }
 
-        const work = group === 'work';
         const record = createElement('header', 'card-record');
-        const recordMark = createElement('span', 'card-record-mark', work ? '経歴' : '学歴');
-        recordMark.lang = 'ja';
-        recordMark.setAttribute('aria-hidden', 'true');
         record.append(
           createElement('span', 'card-record-code', `${work ? 'EX' : 'ED'}-${String(index + 1).padStart(2, '0')}`),
           createElement('span', 'card-record-label', work ? 'WORK FILE' : 'EDU FILE'),
-          recordMark,
         );
 
         const card = createElement('article', 'card-experience');
