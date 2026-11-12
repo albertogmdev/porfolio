@@ -26,6 +26,9 @@ $eva-stripe-width: 12px;
   --eva-line: var(--strokeStrong);
   --eva-ink: var(--textPrimary);
   --eva-halo: color-mix(in srgb, var(--eva-ink) 9%, transparent);
+  // Rojo de emergencia (alerta de sudo); contrasta sobre #080808.
+  --eva-alert: #ff2a1a;
+  --eva-alert-halo: color-mix(in srgb, var(--eva-alert) 35%, transparent);
   // Punto intermedio entre strokeSecondary y strokeStrong (~#4b4b4b) para bordes de ventana.
   --eva-line-soft: color-mix(in srgb, var(--strokeStrong) 30%, var(--strokeSecondary));
 
@@ -432,6 +435,47 @@ $eva-stripe-width: 12px;
       margin-inline-start: auto;
       color: $textTertiary;
       font-size: rem(20px);
+    }
+
+    // Alerta (sudo): rojo de emergencia en borde, barra, marca y canvas.
+    &.is-alert {
+      border-color: var(--eva-alert);
+      box-shadow: 0 0 rem(6px) var(--eva-alert-halo);
+
+      .window-bar {
+        border-bottom-color: var(--eva-alert);
+        background-color: color-mix(in srgb, var(--eva-alert) 14%, #{$backgroundPrimary});
+        color: var(--eva-alert);
+      }
+
+      .eva-window-mark:not([hidden]) {
+        color: var(--eva-alert);
+      }
+
+      .eye-canvas {
+        color: var(--eva-alert);
+      }
+
+      .terminal-body {
+        .terminal-output,
+        .terminal-output .terminal-line,
+        .terminal-output *,
+        .terminal-prompt,
+        .terminal-input {
+          caret-color: var(--eva-alert);
+          color: var(--eva-alert);
+        }
+      }
+    }
+
+    // Ventana traida sobre la terminal (o invitada): halo discreto en vez de sombra suave.
+    &.is-summoned,
+    &.window--guest {
+      box-shadow: 0 0 rem(8px) var(--eva-halo);
+
+      &.is-alert {
+        box-shadow: 0 0 rem(8px) var(--eva-alert-halo);
+      }
     }
   }
 

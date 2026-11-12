@@ -1,4 +1,4 @@
-import { APP_EVENTS, bayer, clamp, inkOf, pointerFine, random, reducedMotion, watchTheme } from '../utils.js';
+import { ALERT_FLASH_MS, APP_EVENTS, bayer, clamp, emit, flashAlert, inkOf, pointerFine, random, reducedMotion, watchTheme } from '../utils.js';
 
 const EYE_SIZE = 64;
 const EYE_CENTER = 32;
@@ -7,8 +7,15 @@ const EYE_HALF_HEIGHT = 13;
 const IRIS_RADIUS = 9;
 const PUPIL_RADIUS = 3.6;
 const BLINK_MS = 180;
-const ALERT_MS = 2000;
-const ALERT_BLINKS = [0, 330, 660];
+const ALERT_MS = 4000;
+const ALERT_BLINKS = [0, 330, 660, 2000, 2330, 2660];
+const ANNOYED_BLINK_MS = 260;
+const ANNOYED_GAP_MS = 340;
+const SUMMON_FLIGHT_MS = 450;
+const SUMMON_WIDTH = 240;
+const SUMMON_LOOK_MS = 2000;
+const GUEST_START_SCALE = 0.12;
+const SUMMON_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const ALERT_JITTER_MS = 110;
 const BRACKET_CSS = { thickness: 3, length: 18 };
 
@@ -103,12 +110,14 @@ export const init = (root) => {
   const look = { x: 0, y: 0 };
   const target = { x: 0, y: 0 };
   let blinkStart = -Infinity;
+  let blinkLength = BLINK_MS;
+  let summoned = false;
   let lastPointer = -Infinity;
   let alertUntil = 0;
   let frameId = 0;
 
   const blinkAmount = (now) => {
-    const t = (now - blinkStart) / BLINK_MS;
+    const t = (now - blinkStart) / blinkLength;
     return t >= 0 && t <= 1 ? 1 - Math.abs(2 * t - 1) : 0;
   };
 
@@ -122,6 +131,12 @@ export const init = (root) => {
     drawEye(ctx, inkOf(canvas), look, blinkAmount(now), scale, extra);
   };
   const alerting = () => performance.now() < alertUntil;
+  const locked = () => summoned || alerting();
+  const startBlink = (length = BLINK_MS) => {
+    blinkLength = length;
+    blinkStart = performance.now();
+    request();
+  };
 
   const frame = (now) => {
     frameId = 0;
@@ -149,31 +164,36 @@ export const init = (root) => {
     request();
   };
 
-  const onIntrusion = () => {
-    if (!root.isConnected) {
-      document.removeEventListener(APP_EVENTS.intrusion, onIntrusion);
-      return;
-    }
+  const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+  // Fase roja: parpadeos de alarma y mirada a los lados durante ALERT_MS; resuelve al terminar.
+  const alertPhase = () => new Promise((resolve) => {
     alertUntil = performance.now() + ALERT_MS;
-    root.classList.add('is-alert');
-    render(performance.now());
+    emit(APP_EVENTS.intrusionAlert, { duration: ALERT_MS });
+    // El rojo parpadea como una alarma, al mismo ritmo que la terminal.
+    const stopFlash = flashAlert(root, { duration: ALERT_MS, interval: ALERT_FLASH_MS, onChange: () => render(performance.now()) });
 
     if (reducedMotion.matches) {
-      window.setTimeout(endAlert, ALERT_MS);
+      window.setTimeout(() => {
+        stopFlash();
+        endAlert();
+        resolve();
+      }, ALERT_MS);
       return;
     }
 
-    ALERT_BLINKS.forEach((delay) => {
-      window.setTimeout(() => {
-        blinkStart = performance.now();
-        request();
-      }, delay);
-    });
+    ALERT_BLINKS.forEach((delay) => window.setTimeout(() => startBlink(), delay));
 
     const jitter = () => {
-      if (!root.isConnected) return;
+      if (!root.isConnected) {
+        stopFlash();
+        resolve();
+        return;
+      }
       if (!alerting()) {
+        stopFlash();
         endAlert();
+        resolve();
         return;
       }
       target.x = random(-1, 1);
@@ -182,8 +202,94 @@ export const init = (root) => {
       window.setTimeout(jitter, ALERT_JITTER_MS);
     };
     jitter();
+  });
+
+  // El ojo de la home sigue en su hueco de la rejilla (no mueve el layout) y solo se desplaza con transform. El invitado (otras páginas) es fixed y entra desde el borde derecho.
+  const guest = root.classList.contains('window--guest');
+  const summonTransforms = (terminal) => {
+    const home = root.getBoundingClientRect();
+    const box = terminal.getBoundingClientRect();
+    const scale = guest ? 1 : Math.min(1, SUMMON_WIDTH / home.width);
+    const left = box.left + (box.width - home.width * scale) / 2;
+    const rawTop = box.top + 12;
+    const top = guest ? clamp(rawTop, 8, Math.max(8, window.innerHeight - home.height - 8)) : rawTop;
+    const end = `translate(${left - home.left}px, ${top - home.top}px) scale(${scale})`;
+    const start = guest ? `translate(${window.innerWidth}px, ${top - home.top}px) scale(${GUEST_START_SCALE})` : 'none';
+    return { start, end };
   };
+
+  const onIntrusion = async () => {
+    if (!root.isConnected) {
+      document.removeEventListener(APP_EVENTS.intrusion, onIntrusion);
+      return;
+    }
+    if (summoned) return;
+
+    const terminal = document.querySelector('[data-widget="terminal"]');
+    if (reducedMotion.matches || !terminal || typeof root.animate !== 'function') {
+      await alertPhase();
+      emit(APP_EVENTS.intrusionEnd);
+      if (guest) root.remove();
+      return;
+    }
+
+    summoned = true;
+    root.classList.add('is-summoned');
+    const { start, end } = summonTransforms(terminal);
+    const flight = root.animate([{ transform: start, transformOrigin: '0 0' }, { transform: end, transformOrigin: '0 0' }], {
+      duration: SUMMON_FLIGHT_MS,
+      easing: SUMMON_EASING,
+      fill: 'forwards',
+    });
+
+    try {
+      // Mira hacia la terminal mientras llega y durante SUMMON_LOOK_MS.
+      target.x = 0;
+      target.y = 1;
+      request();
+      await flight.finished.catch(() => {});
+      await wait(SUMMON_LOOK_MS);
+
+      if (root.isConnected) await alertPhase();
+
+      if (root.isConnected) {
+        target.x = 0;
+        target.y = 0;
+        request();
+        flight.reverse();
+        await flight.finished.catch(() => {});
+      }
+    } finally {
+      flight.cancel();
+      root.classList.remove('is-summoned');
+      summoned = false;
+      emit(APP_EVENTS.intrusionEnd);
+      if (guest) root.remove();
+    }
+  };
+
+  // Click: doble parpadeo lento, como de fastidio, con una mirada de reojo.
+  const onClick = () => {
+    if (locked() || reducedMotion.matches) return;
+    const side = Math.random() < 0.5 ? -1 : 1;
+    target.x = side * 0.6;
+    target.y = -0.2;
+    request();
+    startBlink(ANNOYED_BLINK_MS);
+    window.setTimeout(() => {
+      if (root.isConnected && !locked()) startBlink(ANNOYED_BLINK_MS);
+    }, ANNOYED_GAP_MS);
+    window.setTimeout(() => {
+      if (!root.isConnected || locked()) return;
+      target.x = 0;
+      target.y = 0;
+      request();
+    }, ANNOYED_GAP_MS * 2 + ANNOYED_BLINK_MS);
+  };
+  root.addEventListener('click', onClick);
   document.addEventListener(APP_EVENTS.intrusion, onIntrusion);
+  // El ojo invitado se crea cuando el evento ya se emitió: se le avisa directamente.
+  root.addEventListener('eye:intrude', onIntrusion);
 
   watchTheme(root, () => render(performance.now()));
   render(performance.now());
@@ -204,7 +310,7 @@ export const init = (root) => {
       document.removeEventListener('pointermove', onMove);
       return;
     }
-    if (!pointerFine.matches || event.pointerType === 'touch' || alerting()) return;
+    if (!pointerFine.matches || event.pointerType === 'touch' || locked()) return;
     const rect = canvas.getBoundingClientRect();
     target.x = clamp((event.clientX - (rect.left + rect.width / 2)) / 300, -1, 1);
     target.y = clamp((event.clientY - (rect.top + rect.height / 2)) / 200, -1, 1);
@@ -216,7 +322,7 @@ export const init = (root) => {
 
   const wander = () => {
     if (!root.isConnected) return;
-    if (!alerting() && (!pointerFine.matches || performance.now() - lastPointer > 6000)) {
+    if (!locked() && (!pointerFine.matches || performance.now() - lastPointer > 6000)) {
       const glance = Math.random() < 0.2;
       target.x = glance ? 0 : random(-1, 1);
       target.y = glance ? 0 : random(-0.6, 0.6);
@@ -227,10 +333,7 @@ export const init = (root) => {
 
   const blink = () => {
     if (!root.isConnected) return;
-    if (!alerting()) {
-      blinkStart = performance.now();
-      request();
-    }
+    if (!locked()) startBlink();
     const double = Math.random() < 0.25;
     window.setTimeout(blink, double ? 260 : random(2500, 6000));
   };

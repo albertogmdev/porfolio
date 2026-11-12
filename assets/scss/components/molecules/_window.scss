@@ -8,6 +8,7 @@
   border: 1px solid $strokeStrong;
   border-radius: $radius-window;
   background-color: $backgroundTint;
+  @include transition($duration-fast, border-color, box-shadow);
 
   .window-bar {
     display: flex;
@@ -73,6 +74,33 @@
     .window-dots i {
       border-color: $accentError;
       background-color: $accentError;
+    }
+  }
+
+  // Ventana traida temporalmente sobre la terminal (el movimiento lo aplica JS con transform).
+  &.is-summoned {
+    position: relative;
+    z-index: $z-widget-summoned;
+    box-shadow: $shadow-menu;
+    pointer-events: auto;
+  }
+
+  // Ojo invitado fuera de la home: flotante sobre todo el contenido; JS lo mueve con transform (origen 0 0).
+  // Se declara despues de .is-summoned con la misma especificidad para conservar position: fixed.
+  &.window--guest {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $z-widget-summoned;
+    width: rem(240px);
+    max-width: calc(100vw - #{rem($space-2 * 2)});
+    aspect-ratio: 1;
+    box-shadow: $shadow-menu;
+    transform-origin: 0 0;
+
+    .eye-screen {
+      flex: 1;
+      min-height: 0;
     }
   }
 }

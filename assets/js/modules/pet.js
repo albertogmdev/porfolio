@@ -357,6 +357,7 @@ export const init = (root) => {
 
   window.addEventListener('pagehide', save);
   watchTheme(root, () => draw(performance.now()));
+
   if (window.ResizeObserver) {
     const resizeObserver = new ResizeObserver(() => {
       if (!root.isConnected) {

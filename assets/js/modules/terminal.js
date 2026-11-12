@@ -1,9 +1,10 @@
-import { APP_EVENTS, clamp, emit } from '../utils.js';
+import { ALERT_FLASH_MS, APP_EVENTS, clamp, emit, flashAlert } from '../utils.js';
 
 const PROMPT_USER = 'visitor@portfolio';
 const LINES_MAX = 200;
 const HISTORY_MAX = 50;
 const SUDO_DELAY_MS = 700;
+const LOCK_FAILSAFE_MS = 15000;
 const siteRoot = new URL('../../../', import.meta.url);
 
 const t = (...args) => window.i18n.t(...args);
@@ -191,7 +192,8 @@ const commands = [
     aliases: ['root', 'su'],
     get usage() { return t('terminal.cmd.sudo.usage'); },
     get description() { return t('terminal.cmd.sudo.description'); },
-    run: ({ name, print, root }) => {
+    run: ({ name, print, root, lock }) => {
+      lock(true);
       if (name === 'su') print(tr('terminal.sudo.password_su'), 'muted');
       else print(tr('terminal.sudo.password'), 'muted');
       window.setTimeout(() => {
@@ -240,6 +242,29 @@ export const init = (root) => {
   });
   window.addEventListener('resize', fitInput);
   input.addEventListener('focus', fitInput);
+
+  // Durante la alerta del sistema (sudo) la terminal no admite entrada. Si la alerta no termina, se libera sola.
+  let locked = false;
+  let lockTimer = 0;
+  let stopFlash = () => {};
+  function setLocked(value) {
+    locked = value;
+    window.clearTimeout(lockTimer);
+    root.classList.toggle('is-locked', value);
+    input.readOnly = value;
+    input.setAttribute('aria-disabled', String(value));
+    if (value) lockTimer = window.setTimeout(() => setLocked(false), LOCK_FAILSAFE_MS);
+    else if (!touchMode.matches && root.contains(document.activeElement)) input.focus({ preventScroll: true });
+  }
+  document.addEventListener(APP_EVENTS.intrusionAlert, (event) => {
+    if (!root.isConnected) return;
+    stopFlash();
+    stopFlash = flashAlert(root, { duration: event.detail.duration, interval: ALERT_FLASH_MS });
+  });
+  document.addEventListener(APP_EVENTS.intrusionEnd, () => {
+    stopFlash();
+    setLocked(false);
+  });
 
   const history = [];
   let historyIndex = 0;
@@ -303,7 +328,7 @@ export const init = (root) => {
       return;
     }
     const pages = await loadPages();
-    await command.run({ name, args, print, clear, pages, root });
+    await command.run({ name, args, print, clear, pages, root, lock: setLocked });
   };
 
   const complete = () => {
@@ -327,6 +352,7 @@ export const init = (root) => {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (locked) return;
     const line = input.value.trim();
     setInput('');
     dismissKeyboard();
@@ -338,6 +364,10 @@ export const init = (root) => {
   });
 
   input.addEventListener('keydown', (event) => {
+    if (locked) {
+      if (event.key !== 'Tab') event.preventDefault();
+      return;
+    }
     if (event.key === 'Enter') {
       event.preventDefault();
       form.requestSubmit();

@@ -1530,6 +1530,13 @@ img {
   border-radius: 10px;
   background-color: var(--backgroundTint);
 }
+@media (prefers-reduced-motion: no-preference) {
+  .window {
+    transition-property: border-color, box-shadow;
+    transition-duration: 120ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
 .window .window-bar {
   display: flex;
   flex: none;
@@ -1587,6 +1594,27 @@ img {
 .window.is-alert .window-dots i {
   border-color: var(--accentError);
   background-color: var(--accentError);
+}
+.window.is-summoned {
+  position: relative;
+  z-index: 46;
+  box-shadow: var(--shadowMenu);
+  pointer-events: auto;
+}
+.window.window--guest {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 46;
+  width: 15rem;
+  max-width: calc(100vw - 1rem);
+  aspect-ratio: 1;
+  box-shadow: var(--shadowMenu);
+  transform-origin: 0 0;
+}
+.window.window--guest .eye-screen {
+  flex: 1;
+  min-height: 0;
 }
 
 .pet-layout {
@@ -1825,6 +1853,27 @@ img {
     font-size: 0.6875rem;
     line-height: 0.875rem;
   }
+}
+
+.window.is-alert .terminal-body .terminal-output,
+.window.is-alert .terminal-body .terminal-output .terminal-line,
+.window.is-alert .terminal-body .terminal-output *,
+.window.is-alert .terminal-body .terminal-prompt,
+.window.is-alert .terminal-body .terminal-input {
+  caret-color: var(--accentError);
+  color: var(--accentError);
+}
+
+.window--terminal.is-locked .terminal-body .terminal-form {
+  cursor: not-allowed;
+}
+.window--terminal.is-locked .terminal-body .terminal-prompt,
+.window--terminal.is-locked .terminal-body .terminal-input {
+  opacity: 0.5;
+}
+.window--terminal.is-locked .terminal-body .terminal-input {
+  caret-color: transparent;
+  cursor: not-allowed;
 }
 
 .navbar {
@@ -3023,6 +3072,8 @@ html:not([data-theme=bash]) .terminal-boot--loader {
   --eva-line: var(--strokeStrong);
   --eva-ink: var(--textPrimary);
   --eva-halo: color-mix(in srgb, var(--eva-ink) 9%, transparent);
+  --eva-alert: #ff2a1a;
+  --eva-alert-halo: color-mix(in srgb, var(--eva-alert) 35%, transparent);
   --eva-line-soft: color-mix(in srgb, var(--strokeStrong) 30%, var(--strokeSecondary));
 }
 [data-theme=eva] .eva-mark:not([hidden]),
@@ -3375,6 +3426,35 @@ html:not([data-theme=bash]) .terminal-boot--loader {
   margin-inline-start: auto;
   color: var(--textTertiary);
   font-size: 1.25rem;
+}
+[data-theme=eva] .window.is-alert {
+  border-color: var(--eva-alert);
+  box-shadow: 0 0 0.375rem var(--eva-alert-halo);
+}
+[data-theme=eva] .window.is-alert .window-bar {
+  border-bottom-color: var(--eva-alert);
+  background-color: color-mix(in srgb, var(--eva-alert) 14%, var(--backgroundPrimary));
+  color: var(--eva-alert);
+}
+[data-theme=eva] .window.is-alert .eva-window-mark:not([hidden]) {
+  color: var(--eva-alert);
+}
+[data-theme=eva] .window.is-alert .eye-canvas {
+  color: var(--eva-alert);
+}
+[data-theme=eva] .window.is-alert .terminal-body .terminal-output,
+[data-theme=eva] .window.is-alert .terminal-body .terminal-output .terminal-line,
+[data-theme=eva] .window.is-alert .terminal-body .terminal-output *,
+[data-theme=eva] .window.is-alert .terminal-body .terminal-prompt,
+[data-theme=eva] .window.is-alert .terminal-body .terminal-input {
+  caret-color: var(--eva-alert);
+  color: var(--eva-alert);
+}
+[data-theme=eva] .window.is-summoned, [data-theme=eva] .window.window--guest {
+  box-shadow: 0 0 0.5rem var(--eva-halo);
+}
+[data-theme=eva] .window.is-summoned.is-alert, [data-theme=eva] .window.window--guest.is-alert {
+  box-shadow: 0 0 0.5rem var(--eva-alert-halo);
 }
 [data-theme=eva] .pet-layout .pet-canvas {
   color: var(--textPrimary);

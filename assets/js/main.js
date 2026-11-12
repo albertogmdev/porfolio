@@ -1247,6 +1247,7 @@
 
       const next = panel ? importPanel(panel) : createErrorPanel();
       window.i18n.apply(next);
+      await mountPartials(next);
       await swapPanel(next, fromTerminal);
       if (request.signal.aborted) return;
       initRoleTyping(next);
@@ -1305,22 +1306,57 @@
     });
   };
 
-  /* La terminal vive en assets/partials/terminal.html y se inserta en su hueco: la home usa el slot del panel; el resto de páginas, el dock. */
+  /* Fragmentos HTML compartidos en assets/partials/: la terminal va a su hueco (slot de la home o dock) y los marcados con data-partial se sustituyen por el parcial. */
+  const partialCache = new Map();
+  const loadPartial = (name) => {
+    if (!/^[a-z0-9-]+$/.test(name)) return Promise.reject(new Error(`Parcial no válido: ${name}`));
+    if (!partialCache.has(name)) {
+      partialCache.set(
+        name,
+        fetch(new URL(`assets/partials/${name}.html`, siteRoot))
+          .then((response) => {
+            if (!response.ok) throw new Error(`No se pudo cargar el parcial ${name} (${response.status})`);
+            return response.text();
+          })
+          .catch((error) => {
+            partialCache.delete(name);
+            throw error;
+          }),
+      );
+    }
+    return partialCache.get(name).then((html) => {
+      const template = document.createElement('template');
+      template.innerHTML = html;
+      return template.content;
+    });
+  };
+  window.partials = { load: loadPartial };
+
+  const mountPartials = (scope = document) =>
+    Promise.all(
+      Array.from(scope.querySelectorAll('[data-partial]'), async (slot) => {
+        try {
+          const content = await loadPartial(slot.dataset.partial);
+          window.i18n.apply(content);
+          slot.replaceWith(content);
+        } catch (error) {
+          console.error(error);
+        }
+      }),
+    );
+
   const mountTerminal = async () => {
     const host = document.querySelector('#view .panel [data-terminal-slot]') || document.querySelector('.terminal-dock-slot');
     if (!host || document.querySelector('[data-widget="terminal"]')) return;
     try {
-      const response = await fetch(new URL('assets/partials/terminal.html', siteRoot));
-      if (!response.ok) throw new Error(`No se pudo cargar la terminal (${response.status})`);
-      const template = document.createElement('template');
-      template.innerHTML = await response.text();
-      host.append(template.content);
+      const content = await loadPartial('terminal');
+      host.append(content);
       window.i18n.apply(host);
     } catch (error) {
       console.error(error);
     }
   };
-  const terminalReady = mountTerminal();
+  const terminalReady = Promise.all([mountTerminal(), mountPartials()]);
   window.terminalReady = terminalReady;
 
   const theme = initTheme();
