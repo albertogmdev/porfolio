@@ -2236,6 +2236,281 @@ html:not([data-theme=bash]) .terminal-boot--loader {
     opacity: 0;
   }
 }
+.section-counter {
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+.section-counter .counter-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.5rem;
+  max-width: 100%;
+  justify-content: flex-end;
+  margin-right: 0.75rem;
+  opacity: 0.85;
+}
+@media (min-width: 640px) {
+  .section-counter .counter-container {
+    margin-right: 1rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .section-counter .counter-container {
+    margin-right: 0.75rem;
+  }
+}
+.section-counter .counter-container[data-state=loading] {
+  opacity: 0.7;
+}
+.section-counter .counter-container[data-state=error] {
+  opacity: 0.45;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .section-counter .counter-container[data-state=ready] .counter-digits {
+    animation: counter-flash 300ms steps(1, end) 1;
+  }
+}
+.section-counter .counter-label {
+  flex: none;
+  color: var(--textTertiary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.section-counter .counter-value {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+}
+.section-counter .counter-digits {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  min-width: 0;
+}
+@media (min-width: 640px) {
+  .section-counter .counter-digits {
+    gap: 0.1875rem;
+  }
+}
+.section-counter .counter-digit {
+  position: relative;
+  flex: none;
+  width: 0.5rem;
+  height: 0.875rem;
+}
+@media (min-width: 640px) {
+  .section-counter .counter-digit {
+    width: 0.5625rem;
+    height: 1rem;
+  }
+}
+.section-counter .counter-digit[data-value="0"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="0"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="0"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="0"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="0"] .seg--e {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="0"] .seg--f {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="1"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="1"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="2"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="2"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="2"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="2"] .seg--e {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="2"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="3"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="3"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="3"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="3"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="3"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="4"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="4"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="4"] .seg--f {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="4"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="5"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="5"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="5"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="5"] .seg--f {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="5"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="6"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="6"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="6"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="6"] .seg--e {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="6"] .seg--f {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="6"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="7"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="7"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="7"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--e {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--f {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="8"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="9"] .seg--a {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="9"] .seg--b {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="9"] .seg--c {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="9"] .seg--d {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="9"] .seg--f {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="9"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .counter-digit[data-value="-"] .seg--g {
+  background-color: var(--textTertiary);
+}
+.section-counter .seg {
+  position: absolute;
+  display: block;
+  background-color: color-mix(in srgb, var(--textTertiary) 16%, transparent);
+}
+.section-counter .seg--a, .section-counter .seg--d, .section-counter .seg--g {
+  right: 0.0625rem;
+  left: 0.0625rem;
+  height: 0.125rem;
+  clip-path: polygon(0 50%, 0.0625rem 0, calc(100% - 0.0625rem) 0, 100% 50%, calc(100% - 0.0625rem) 100%, 0.0625rem 100%);
+}
+.section-counter .seg--a {
+  top: 0;
+}
+.section-counter .seg--d {
+  bottom: 0;
+}
+.section-counter .seg--g {
+  top: calc(50% - 0.0625rem);
+}
+.section-counter .seg--b, .section-counter .seg--c, .section-counter .seg--e, .section-counter .seg--f {
+  width: 0.125rem;
+  height: calc(50% - 0.1875rem);
+  clip-path: polygon(50% 0, 100% 0.0625rem, 100% calc(100% - 0.0625rem), 50% 100%, 0 calc(100% - 0.0625rem), 0 0.0625rem);
+}
+.section-counter .seg--b, .section-counter .seg--f {
+  top: 0.09375rem;
+}
+.section-counter .seg--c, .section-counter .seg--e {
+  top: calc(50% + 0.09375rem);
+}
+.section-counter .seg--b, .section-counter .seg--c {
+  right: 0;
+}
+.section-counter .seg--e, .section-counter .seg--f {
+  left: 0;
+}
+
+@keyframes counter-flash {
+  0% {
+    opacity: 0.15;
+  }
+  35% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.4;
+  }
+  75%, 100% {
+    opacity: 1;
+  }
+}
 .section-widgets {
   padding: 0.75rem;
 }
@@ -2662,7 +2937,7 @@ html:not([data-theme=bash]) .terminal-boot--loader {
     align-self: start;
     width: 6.75rem;
     margin-left: 0.75rem;
-    padding-right: 0;
+    padding: 0.5rem;
     text-align: center;
   }
 }

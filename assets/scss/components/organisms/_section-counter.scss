@@ -1,0 +1,185 @@
+@use '../../abstracts' as *;
+
+$seg-half: $counter-seg-thickness * 0.5;
+$seg-inset: $seg-half + 0.5px;
+
+$seg-clip-h: polygon(
+  0 50%,
+  #{rem($seg-half)} 0,
+  calc(100% - #{rem($seg-half)}) 0,
+  100% 50%,
+  calc(100% - #{rem($seg-half)}) 100%,
+  #{rem($seg-half)} 100%
+);
+$seg-clip-v: polygon(
+  50% 0,
+  100% #{rem($seg-half)},
+  100% calc(100% - #{rem($seg-half)}),
+  50% 100%,
+  0 calc(100% - #{rem($seg-half)}),
+  0 #{rem($seg-half)}
+);
+
+.section-counter {
+  margin-top: rem($space-5);
+  margin-bottom: rem($space-1);
+
+  .counter-container {
+    display: flex;
+    align-items: center;
+    gap: rem($space-2);
+    min-height: rem($counter-digit-height + $space-2);
+    max-width: 100%;
+    justify-content: flex-end;
+    margin-right: rem($space-3);
+    opacity: $counter-opacity-ready;
+
+    @include up(sm) {
+      margin-right: rem($space-4);
+    }
+
+    @include down(md) {
+      margin-right: rem($section-gutter);
+    }
+
+    &[data-state='loading'] {
+      opacity: $counter-opacity-loading;
+    }
+
+    &[data-state='error'] {
+      opacity: $counter-opacity-idle;
+    }
+
+    // Destello breve al fijarse el dato, estilo display NERV; sin animacion con reduced-motion.
+    &[data-state='ready'] .counter-digits {
+      @include motion-safe {
+        animation: counter-flash $counter-flash-duration steps(1, end) 1;
+      }
+    }
+  }
+
+  .counter-label {
+    flex: none;
+    color: $textTertiary;
+    font-family: $font-mono;
+    font-size: rem(10px);
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .counter-value {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .counter-digits {
+    display: flex;
+    align-items: center;
+    gap: rem($counter-digit-gap-sm);
+    min-width: 0;
+
+    @include up(sm) {
+      gap: rem($counter-digit-gap);
+    }
+  }
+
+  .counter-digit {
+    position: relative;
+    flex: none;
+    width: rem($counter-digit-width-sm);
+    height: rem($counter-digit-height-sm);
+
+    @include up(sm) {
+      width: rem($counter-digit-width);
+      height: rem($counter-digit-height);
+    }
+
+    @each $value, $segments in $counter-segments-on {
+      &[data-value='#{$value}'] {
+        @each $segment in $segments {
+          .seg--#{$segment} {
+            background-color: $textTertiary;
+          }
+        }
+      }
+    }
+  }
+
+  .seg {
+    position: absolute;
+    display: block;
+    background-color: color-mix(in srgb, #{$textTertiary} #{$counter-seg-off-mix}, transparent);
+
+    &--a,
+    &--d,
+    &--g {
+      right: rem(1px);
+      left: rem(1px);
+      height: rem($counter-seg-thickness);
+      clip-path: $seg-clip-h;
+    }
+
+    &--a {
+      top: 0;
+    }
+
+    &--d {
+      bottom: 0;
+    }
+
+    &--g {
+      top: calc(50% - #{rem($seg-half)});
+    }
+
+    &--b,
+    &--c,
+    &--e,
+    &--f {
+      width: rem($counter-seg-thickness);
+      height: calc(50% - #{rem($seg-inset * 2)});
+      clip-path: $seg-clip-v;
+    }
+
+    &--b,
+    &--f {
+      top: rem($seg-inset);
+    }
+
+    &--c,
+    &--e {
+      top: calc(50% + #{rem($seg-inset)});
+    }
+
+    &--b,
+    &--c {
+      right: 0;
+    }
+
+    &--e,
+    &--f {
+      left: 0;
+    }
+  }
+}
+
+@keyframes counter-flash {
+  0% {
+    opacity: 0.15;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 0.4;
+  }
+
+  75%,
+  100% {
+    opacity: 1;
+  }
+}

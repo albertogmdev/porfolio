@@ -288,7 +288,7 @@ $eva-stripe-width: 12px;
         align-self: start;
         width: rem(108px);
         margin-left: rem($section-gutter);
-        padding-right: 0;
+        padding: rem($space-2);
         text-align: center;
       }
 
