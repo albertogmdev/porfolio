@@ -1,7 +1,8 @@
 @use '../../abstracts' as *;
 
 $terminal-form-height: 24px;
-$terminal-input-size-touch: 11px;
+$terminal-input-size-touch: 16px;
+$terminal-input-line-height-touch: 22px;
 $terminal-output-size-touch: 10px;
 $terminal-line-height-touch: 14px;
 
@@ -92,7 +93,14 @@ $terminal-line-height-touch: 14px;
       left: 0;
       pointer-events: none;
       font-size: rem($terminal-input-size-touch);
-      line-height: rem($terminal-line-height-touch);
+      line-height: rem($terminal-input-line-height-touch);
+    }
+
+    @include up(md) {
+      @media (pointer: coarse) {
+        font-size: rem($terminal-input-size-touch);
+        line-height: rem($terminal-input-line-height-touch);
+      }
     }
   }
 
@@ -116,7 +124,14 @@ $terminal-line-height-touch: 14px;
       width: 100%;
       text-indent: var(--terminal-prompt-width, 0px);
       font-size: rem($terminal-input-size-touch);
-      line-height: rem($terminal-line-height-touch);
+      line-height: rem($terminal-input-line-height-touch);
+    }
+
+    @include up(md) {
+      @media (pointer: coarse) {
+        font-size: rem($terminal-input-size-touch);
+        line-height: rem($terminal-input-line-height-touch);
+      }
     }
   }
 }
