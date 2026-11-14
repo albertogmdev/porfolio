@@ -10,6 +10,9 @@ const PET_WIDTH = 128;
 const PET_HEIGHT = 80;
 const PET_HEIGHT_MIN = 64;
 const PET_HEIGHT_MAX = 160;
+// Tope de píxeles CSS por píxel lógico: si el canvas crece más (tablet), se amplía la
+// resolución lógica en vez de agrandar a ADAM y los glifos.
+const PET_SCALE_MAX = 2;
 const SPRITE_PX = 72;
 const CELL = 2;
 const GRID_WIDTH = 32;
@@ -121,11 +124,11 @@ const paintAdam = (ctx, sprite, originX, originY, closed) => {
   }
 };
 
-const paintBrackets = (ctx, scale, height) => {
+const paintBrackets = (ctx, scale, width, height) => {
   const thickness = Math.max(1, Math.round(BRACKET_CSS.thickness / scale));
   const length = Math.round(BRACKET_CSS.length / scale);
   const inset = Math.round(BRACKET_CSS.inset / scale);
-  const right = PET_WIDTH - inset;
+  const right = width - inset;
   const bottom = height - inset;
   ctx.globalAlpha = 0.7;
   [[inset, inset, 1, 1], [right, inset, -1, 1], [inset, bottom, 1, -1], [right, bottom, -1, -1]].forEach(([x, y, dx, dy]) => {
@@ -156,15 +159,20 @@ export const init = (root) => {
   if (!ctx) return;
 
   const sprite = createAdamSprite();
+  let width = PET_WIDTH;
   let height = PET_HEIGHT;
   ctx.imageSmoothingEnabled = false;
 
   const fit = () => {
-    if (!canvas.clientWidth || !canvas.clientHeight) return false;
-    const next = clamp(Math.round((PET_WIDTH * canvas.clientHeight) / canvas.clientWidth), PET_HEIGHT_MIN, PET_HEIGHT_MAX);
-    if (next === height) return false;
-    height = next;
-    canvas.height = next;
+    const { clientWidth, clientHeight } = canvas;
+    if (!clientWidth || !clientHeight) return false;
+    const nextWidth = Math.max(PET_WIDTH, Math.round(clientWidth / PET_SCALE_MAX));
+    const nextHeight = clamp(Math.round((nextWidth * clientHeight) / clientWidth), PET_HEIGHT_MIN, PET_HEIGHT_MAX);
+    if (nextWidth === width && nextHeight === height) return false;
+    width = nextWidth;
+    height = nextHeight;
+    canvas.width = nextWidth;
+    canvas.height = nextHeight;
     ctx.imageSmoothingEnabled = false;
     return true;
   };
@@ -245,11 +253,13 @@ export const init = (root) => {
     const mood = moodOf(now);
     const frame = reducedMotion.matches ? 0 : Math.floor(now / PET_STEP_MS);
     const top = Math.round((height - SPRITE_PX) / 2) + 1;
-    ctx.clearRect(0, 0, PET_WIDTH, height);
+    const adamX = Math.round((width - GRID_WIDTH * CELL) / 2);
+    const glyphX = width - 22;
+    ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = inkOf(canvas);
 
     ctx.globalAlpha = 0.4;
-    for (let x = 2; x < PET_WIDTH - 1; x += 2) ctx.fillRect(x, height - 2, 1, 1);
+    for (let x = 2; x < width - 1; x += 2) ctx.fillRect(x, height - 2, 1, 1);
     ctx.globalAlpha = 1;
 
     let lift = 0;
@@ -260,12 +270,12 @@ export const init = (root) => {
       lift = [0, 1, 2, 1][frame % 4];
     }
 
-    paintBrackets(ctx, canvas.clientWidth ? canvas.clientWidth / PET_WIDTH : 2, height);
-    paintAdam(ctx, sprite, 32, top - bob - lift, mood === 'sleep' || frame % 24 === 23);
-    if (mood === 'happy' || mood === 'play') paintRows(ctx, GLYPHS.sync, 106, 6 - (frame % 2), GLYPH_SCALE);
-    if (mood === 'sleep') paintRows(ctx, GLYPHS.zed, 106, 6, GLYPH_SCALE);
-    if (mood === 'eat' && frame % 4 < 3) paintRows(ctx, GLYPHS.food, 104, height - 26, GLYPH_SCALE);
-    if (mood === 'play') paintRows(ctx, GLYPHS.target, 106, Math.round(height / 2) - [0, 3, 5, 3][frame % 4], GLYPH_SCALE);
+    paintBrackets(ctx, canvas.clientWidth ? canvas.clientWidth / width : PET_SCALE_MAX, width, height);
+    paintAdam(ctx, sprite, adamX, top - bob - lift, mood === 'sleep' || frame % 24 === 23);
+    if (mood === 'happy' || mood === 'play') paintRows(ctx, GLYPHS.sync, glyphX, 6 - (frame % 2), GLYPH_SCALE);
+    if (mood === 'sleep') paintRows(ctx, GLYPHS.zed, glyphX, 6, GLYPH_SCALE);
+    if (mood === 'eat' && frame % 4 < 3) paintRows(ctx, GLYPHS.food, glyphX - 2, height - 26, GLYPH_SCALE);
+    if (mood === 'play') paintRows(ctx, GLYPHS.target, glyphX, Math.round(height / 2) - [0, 3, 5, 3][frame % 4], GLYPH_SCALE);
     if (state.poop) paintRows(ctx, GLYPHS.waste, 8, height - 26, GLYPH_SCALE);
 
     if (mood !== lastMood) {

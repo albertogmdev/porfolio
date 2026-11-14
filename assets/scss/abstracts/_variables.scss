@@ -22,6 +22,9 @@ $breakpoints: (
 
 $container-width: 800px;
 $project-media-ratio: 1.824;
+// Filas compartidas por .card-project en la rejilla subgrid: record, media, titulo, subtitulo, texto, sitios, footer.
+$project-card-rows: 7;
+$project-body-rows: 5;
 $navbar-height: 48px;
 $navbar-menu-padding-y: 0.35rem;
 $section-gutter: 12px;
@@ -97,6 +100,8 @@ $radius-2xl: 4px;
 $radius-full: 2px;
 $radius-window: 10px;
 
+$contact-item-padding-block: $space-5;
+
 $card-logo-size: 48px;
 $card-logo-background: #f5f5f5;
 $card-logo-text-color: #1a1a1a;
@@ -157,6 +162,7 @@ $textSoft: var(--textSoft);
 $textFooter: var(--textFooter);
 $accentLive: var(--accentLive);
 $accentError: var(--accentError);
+$statusActive: var(--statusActive);
 $buttonBg: var(--buttonBg);
 $buttonText: var(--buttonText);
 $buttonShine: var(--buttonShine);

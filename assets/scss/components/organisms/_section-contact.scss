@@ -26,7 +26,7 @@
   }
 
   .contact-item {
-    padding-block: rem(20px);
+    padding-block: rem($contact-item-padding-block);
     border-right: 1px dashed $strokeSecondary;
 
     &:last-child {

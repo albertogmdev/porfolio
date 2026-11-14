@@ -11,7 +11,6 @@ const t = (...args) => window.i18n.t(...args);
 // Texto traducible diferido: print lo resuelve al imprimir y al cambiar de idioma.
 const tr = (key, vars) => () => t(key, vars);
 
-const THEME_ALIASES = { oscuro: 'dark', claro: 'light' };
 const LANGS = ['es', 'en'];
 const DENIED_KEYS = ['terminal.denied.1', 'terminal.denied.2', 'terminal.denied.3'];
 
@@ -38,7 +37,6 @@ const loadJson = (file) => {
 const loadPages = () => loadJson('pages').then((list) => list.filter((page) => page && /^[a-z0-9-]+$/.test(page.name) && typeof page.path === 'string'));
 const loadShellCommands = () => loadJson('shell-commands').then((list) => new Set(list.filter((name) => typeof name === 'string' && /^[a-z0-9._-]+$/.test(name))));
 
-const readThemes = () => Array.from(document.querySelectorAll('#theme-menu [data-theme-value]'), (option) => option.dataset.themeValue);
 const pageNames = (pages) => pages.map((page) => page.name).join(', ');
 
 const pathKey = (path) => path.replace(/index\.html$/, '').replace(/\.html$/, '').replace(/\/+$/, '');
@@ -98,33 +96,6 @@ const commands = [
     usage: 'clear',
     get description() { return t('terminal.cmd.clear.description'); },
     run: ({ clear }) => clear(),
-  },
-  {
-    name: 'theme',
-    get usage() { return t('terminal.cmd.theme.usage'); },
-    get description() { return t('terminal.cmd.theme.description'); },
-    run: ({ args, print }) => {
-      const themes = readThemes();
-      const current = document.documentElement.dataset.theme;
-      if (!args.length) {
-        print(tr('terminal.theme.current', { theme: current }));
-        print(tr('terminal.theme.available', { themes: themes.join(', ') }), 'muted');
-        print(tr('terminal.theme.usage'), 'muted');
-        return;
-      }
-      const asked = args[0].toLowerCase();
-      const theme = THEME_ALIASES[asked] || asked;
-      if (!themes.includes(theme)) {
-        print(tr('terminal.theme.not_found', { target: args[0], themes: themes.join(', ') }), 'error');
-        return;
-      }
-      if (theme === current) {
-        print(tr('terminal.theme.already', { theme }), 'muted');
-        return;
-      }
-      emit(APP_EVENTS.setTheme, { theme });
-      print(tr('terminal.theme.changed', { theme }));
-    },
   },
   {
     name: 'lang',
@@ -336,7 +307,6 @@ export const init = (root) => {
     const last = parts[parts.length - 1].toLowerCase();
     let pool = [];
     if (parts.length === 1) pool = commands.flatMap((command) => [command.name, ...(command.aliases || [])]);
-    else if (parts[0].toLowerCase() === 'theme') pool = readThemes();
     else if (parts[0].toLowerCase() === 'lang') pool = LANGS;
     else if (['goto', 'navigate'].includes(parts[0].toLowerCase())) pool = pagesCache.map((page) => page.name);
     else if (parts[0].toLowerCase() === 'cd') pool = ['..', ...pagesCache.map((page) => page.name)];

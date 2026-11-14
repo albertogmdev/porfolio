@@ -3,17 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="dark">
   <meta name="description" content="Experiencia laboral y estudios de Alberto Gonzalez, Senior Full Stack Developer en Madrid, España.">
   <title>Experiencia — Alberto Gonzalez</title>
   <link rel="icon" href="data:,">
   <script>
     (function () {
       try {
-        var theme = localStorage.getItem('theme');
-        if (theme === 'dark' || theme === 'light' || theme === 'bash' || theme === 'gameboy' || theme === 'eva') {
-          document.documentElement.dataset.theme = theme;
-        }
+        localStorage.removeItem('theme');
         var lang = localStorage.getItem('lang');
         if (lang === 'es' || lang === 'en') document.documentElement.lang = lang;
       } catch (error) {}
@@ -25,7 +22,6 @@
   <script type="module" src="assets/js/widgets.js"></script>
 </head>
 <body>
-  <div class="terminal-boot terminal-boot--loader" id="boot-loader" aria-hidden="true"><pre class="terminal-boot-output"><span class="terminal-boot-cursor"></span></pre></div>
   <div class="page">
     <a class="skip-link" href="#main-content" data-i18n="a11y.skip">Saltar al contenido</a>
     <p class="visually-hidden" id="route-announcer" aria-live="polite"></p>
@@ -52,18 +48,6 @@
             <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Idioma" data-i18n-attr="aria-label:lang.menu" hidden>
               <li class="lang-option" role="option" tabindex="-1" data-lang-value="es" aria-selected="true">ES</li>
               <li class="lang-option" role="option" tabindex="-1" data-lang-value="en" aria-selected="false">EN</li>
-            </ul>
-          </div>
-          <div class="theme-switcher">
-            <button class="theme-toggle" type="button" id="theme-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" aria-label="Cambiar tema" data-i18n-attr="aria-label:nav.theme">
-              <span class="icon icon-palette" aria-hidden="true"></span>
-            </button>
-            <ul class="theme-menu" id="theme-menu" role="listbox" aria-label="Tema" data-i18n-attr="aria-label:theme.menu" hidden>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="dark" aria-selected="false" data-i18n="theme.dark">Oscuro</li>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="light" aria-selected="false" data-i18n="theme.light">Claro</li>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="bash" aria-selected="false">Bash</li>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="gameboy" aria-selected="false">Game Boy</li>
-              <li class="theme-option" role="option" tabindex="-1" data-theme-value="eva" aria-selected="true">EVA</li>
             </ul>
           </div>
         </div>

@@ -1,8 +1,6 @@
 (() => {
   'use strict';
 
-  const THEME_KEY = 'theme';
-  const DEFAULT_THEME = 'eva';
   const DESKTOP_QUERY = '(min-width: 768px)';
   const LEAVE_MS = 120;
   const FLIGHT_MS = 450;
@@ -12,256 +10,12 @@
   const DELETE_MS = 35;
   const HOLD_MS = 2200;
   const GAP_MS = 350;
-  const THEME_FADE_MS = 400;
-  const BOOT_CHAR_MS = 8;
-  const BOOT_LINE_MS = 70;
-  const BOOT_PAUSE_MS = 200;
-  const BOOT_READY_MAX_MS = 2500;
-  const BUILD_STEP_MS = 40;
-  const BOOT_LINES = ['$ ./build albertogmdev', '> modules ........ ok', '[##########] 100%'];
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const { t, pick } = window.i18n;
 
   const scriptUrl = document.currentScript ? document.currentScript.src : new URL('assets/js/main.js', document.baseURI).href;
   const siteRoot = new URL('../../', scriptUrl);
-
-  /* Tema: el valor activo vive en html[data-theme]; las opciones válidas salen del listbox. */
-  const initTheme = () => {
-    const toggle = document.getElementById('theme-toggle');
-    const menu = document.getElementById('theme-menu');
-    if (!toggle || !menu) return;
-
-    const root = document.documentElement;
-    const options = Array.from(menu.querySelectorAll('[role="option"]'));
-    const themes = options.map((option) => option.dataset.themeValue);
-    const isOpen = () => !menu.hidden;
-
-    const apply = (theme) => {
-      root.dataset.theme = theme;
-      options.forEach((option) => {
-        option.setAttribute('aria-selected', String(option.dataset.themeValue === theme));
-      });
-    };
-
-    const close = (restoreFocus = false) => {
-      menu.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
-      if (restoreFocus) toggle.focus();
-    };
-
-    const open = () => {
-      menu.hidden = false;
-      toggle.setAttribute('aria-expanded', 'true');
-      const selected = options.find((option) => option.getAttribute('aria-selected') === 'true');
-      (selected || options[0]).focus();
-    };
-
-    let colorTimer = 0;
-    const animateColors = () => {
-      root.classList.add('is-theme-changing');
-      window.clearTimeout(colorTimer);
-      colorTimer = window.setTimeout(() => root.classList.remove('is-theme-changing'), THEME_FADE_MS);
-    };
-
-    let effect = null;
-    const stopEffect = () => {
-      if (!effect) return;
-      const current = effect;
-      effect = null;
-      current.cancel();
-    };
-
-    /* Arranque de terminal (también es el loader de la web): se escribe un build breve, se espera a los datos y las secciones aparecen una a una. */
-    const playTerminalBoot = (existingLayer = null, ready = Promise.resolve()) => {
-      const panel = document.querySelector('#view .panel');
-      const layer = existingLayer || createElement('div', 'terminal-boot');
-      layer.setAttribute('aria-hidden', 'true');
-      let output = layer.querySelector('.terminal-boot-output');
-      if (!output) {
-        output = createElement('pre', 'terminal-boot-output');
-        output.append(createElement('span', 'terminal-boot-cursor'));
-        layer.append(output);
-      }
-      const text = document.createTextNode('');
-      output.prepend(text);
-      if (!existingLayer) document.body.append(layer);
-
-      const timers = new Set();
-      let finished = false;
-      const later = (callback, delay) => {
-        const id = window.setTimeout(() => {
-          timers.delete(id);
-          if (!finished) callback();
-        }, delay);
-        timers.add(id);
-      };
-
-      const handle = { cancel: () => cleanup() };
-      const onKey = (event) => {
-        if (!event.repeat) cleanup();
-      };
-
-      function cleanup() {
-        finished = true;
-        timers.forEach((id) => window.clearTimeout(id));
-        timers.clear();
-        document.removeEventListener('keydown', onKey);
-        layer.remove();
-        if (panel) {
-          panel.classList.remove('is-building');
-          Array.from(panel.children).forEach((child) => child.classList.remove('is-built'));
-        }
-        if (effect === handle) effect = null;
-      }
-
-      const reveal = () => {
-        layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill: 'forwards' });
-        const sections = panel ? Array.from(panel.children) : [];
-        if (panel) panel.classList.add('is-building');
-        sections.forEach((section, index) => {
-          later(() => section.classList.add('is-built'), index * BUILD_STEP_MS);
-        });
-        later(cleanup, sections.length * BUILD_STEP_MS + 250);
-      };
-
-      let lineIndex = 0;
-      let charIndex = 0;
-      const type = () => {
-        const line = BOOT_LINES[lineIndex];
-        if (charIndex < line.length) {
-          text.data += line[charIndex];
-          charIndex += 1;
-          later(type, BOOT_CHAR_MS);
-        } else if (lineIndex < BOOT_LINES.length - 1) {
-          text.data += '\n';
-          lineIndex += 1;
-          charIndex = 0;
-          later(type, BOOT_LINE_MS);
-        } else {
-          later(waitForData, BOOT_PAUSE_MS);
-        }
-      };
-
-      const waitForData = () => {
-        let proceeded = false;
-        const proceed = () => {
-          if (proceeded || finished) return;
-          proceeded = true;
-          reveal();
-        };
-        ready.then(proceed, proceed);
-        later(proceed, BOOT_READY_MAX_MS);
-      };
-
-      layer.addEventListener('click', cleanup);
-      document.addEventListener('keydown', onKey);
-      later(type, 120);
-      return handle;
-    };
-
-    const applyChoice = (theme) => {
-      if (!themes.includes(theme)) return false;
-
-      stopEffect();
-      const previous = root.dataset.theme;
-      const animated = theme !== previous && !reducedMotion.matches;
-      if (animated) animateColors();
-      apply(theme);
-      try {
-        localStorage.setItem(THEME_KEY, theme);
-      } catch {
-        /* Sin almacenamiento: el tema solo dura la sesión. */
-      }
-
-      if (animated && theme === 'bash') effect = playTerminalBoot();
-
-      const option = options.find((item) => item.dataset.themeValue === theme);
-      const announcer = document.getElementById('route-announcer');
-      if (announcer) announcer.textContent = t('theme.announce', { name: option.textContent.trim() });
-      return true;
-    };
-
-    const choose = (option) => {
-      if (applyChoice(option.dataset.themeValue)) close(true);
-    };
-
-    document.addEventListener('app:set-theme', (event) => {
-      if (event.detail) applyChoice(event.detail.theme);
-    });
-
-    let stored = null;
-    try {
-      stored = localStorage.getItem(THEME_KEY);
-    } catch {
-      stored = null;
-    }
-    apply(themes.includes(stored) ? stored : DEFAULT_THEME);
-
-    toggle.addEventListener('click', () => (isOpen() ? close() : open()));
-
-    toggle.addEventListener('keydown', (event) => {
-      if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-      event.preventDefault();
-      if (!isOpen()) open();
-    });
-
-    menu.addEventListener('click', (event) => {
-      const option = event.target.closest('[role="option"]');
-      if (option) choose(option);
-    });
-
-    menu.addEventListener('keydown', (event) => {
-      const index = options.indexOf(document.activeElement);
-      const focusAt = (next) => {
-        event.preventDefault();
-        options[(next + options.length) % options.length].focus();
-      };
-
-      switch (event.key) {
-        case 'ArrowDown':
-          focusAt(index + 1);
-          break;
-        case 'ArrowUp':
-          focusAt(index - 1);
-          break;
-        case 'Home':
-          focusAt(0);
-          break;
-        case 'End':
-          focusAt(options.length - 1);
-          break;
-        case 'Enter':
-        case ' ':
-          event.preventDefault();
-          if (index >= 0) choose(options[index]);
-          break;
-        case 'Escape':
-          event.preventDefault();
-          close(true);
-          break;
-        case 'Tab':
-          close();
-          break;
-        default:
-      }
-    });
-
-    document.addEventListener('click', (event) => {
-      if (isOpen() && !event.target.closest('.theme-switcher')) close();
-    });
-
-    window.addEventListener('storage', (event) => {
-      if (event.key === THEME_KEY && themes.includes(event.newValue)) apply(event.newValue);
-    });
-
-    return {
-      boot: (layer, ready) => {
-        stopEffect();
-        effect = playTerminalBoot(layer, ready);
-      },
-    };
-  };
 
   /* Menú móvil: la visibilidad la decide el CSS a partir de aria-expanded. */
   const initNavbar = () => {
@@ -335,6 +89,83 @@
   const cleanText = (value) => {
     const text = pick(value);
     return typeof text === 'string' ? text.trim() : '';
+  };
+
+  const RICH_ALLOWED = new Set(['P', 'UL', 'OL', 'LI', 'B', 'STRONG', 'EM', 'I', 'SPAN', 'BR', 'A']);
+  const RICH_DROPPED = new Set([
+    'SCRIPT', 'STYLE', 'IFRAME', 'FRAME', 'FRAMESET', 'OBJECT', 'EMBED', 'TEMPLATE', 'SVG', 'MATH',
+    'NOSCRIPT', 'NOEMBED', 'NOFRAMES', 'XMP', 'TEXTAREA', 'SELECT', 'APPLET', 'CANVAS', 'AUDIO', 'VIDEO',
+    'HEAD', 'TITLE', 'META', 'LINK', 'BASE',
+  ]);
+  const RICH_BLOCK = new Set(['P', 'UL', 'OL']);
+
+  // Builds a DocumentFragment from untrusted HTML using an allowlist of tags; only <a> keeps a validated href.
+  // The input is parsed in an inert document; only fresh nodes are inserted into the live DOM.
+  const sanitizeRich = (html) => {
+    const fragment = document.createDocumentFragment();
+    if (typeof html !== 'string' || !html.trim()) return fragment;
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+
+    const copyChildren = (source, target) => {
+      source.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          target.append(document.createTextNode(node.nodeValue));
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        const tag = node.nodeName.toUpperCase();
+        if (RICH_DROPPED.has(tag)) return;
+        if (tag === 'A') {
+          // Links keep only a validated absolute http(s) href; otherwise they degrade to their text.
+          const href = safeUrl(node.getAttribute('href'));
+          if (!href) {
+            copyChildren(node, target);
+            return;
+          }
+          const link = document.createElement('a');
+          link.href = href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          copyChildren(node, link);
+          target.append(link);
+          return;
+        }
+        if (RICH_ALLOWED.has(tag)) {
+          const clean = document.createElement(tag.toLowerCase());
+          if (tag !== 'BR') copyChildren(node, clean);
+          target.append(clean);
+          return;
+        }
+        copyChildren(node, target);
+      });
+    };
+
+    copyChildren(parsed.body, fragment);
+
+    // Group loose inline/text runs into <p> so the structure is always block > inline.
+    const result = document.createDocumentFragment();
+    let paragraph = null;
+    Array.from(fragment.childNodes).forEach((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE && RICH_BLOCK.has(node.nodeName)) {
+        paragraph = null;
+        result.append(node);
+        return;
+      }
+      if (node.nodeType === Node.ELEMENT_NODE && node.nodeName === 'LI') {
+        paragraph = null;
+        const list = document.createElement('ul');
+        list.append(node);
+        result.append(list);
+        return;
+      }
+      if (node.nodeType === Node.TEXT_NODE && !node.nodeValue.trim() && !paragraph) return;
+      if (!paragraph) {
+        paragraph = document.createElement('p');
+        result.append(paragraph);
+      }
+      paragraph.append(node);
+    });
+    return result;
   };
 
   const safeUrl = (value) => {
@@ -707,8 +538,12 @@
     const body = createElement('div', 'card-body');
     body.append(header);
 
-    const description = cleanText(project.description);
-    if (description) body.append(createElement('p', 'card-text', description));
+    const description = sanitizeRich(cleanText(project.description));
+    if (description.childNodes.length) {
+      const text = createElement('div', 'card-text');
+      text.append(description);
+      body.append(text);
+    }
 
     const sites = createElement('ul', 'card-sites');
     (Array.isArray(links.sites) ? links.sites : []).forEach((site) => {
@@ -1359,7 +1194,6 @@
   const terminalReady = Promise.all([mountTerminal(), mountPartials()]);
   window.terminalReady = terminalReady;
 
-  const theme = initTheme();
   const navbar = initNavbar();
   projectPreviewMode.addEventListener('change', () => {
     stopProjectPreview();
@@ -1373,13 +1207,6 @@
   window.addEventListener('pagehide', () => stopProjectPreview());
   initStackFilter();
   initRoleTyping();
-  const dataReady = initData();
+  initData();
   initRouter(navbar);
-
-  const loader = document.getElementById('boot-loader');
-  if (loader) {
-    const bootsOnLoad = theme && document.documentElement.dataset.theme === 'bash' && !reducedMotion.matches;
-    if (bootsOnLoad) theme.boot(loader, dataReady);
-    else loader.remove();
-  }
 })();

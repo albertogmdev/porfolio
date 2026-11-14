@@ -165,6 +165,17 @@ $eva-stripe-width: 12px;
     }
   }
 
+  // Con subgrid cada card ocupa varias filas; el relleno debe cubrir las mismas.
+  @supports (grid-template-rows: subgrid) {
+    .projects-grid:has(> .projects-item:last-child:nth-child(odd)) {
+      @include up(md) {
+        &::after {
+          grid-row: span $project-card-rows;
+        }
+      }
+    }
+  }
+
   .section-projects:has(.projects-item) + .divider--band,
   .section-experience:has(.experience-item) + .divider--band {
     margin-top: 0;
@@ -579,7 +590,7 @@ $eva-stripe-width: 12px;
     }
 
     .card-header {
-      gap: rem($space-2);
+      column-gap: rem($space-2);
       padding-bottom: rem($space-2);
       border-bottom: 1px solid $strokeSecondary;
     }

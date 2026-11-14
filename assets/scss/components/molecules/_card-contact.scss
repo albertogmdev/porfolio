@@ -4,12 +4,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   gap: rem($space-1-5);
   height: 100%;
   padding-inline: rem($space-1-5);
   color: $textSecondary;
   text-decoration: none;
   @include transition($duration-base, color, background-color);
+
+  // Extended hit area: covers the vertical padding of .contact-item so
+  // clicks/hover there trigger the link while hover paints only the button.
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: rem(-$contact-item-padding-block);
+    inset-inline: 0;
+  }
 
   &:hover {
     background-color: $backgroundTint;

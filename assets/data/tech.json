@@ -31,6 +31,7 @@
   { "icon": "assets/icons/icon-tech-mysql.svg", "name": "MySQL", "url": "https://www.mysql.com/", "tags": ["data"] },
   { "icon": "assets/icons/icon-tech-postgresql.svg", "name": "PostgreSQL", "url": "https://www.postgresql.org/", "tags": ["data"] },
   { "icon": "assets/icons/icon-tech-mongodb.svg", "name": "MongoDB", "url": "https://www.mongodb.com/", "tags": ["data"] },
+  { "icon": "assets/icons/icon-tech-docker.svg", "name": "Docker", "url": "https://www.docker.com/", "tags": ["tools"] },
   { "icon": "assets/icons/icon-tech-github.svg", "name": "GitHub", "url": "https://github.com/", "tags": ["tools"] },
   { "icon": "assets/icons/icon-tech-bash.svg", "name": "Bash", "url": "https://www.gnu.org/software/bash/", "tags": ["tools"] }
 ]

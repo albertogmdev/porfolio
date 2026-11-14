@@ -85,7 +85,7 @@
     return true;
   };
 
-  /* Selector: mismo patrón de listbox que el tema. */
+  /* Selector de idioma: patrón listbox. */
   const initSwitcher = () => {
     const toggle = document.getElementById('lang-toggle');
     const menu = document.getElementById('lang-menu');

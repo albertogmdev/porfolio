@@ -1,5 +1,23 @@
 @use '../../abstracts' as *;
 
+// Enlace de texto de la card: lista antigua .card-site y enlaces sin clase en .card-text.
+%card-link {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: rem($space-0-5);
+  @include transition($duration-card, color);
+
+  &:hover {
+    color: $textPrimary;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
 .card-project {
   display: flex;
   flex: 1;
@@ -163,16 +181,42 @@
     margin-top: rem($space-3);
   }
 
+  // Una columna: titulo en fila 1 y subtitulo en fila 2; el estado ocupa la fila 1
+  // a la derecha y se centra respecto al titulo (aunque este ocupe varias lineas).
+  // .card-heading es un div sin rol: display: contents no afecta a la lectura.
   .card-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: rem($space-2);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: rem($space-2);
+    row-gap: 0;
+  }
+
+  .card-heading {
+    display: contents;
+  }
+
+  .card-title {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .card-subtitle {
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+
+  .card-heading:last-child .card-title {
+    grid-column: 1 / -1;
   }
 
   .card-status {
-    flex: none;
+    display: flex;
+    grid-row: 1;
+    grid-column: 2;
+    align-self: center;
+    align-items: center;
+    gap: rem($space-1-5);
     color: $textSecondary;
     font-size: rem($font-size-body);
     font-weight: 600;
@@ -180,12 +224,19 @@
     white-space: nowrap;
   }
 
+  // Punto dibujado con CSS; el glifo "•" queda oculto (aria-hidden en el marcado).
   .card-status-dot {
-    color: $accentLive;
+    flex: none;
+    width: rem($space-2);
+    height: rem($space-2);
+    border-radius: 50%;
+    background-color: $statusActive;
+    font-size: 0;
+    line-height: 0;
   }
 
   &--inactive .card-status-dot {
-    color: $textTertiary;
+    background-color: $textTertiary;
   }
 
   .card-sites {
@@ -204,18 +255,7 @@
   }
 
   .card-site {
-    color: inherit;
-    overflow-wrap: anywhere;
-    text-decoration: underline;
-    text-underline-offset: rem($space-0-5);
-
-    &:hover {
-      color: $textPrimary;
-    }
-
-    &:focus-visible {
-      @include focus-ring;
-    }
+    @extend %card-link;
   }
 
   .card-footer {
@@ -242,5 +282,152 @@
     flex: 0 1 auto;
     flex-wrap: wrap;
     gap: rem($space-1);
+  }
+
+  .card-subtitle {
+    margin-top: rem($space-1);
+    font-weight: 600;
+  }
+
+  // Descripcion con HTML limitado: div.card-text > p, ul/ol > li, b/strong, em/i, span, br, a.
+  .card-text {
+    :where(p, ul, ol) {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      padding-inline-start: rem($space-5);
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    li + li {
+      margin-top: rem($space-0-5);
+    }
+
+    > * + * {
+      margin-top: rem($space-2);
+    }
+
+    b,
+    strong {
+      color: $textPrimary;
+      font-weight: 600;
+    }
+
+    em,
+    i {
+      font-style: italic;
+    }
+
+    a {
+      @extend %card-link;
+    }
+  }
+}
+
+// Rejilla de varias columnas: filas alineadas entre cards via subgrid.
+// Filas: 1 record, 2 media, 3 titulo/estado, 4 subtitulo, 5 texto, 6 sitios, 7 footer.
+// Las filas opcionales sin contenido miden 0; el espaciado va en margenes de cada item, no en gap.
+@supports (grid-template-rows: subgrid) {
+  @include up(md) {
+    // Especificidad extra para ganar a los gap de temas (eva .card-header).
+    .projects-grid > .projects-item > .card-project {
+      display: grid;
+      grid-row: span $project-card-rows;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: subgrid;
+      gap: 0;
+      min-height: 0;
+
+      .card-record {
+        grid-row: 1;
+      }
+
+      .card-media {
+        grid-row: 2;
+      }
+
+      .card-body {
+        display: grid;
+        grid-row: 3 / span $project-body-rows;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: subgrid;
+        gap: 0;
+      }
+
+      // Posicion explicita: si falta una fila opcional, las siguientes no suben a su pista.
+      .card-header {
+        display: grid;
+        grid-row: 1 / span 2;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: subgrid;
+        column-gap: rem($space-2);
+        row-gap: 0;
+      }
+
+      .card-heading {
+        display: grid;
+        grid-row: span 2;
+        grid-column: 1;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: subgrid;
+        gap: 0;
+
+        &:last-child {
+          grid-column: 1 / -1;
+        }
+      }
+
+      .card-title {
+        grid-row: 1;
+        grid-column: 1;
+      }
+
+      .card-subtitle {
+        grid-row: 2;
+        grid-column: 1;
+      }
+
+      // Centrado respecto al bloque titulo + subtitulo (pistas comunes a la fila de cards).
+      // Sin subtitulo, su pista mide 0 (o el alto de la vecina).
+      .card-status {
+        grid-row: 1 / span 2;
+        grid-column: 2;
+        align-self: center;
+      }
+
+      // Mismo aire encima y debajo de la descripcion, dentro de su fila.
+      // Los sitios solo suman margen si no hay descripcion antes, para no duplicar.
+      .card-text {
+        margin-block: rem($space-2);
+      }
+
+      .card-header + .card-sites {
+        margin-top: rem($space-2);
+      }
+
+      .card-text {
+        grid-row: 3;
+      }
+
+      .card-sites {
+        grid-row: 4;
+      }
+
+      .card-footer {
+        grid-row: 5;
+        align-self: stretch;
+        align-content: flex-end;
+        margin-top: 0;
+      }
+    }
   }
 }

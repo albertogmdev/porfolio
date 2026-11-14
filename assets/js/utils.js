@@ -1,5 +1,4 @@
 export const APP_EVENTS = {
-  setTheme: 'app:set-theme',
   setLang: 'app:set-lang',
   navigate: 'app:navigate',
   intrusion: 'app:intrusion',

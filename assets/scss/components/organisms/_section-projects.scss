@@ -45,6 +45,22 @@
     }
   }
 
+  // Varias columnas: cada item reparte sus filas con los de su fila de rejilla.
+  @supports (grid-template-rows: subgrid) {
+    @include up(md) {
+      .projects-grid {
+        row-gap: 0;
+      }
+
+      .projects-item {
+        display: grid;
+        grid-row: span $project-card-rows;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: subgrid;
+      }
+    }
+  }
+
   .panel-projects & .projects-item:last-child .card-project {
     @include down(sm) {
       border-bottom: 0;

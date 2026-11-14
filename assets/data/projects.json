@@ -4,9 +4,13 @@
     "type": "work",
     "featured": true,
     "status": "active",
+    "subtitle": {
+      "es": "Desarrollo frontend de la nueva web de Cruzcampo.",
+      "en": "Front-end development of the new Cruzcampo website."
+    },
     "description": {
-      "es": "Web de marca con un enfoque muy visual, construida en HTML y JavaScript para cuidar al máximo el rendimiento y las animaciones.",
-      "en": "Brand website with a strongly visual approach, built in HTML and JavaScript to get the best possible performance and animations."
+      "es": "<p>Desarrollo que buscaba adaptar de forma fiel la identidad visual de Cruzcampo y su nueva campaña. En este proyecto mi principal función fue desarrollar diferentes módulos y componentes siguiendo el diseño establecido, cuidando especialmente los detalles visuales y las animaciones de la web.</p>",
+      "en": "<p>A build aimed at faithfully capturing Cruzcampo's visual identity and its new campaign. My main role was developing various modules and components following the established design, paying special attention to the visual details and animations of the site.</p>"
     },
     "tags": [
       "HTML",
@@ -24,9 +28,13 @@
     "type": "work",
     "featured": true,
     "status": "active",
+    "subtitle": {
+      "es": "Líder técnico y desarrollo frontend de la web de Accumin.",
+      "en": "Tech lead and front-end development of the Accumin website."
+    },
     "description": {
-      "es": "Sitio corporativo sobre Strapi y Next.js, con contenido editable por el equipo de marketing.",
-      "en": "Corporate site built on Strapi and Next.js, with content the marketing team can edit on their own."
+      "es": "<p>En el desarrollo de la nueva web corporativa de Accumin fui el encargado de liderar técnicamente el proyecto, eligiendo las tecnologías y definiendo la arquitectura de desarrollo en función de las necesidades de la web.</p><p>Desarrollo del frontend con Next.js y configuración de Strapi como gestor de contenidos, participando también en la maquetación de diferentes módulos y animaciones.</p>",
+      "en": "<p>For Accumin's new corporate website I was the project's technical lead, choosing the technologies and defining the development architecture based on the site's needs.</p><p>I developed the front end with Next.js and set up Strapi as the content management system, also building various modules and animations.</p>"
     },
     "tags": [
       "Strapi",
@@ -43,9 +51,13 @@
     "type": "work",
     "featured": true,
     "status": "active",
+    "subtitle": {
+      "es": "Desarrollo fullstack y mantenimiento de la web de Neolith.",
+      "en": "Full-stack development and maintenance of the Neolith website."
+    },
     "description": {
-      "es": "Catálogo internacional de superficies de alta gama, montado sobre Storyblok y Nuxt.js. Los editores componen cada página con bloques reutilizables y publican en varios idiomas sin depender de desarrollo. Me encargué del front, de los componentes del sistema de diseño y de la carga optimizada de imágenes de gran formato.",
-      "en": "International catalogue of premium surfaces, built on Storyblok and Nuxt.js. Editors assemble each page from reusable blocks and publish in several languages without needing a developer. I worked on the front end, the design-system components and the optimised loading of large-format images."
+      "es": "<p>Desarrollo y mantenimiento de la web de Neolith utilizando Nuxt.js y Storyblok como CMS headless.</p><p>Mi principal función ha sido desarrollar nuevos bloques, páginas y funcionalidades, además de resolver incidencias y aplicar mejoras continuas al proyecto.</p><p>La estructura modular y reutilizable permite al cliente crear y gestionar un gran volumen de páginas y contenidos de forma sencilla, manteniendo una web escalable y facilitando la generación de páginas estáticas.</p>",
+      "en": "<p>Development and maintenance of the Neolith website using Nuxt.js and Storyblok as a headless CMS.</p><p>My main role has been developing new blocks, pages and features, as well as fixing issues and making continuous improvements to the project.</p><p>Its modular, reusable structure lets the client easily create and manage a large volume of pages and content, keeping the site scalable and making static page generation easier.</p>"
     },
     "tags": [
       "Storyblok",
@@ -65,9 +77,13 @@
     "type": "work",
     "featured": true,
     "status": "active",
+    "subtitle": {
+      "es": "Desarrollo de un tema maestro modular, personalizable y accesible para Cinfa.",
+      "en": "Development of a modular, customisable and accessible master theme for Cinfa."
+    },
     "description": {
-      "es": "Conjunto de microsites de salud y farmacia sobre WordPress y campos personalizados con ACF. Comparten tema y componentes, lo que permite lanzar una nueva marca en poco tiempo manteniendo la coherencia visual.",
-      "en": "A set of health and pharmacy microsites on WordPress with ACF custom fields. They share a theme and components, so a new brand can be launched quickly while keeping a consistent look."
+      "es": "<p>Este desarrollo permite generar nuevos sitios web de forma rápida y sencilla, adaptando únicamente los colores corporativos, los contenidos y las imágenes de cada web.</p><p>Se creó una arquitectura basada en componentes reutilizables y configurables que superó las auditorías de accesibilidad y obtuvo la certificación WCAG 2.1 nivel AA.</p><ul><li><a href=\"https://pharmagrip.cinfa.com/\">Pharmagrip</a></li><li><a href=\"https://respibien.cinfa.com/\">Respibien</a></li><li><a href=\"https://cinfatos.cinfa.com/\">Cinfatós</a></li><li><a href=\"https://optiben.cinfa.com/\">Optiben</a></li></ul>",
+      "en": "<p>It makes it quick and easy to launch new websites by adapting only each site's brand colours, content and images.</p><p>We built an architecture based on reusable, configurable components that passed the accessibility audits and achieved WCAG 2.1 level AA certification.</p><ul><li><a href=\"https://pharmagrip.cinfa.com/\">Pharmagrip</a></li><li><a href=\"https://respibien.cinfa.com/\">Respibien</a></li><li><a href=\"https://cinfatos.cinfa.com/\">Cinfatós</a></li><li><a href=\"https://optiben.cinfa.com/\">Optiben</a></li></ul>"
     },
     "tags": [
       "WordPress",
@@ -79,25 +95,7 @@
       "assets/images/cinfa-screenshot2.png"
     ],
     "links": {
-      "live": "https://pharmagrip.cinfa.com/",
-      "sites": [
-        {
-          "label": "Pharmagrip",
-          "url": "https://pharmagrip.cinfa.com/"
-        },
-        {
-          "label": "Respibien",
-          "url": "https://respibien.cinfa.com/"
-        },
-        {
-          "label": "Cinfatós",
-          "url": "https://cinfatos.cinfa.com/"
-        },
-        {
-          "label": "Optiben",
-          "url": "https://optiben.cinfa.com/"
-        }
-      ]
+      "live": "https://pharmagrip.cinfa.com/"
     }
   },
   {
@@ -105,9 +103,13 @@
     "type": "work",
     "featured": true,
     "status": "active",
+    "subtitle": {
+      "es": "Desarrollo frontend para la web de El Águila.",
+      "en": "Front-end development for the El Águila website."
+    },
     "description": {
-      "es": "Web de marca de cerveza con identidad muy marcada y contenido pensado para campañas.",
-      "en": "Beer brand website with a strong identity and content designed for campaigns."
+      "es": "<p>Desarrollo frontend de diferentes módulos y componentes para la web de El Águila, siguiendo el branding y las directrices de diseño de la marca y manteniendo una identidad visual coherente y adaptada a diferentes dispositivos.</p>",
+      "en": "<p>Front-end development of various modules and components for the El Águila website, following the brand's guidelines and design direction while keeping a consistent visual identity across devices.</p>"
     },
     "tags": [
       "HTML",
@@ -125,9 +127,13 @@
     "type": "work",
     "featured": true,
     "status": "active",
+    "subtitle": {
+      "es": "Desarrollo frontend para presentar el nuevo rebranding de Mapfre.",
+      "en": "Front-end development to present Mapfre's new rebrand."
+    },
     "description": {
-      "es": "Plataforma de marca en Next.js con animaciones GSAP, pensada para contar la historia de la compañía a través del scroll. Prioricé una experiencia fluida en móvil y que las animaciones respetaran la preferencia de movimiento reducido.",
-      "en": "Brand platform in Next.js with GSAP animations, designed to tell the company's story through scrolling. I focused on a smooth mobile experience and on animations that respect the reduced-motion preference."
+      "es": "<p>Proyecto para presentar el nuevo rebranding de Mapfre: una web muy visual, donde el diseño, las animaciones y la experiencia de usuario tienen un papel protagonista. Desarrollo de diferentes módulos y animaciones <em>scroll-driven</em> que hacen que los elementos de la web reaccionen al movimiento del usuario y crean una experiencia más dinámica.</p>",
+      "en": "<p>A project to present Mapfre's new rebrand: a highly visual website where design, animation and user experience take centre stage. I developed various modules and <em>scroll-driven</em> animations that make the site's elements react to the user's movement, creating a more dynamic experience.</p>"
     },
     "tags": [
       "Next.js",
@@ -144,13 +150,17 @@
     }
   },
   {
-    "title": "Vuse",
+    "title": "Vuse España",
     "type": "work",
     "featured": false,
     "status": "inactive",
+    "subtitle": {
+      "es": "Desarrollo frontend de la plataforma e-commerce de Vuse España.",
+      "en": "Front-end development of the Vuse Spain e-commerce platform."
+    },
     "description": {
-      "es": "Tienda online sobre Shopify con partes a medida en PHP. Actualmente fuera de servicio.",
-      "en": "Online store on Shopify with custom PHP parts. No longer online."
+      "es": "<p>Vuse es una marca de BAT especializada en productos de vapeo. El proyecto consiste en el desarrollo frontend de su plataforma e-commerce en España con PHP y Shopify, creando una experiencia de usuario responsive, intuitiva y adaptada a la identidad visual de la marca.</p>",
+      "en": "<p>Vuse is a BAT brand specialising in vaping products. The project covers the front-end development of its e-commerce platform in Spain with PHP and Shopify, creating a responsive, intuitive user experience aligned with the brand's visual identity.</p>"
     },
     "tags": [
       "PHP",
@@ -166,9 +176,14 @@
     "title": "Avolta",
     "type": "work",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Líder técnico encargado de gestionar y automatizar el proyecto.",
+      "en": "Tech lead responsible for managing and automating the project."
+    },
     "description": {
-      "es": "Comercio electrónico de duty free con Magento y Umbraco, más una app móvil. Integré servicios en Python para sincronizar catálogo y pedidos entre sistemas, y trabajé en el checkout, que concentra la mayor parte de la conversión.",
-      "en": "Duty-free e-commerce on Magento and Umbraco, plus a mobile app. I built Python services to sync catalogue and orders between systems and worked on the checkout, where most conversions happen."
+      "es": "<p>Avolta es el proyecto en el que trabajo actualmente y el más grande del departamento. Consiste en la gestión del contenido de todas las webs y la app móvil de Avolta. Mis funciones principales son:</p><ul><li>Gestionar el equipo y detectar tareas que se puedan optimizar</li><li>Liderar técnicamente el proyecto, dando soporte a mis compañeros</li><li>Optimizar procesos desarrollando scripts con Python y otras herramientas</li></ul>",
+      "en": "<p>Avolta is the project I'm currently working on and the largest in the department. It covers content management for all of Avolta's websites and mobile app. My main responsibilities are:</p><ul><li>Managing the team and spotting tasks that can be optimised</li><li>Leading the project technically and supporting my teammates</li><li>Optimising processes by building scripts with Python and other tools</li></ul>"
     },
     "tags": [
       "Magento",
@@ -185,9 +200,14 @@
     "title": "Mychef",
     "type": "work",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Desarrollo de un tema personalizado de WordPress para Mychef.",
+      "en": "Development of a custom WordPress theme for Mychef."
+    },
     "description": {
-      "es": "Plataforma profesional para chefs sobre WordPress y ACF, con fichas de producto y contenido gestionable.",
-      "en": "Professional platform for chefs on WordPress and ACF, with product pages and manageable content."
+      "es": "<p>Creación y desarrollo de un tema personalizado de WordPress, utilizando ACF para crear bloques y componentes reutilizables. El desarrollo permite crear nuevas páginas de forma sencilla, con contenidos dinámicos y personalizables desde el panel de administración.</p>",
+      "en": "<p>Design and development of a custom WordPress theme, using ACF to build reusable blocks and components. It makes it easy to create new pages with dynamic content that can be customised from the admin panel.</p>"
     },
     "tags": [
       "WordPress",
@@ -206,9 +226,14 @@
     "title": "Farmacias Direct",
     "type": "work",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Desarrollo fullstack de una plataforma e-commerce headless para Farmacias Direct.",
+      "en": "Full-stack development of a headless e-commerce platform for Farmacias Direct."
+    },
     "description": {
-      "es": "Tienda headless con React y Hydrogen sobre Shopify, con estilos en Tailwind. Al separar el front del backend de la tienda se consiguen cargas rápidas y total libertad de diseño, manteniendo la gestión de catálogo y pedidos en Shopify.",
-      "en": "Headless storefront with React and Hydrogen on Shopify, styled with Tailwind. Decoupling the front end from the shop backend gives fast loads and full design freedom while catalogue and orders stay managed in Shopify."
+      "es": "<p>Farmacias Direct es un proyecto desarrollado con Hydrogen y React que ofrece una experiencia de compra moderna y optimizada. Trabajé tanto en el frontend como en el backend para ofrecer una solución escalable y adaptada a las necesidades del cliente.</p>",
+      "en": "<p>Farmacias Direct is built with Hydrogen and React to deliver a modern, optimised shopping experience. I worked on both the front end and the back end to provide a scalable solution tailored to the client's needs.</p>"
     },
     "tags": [
       "React",
@@ -227,13 +252,19 @@
     "title": "Webscavul",
     "type": "personal",
     "featured": false,
+    "status": "inactive",
+    "subtitle": {
+      "es": "Desarrollo fullstack presentado como Trabajo Fin de Máster.",
+      "en": "Full-stack development presented as my Master's thesis."
+    },
     "description": {
-      "es": "Escáner de vulnerabilidades web que identifica, reporta y gestiona fallos de seguridad comunes en aplicaciones. Desarrollado con Python en la API y Next.js en la aplicación web, y documentado en un PDF adjunto.",
-      "en": "Web vulnerability scanner that identifies, reports and manages common security flaws in web applications. Built with Python for the API and Next.js for the web app, with an attached PDF document."
+      "es": "<p>Webscavul es una herramienta integrada en un entorno Docker que permite la detección y el análisis de vulnerabilidades web e incorpora una herramienta tipo Kanban. El desarrollo consta de:</p><ul><li>Diseño y desarrollo de la base de datos en MariaDB</li><li>Motor de escaneo y API desarrollados en Python</li><li>Interfaz web construida con Next.js</li></ul>",
+      "en": "<p>Webscavul is a tool running in a Docker environment for detecting and analysing web vulnerabilities, with a built-in Kanban-style tool. The development includes:</p><ul><li>Database design and development in MariaDB</li><li>Scanning engine and API built in Python</li><li>Web interface built with Next.js</li></ul>"
     },
     "tags": [
       "Python",
-      "Next.js"
+      "Next.js",
+      "Docker"
     ],
     "image": "assets/images/webscavul-screenshot.png",
     "previews": [
@@ -250,9 +281,14 @@
     "title": "Bnomio Studio",
     "type": "personal",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Portfolio desarrollado para Bnomio Studio.",
+      "en": "Portfolio developed for Bnomio Studio."
+    },
     "description": {
-      "es": "Web de un estudio de diseño nómada y consultoría creativa, con sus proyectos recientes y su identidad. Tema a medida para WordPress en PHP.",
-      "en": "Website for a nomad design studio and creative consultancy, showcasing its recent projects and identity. Custom WordPress theme built in PHP."
+      "es": "<p>Creación y desarrollo de un tema personalizado de WordPress con un diseño claro y minimalista, basado en una dualidad visual que aporta personalidad e identidad propia al proyecto. El uso de Carbon Fields permite crear nuevas páginas fácilmente y que su contenido sea dinámico y personalizable.</p>",
+      "en": "<p>Design and development of a custom WordPress theme with a clean, minimalist design built on a visual duality that gives the project its own personality and identity. Carbon Fields makes it easy to create new pages with dynamic, customisable content.</p>"
     },
     "tags": [
       "PHP",
@@ -270,9 +306,14 @@
     "title": "Hayunlugar",
     "type": "personal",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Landing page desarrollada para Hayunlugar.",
+      "en": "Landing page developed for Hayunlugar."
+    },
     "description": {
-      "es": "Web de espíritu minimalista que invita a volver a lo primario, a la esencia.",
-      "en": "Minimalist website that invites people to return to the primal, to the essence."
+      "es": "<p>Desarrollo de una landing page centrada en el minimalismo y la experiencia de usuario. El proyecto pone especial atención en el diseño, las animaciones y las transiciones para conseguir una navegación fluida y agradable.</p>",
+      "en": "<p>Development of a landing page focused on minimalism and user experience. The project pays special attention to design, animations and transitions to achieve smooth, pleasant navigation.</p>"
     },
     "tags": [
       "HTML",
@@ -289,9 +330,14 @@
     "title": "LaTulipana",
     "type": "personal",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Desarrollo de un e-commerce con Squarespace para LaTulipana.",
+      "en": "E-commerce development with Squarespace for LaTulipana."
+    },
     "description": {
-      "es": "Web de un estudio floral que trabaja de forma cercana a la naturaleza y la temporada. Identidad visual, diseño UX/UI y desarrollo para mostrar sus servicios, talleres y encargos a medida.",
-      "en": "Website for a floral studio that works closely with nature and the seasons. Visual identity, UX/UI design and development to showcase its services, workshops and bespoke commissions."
+      "es": "<p>Desarrollo y personalización de un e-commerce con Squarespace. El proyecto se centra en adaptar y personalizar los bloques que proporciona la plataforma mediante código y HTML personalizados, ajustando así el diseño a la identidad visual de la marca.</p>",
+      "en": "<p>Development and customisation of an e-commerce site with Squarespace. The project focuses on adapting and customising the platform's blocks with custom code and HTML, aligning the design with the brand's visual identity.</p>"
     },
     "tags": [
       "Squarespace",
@@ -308,9 +354,14 @@
     "title": "Word Counter",
     "type": "personal",
     "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Pequeña aplicación web desarrollada para aprender Astro.",
+      "en": "Small web app built to learn Astro."
+    },
     "description": {
-      "es": "Aplicación donde pegas un texto y obtienes información detallada sobre él o lo conviertes a distintos formatos. Publicada en GitHub Pages.",
-      "en": "App where you paste a text to get detailed information about it or convert it to different formats. Hosted on GitHub Pages."
+      "es": "Word Counter es una web donde el usuario introduce un texto y obtiene información detallada sobre él, además de poder convertirlo a diferentes formatos.",
+      "en": "Word Counter is a website where users enter a text to get detailed information about it and convert it to different formats."
     },
     "tags": [
       "Astro",
@@ -328,9 +379,14 @@
     "title": "Bomose",
     "type": "personal",
     "featured": false,
+    "status": "inactive",
+    "subtitle": {
+      "es": "Desarrollo fullstack presentado como Trabajo Fin de Grado.",
+      "en": "Full-stack development presented as my Bachelor's thesis."
+    },
     "description": {
-      "es": "Proyecto personal. Más información en el PDF adjunto.",
-      "en": "Personal project. More information in the attached PDF."
+      "es": "<p>Bomose es una aplicación web para valorar películas, libros y series. El desarrollo consta de los siguientes elementos:</p><ul><li>Diseño y creación de una base de datos MySQL</li><li>Desarrollo de una API con Spring Boot</li><li>Interfaz gráfica con numerosas vistas utilizando React</li></ul>",
+      "en": "<p>Bomose is a web app for rating films, books and series. The development includes:</p><ul><li>Design and creation of a MySQL database</li><li>API development with Spring Boot</li><li>User interface with many views built with React</li></ul>"
     },
     "tags": [
       "Springboot",

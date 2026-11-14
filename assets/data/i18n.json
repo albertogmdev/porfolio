@@ -55,10 +55,6 @@
     "es": "Cambiar idioma",
     "en": "Change language"
   },
-  "nav.theme": {
-    "es": "Cambiar tema",
-    "en": "Change theme"
-  },
   "lang.menu": {
     "es": "Idioma",
     "en": "Language"
@@ -66,22 +62,6 @@
   "lang.changed": {
     "es": "Idioma cambiado a español",
     "en": "Language changed to English"
-  },
-  "theme.menu": {
-    "es": "Tema",
-    "en": "Theme"
-  },
-  "theme.dark": {
-    "es": "Oscuro",
-    "en": "Dark"
-  },
-  "theme.light": {
-    "es": "Claro",
-    "en": "Light"
-  },
-  "theme.announce": {
-    "es": "Tema {name}",
-    "en": "Theme {name}"
   },
   "kanji.observation": {
     "es": "Observación",
@@ -371,14 +351,6 @@
     "es": "Limpia la terminal",
     "en": "Clears the terminal"
   },
-  "terminal.cmd.theme.usage": {
-    "es": "theme [nombre]",
-    "en": "theme [name]"
-  },
-  "terminal.cmd.theme.description": {
-    "es": "Cambia el tema",
-    "en": "Changes the theme"
-  },
   "terminal.cmd.lang.description": {
     "es": "Cambia el idioma",
     "en": "Changes the language"
@@ -410,30 +382,6 @@
   "terminal.cmd.sudo.description": {
     "es": "Ejecuta un comando como administrador",
     "en": "Runs a command as administrator"
-  },
-  "terminal.theme.current": {
-    "es": "Tema actual: {theme}",
-    "en": "Current theme: {theme}"
-  },
-  "terminal.theme.available": {
-    "es": "Disponibles: {themes}",
-    "en": "Available: {themes}"
-  },
-  "terminal.theme.usage": {
-    "es": "Uso: theme [nombre]",
-    "en": "Usage: theme [name]"
-  },
-  "terminal.theme.not_found": {
-    "es": "theme: '{target}' no existe. Disponibles: {themes}",
-    "en": "theme: '{target}' does not exist. Available: {themes}"
-  },
-  "terminal.theme.already": {
-    "es": "El tema ya es {theme}.",
-    "en": "The theme is already {theme}."
-  },
-  "terminal.theme.changed": {
-    "es": "Tema cambiado a {theme}.",
-    "en": "Theme changed to {theme}."
   },
   "terminal.lang.current": {
     "es": "Idioma actual: {lang}",
