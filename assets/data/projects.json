@@ -24,6 +24,31 @@
     }
   },
   {
+    "title": "Bnomio Studio",
+    "type": "personal",
+    "featured": true,
+    "status": "active",
+    "subtitle": {
+      "es": "Portfolio desarrollado para Bnomio Studio.",
+      "en": "Portfolio developed for Bnomio Studio."
+    },
+    "description": {
+      "es": "<p>Creación y desarrollo de un tema personalizado de WordPress con un diseño claro y minimalista, basado en una dualidad visual que aporta personalidad e identidad propia al proyecto. El uso de Carbon Fields permite crear nuevas páginas fácilmente y que su contenido sea dinámico y personalizable.</p>",
+      "en": "<p>Design and development of a custom WordPress theme with a clean, minimalist design built on a visual duality that gives the project its own personality and identity. Carbon Fields makes it easy to create new pages with dynamic, customisable content.</p>"
+    },
+    "tags": [
+      "PHP",
+      "WordPress",
+      "Carbon Fields"
+    ],
+    "image": "assets/images/bnomiostudio-screenshot.png",
+    "video": "assets/video/bnomiostudio-video.mp4",
+    "links": {
+      "live": "https://www.bnomio.com/",
+      "code": "https://github.com/albertogmdev/binomio-portfolio"
+    }
+  },
+  {
     "title": "Accumin",
     "type": "work",
     "featured": true,
@@ -44,6 +69,35 @@
     "video": "assets/video/accumin-video.mp4",
     "links": {
       "live": "https://www.accumin.com/"
+    }
+  },
+  {
+    "title": "Webscavul",
+    "type": "personal",
+    "featured": true,
+    "status": "inactive",
+    "subtitle": {
+      "es": "Desarrollo fullstack presentado como Trabajo Fin de Máster.",
+      "en": "Full-stack development presented as my Master's thesis."
+    },
+    "description": {
+      "es": "<p>Webscavul es una herramienta integrada en un entorno Docker que permite la detección y el análisis de vulnerabilidades web e incorpora una herramienta tipo Kanban. El desarrollo consta de:</p><ul><li>Diseño y desarrollo de la base de datos en MariaDB</li><li>Motor de escaneo y API desarrollados en Python</li><li>Interfaz web construida con Next.js</li></ul>",
+      "en": "<p>Webscavul is a tool running in a Docker environment for detecting and analysing web vulnerabilities, with a built-in Kanban-style tool. The development includes:</p><ul><li>Database design and development in MariaDB</li><li>Scanning engine and API built in Python</li><li>Web interface built with Next.js</li></ul>"
+    },
+    "tags": [
+      "Python",
+      "Next.js",
+      "Docker"
+    ],
+    "image": "assets/images/webscavul-screenshot.png",
+    "previews": [
+      "assets/images/webscavul-screenshot1.png",
+      "assets/images/webscavul-screenshot2.png",
+      "assets/images/webscavul-screenshot3.png"
+    ],
+    "links": {
+      "code": "https://github.com/albertogmdev/webscavul",
+      "file": "assets/files/webscavul.pdf"
     }
   },
   {
@@ -70,56 +124,6 @@
     "video": "assets/video/neolith-video.mp4",
     "links": {
       "live": "https://www.neolith.com/"
-    }
-  },
-  {
-    "title": "Cinfa",
-    "type": "work",
-    "featured": true,
-    "status": "active",
-    "subtitle": {
-      "es": "Desarrollo de un tema maestro modular, personalizable y accesible para Cinfa.",
-      "en": "Development of a modular, customisable and accessible master theme for Cinfa."
-    },
-    "description": {
-      "es": "<p>Este desarrollo permite generar nuevos sitios web de forma rápida y sencilla, adaptando únicamente los colores corporativos, los contenidos y las imágenes de cada web.</p><p>Se creó una arquitectura basada en componentes reutilizables y configurables que superó las auditorías de accesibilidad y obtuvo la certificación WCAG 2.1 nivel AA.</p><ul><li><a href=\"https://pharmagrip.cinfa.com/\">Pharmagrip</a></li><li><a href=\"https://respibien.cinfa.com/\">Respibien</a></li><li><a href=\"https://cinfatos.cinfa.com/\">Cinfatós</a></li><li><a href=\"https://optiben.cinfa.com/\">Optiben</a></li></ul>",
-      "en": "<p>It makes it quick and easy to launch new websites by adapting only each site's brand colours, content and images.</p><p>We built an architecture based on reusable, configurable components that passed the accessibility audits and achieved WCAG 2.1 level AA certification.</p><ul><li><a href=\"https://pharmagrip.cinfa.com/\">Pharmagrip</a></li><li><a href=\"https://respibien.cinfa.com/\">Respibien</a></li><li><a href=\"https://cinfatos.cinfa.com/\">Cinfatós</a></li><li><a href=\"https://optiben.cinfa.com/\">Optiben</a></li></ul>"
-    },
-    "tags": [
-      "WordPress",
-      "ACF"
-    ],
-    "image": "assets/images/cinfa-screenshot.png",
-    "previews": [
-      "assets/images/cinfa-screenshot1.png",
-      "assets/images/cinfa-screenshot2.png"
-    ],
-    "links": {
-      "live": "https://pharmagrip.cinfa.com/"
-    }
-  },
-  {
-    "title": "El Águila",
-    "type": "work",
-    "featured": true,
-    "status": "active",
-    "subtitle": {
-      "es": "Desarrollo frontend para la web de El Águila.",
-      "en": "Front-end development for the El Águila website."
-    },
-    "description": {
-      "es": "<p>Desarrollo frontend de diferentes módulos y componentes para la web de El Águila, siguiendo el branding y las directrices de diseño de la marca y manteniendo una identidad visual coherente y adaptada a diferentes dispositivos.</p>",
-      "en": "<p>Front-end development of various modules and components for the El Águila website, following the brand's guidelines and design direction while keeping a consistent visual identity across devices.</p>"
-    },
-    "tags": [
-      "HTML",
-      "JavaScript",
-      "CSS"
-    ],
-    "image": "assets/images/elaguila-screenshot.png",
-    "video": "assets/video/elaguila-video.mp4",
-    "links": {
-      "live": "https://www.cervezaelaguila.es/"
     }
   },
   {
@@ -150,29 +154,6 @@
     }
   },
   {
-    "title": "Vuse España",
-    "type": "work",
-    "featured": false,
-    "status": "inactive",
-    "subtitle": {
-      "es": "Desarrollo frontend de la plataforma e-commerce de Vuse España.",
-      "en": "Front-end development of the Vuse Spain e-commerce platform."
-    },
-    "description": {
-      "es": "<p>Vuse es una marca de BAT especializada en productos de vapeo. El proyecto consiste en el desarrollo frontend de su plataforma e-commerce en España con PHP y Shopify, creando una experiencia de usuario responsive, intuitiva y adaptada a la identidad visual de la marca.</p>",
-      "en": "<p>Vuse is a BAT brand specialising in vaping products. The project covers the front-end development of its e-commerce platform in Spain with PHP and Shopify, creating a responsive, intuitive user experience aligned with the brand's visual identity.</p>"
-    },
-    "tags": [
-      "PHP",
-      "Shopify"
-    ],
-    "image": "assets/images/vuse-screenshot.png",
-    "video": "assets/video/vuse-video.mp4",
-    "links": {
-      "live": "https://web.archive.org/web/20240325181949/https://vuse.es/"
-    }
-  },
-  {
     "title": "Avolta",
     "type": "work",
     "featured": false,
@@ -194,6 +175,32 @@
     "mobileImage": "assets/images/avolta-app-screenshot.png",
     "links": {
       "live": "https://madrid.shopdutyfree.com/"
+    }
+  },
+  {
+    "title": "Cinfa",
+    "type": "work",
+    "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Desarrollo de un tema maestro modular, personalizable y accesible para Cinfa.",
+      "en": "Development of a modular, customisable and accessible master theme for Cinfa."
+    },
+    "description": {
+      "es": "<p>Este desarrollo permite generar nuevos sitios web de forma rápida y sencilla, adaptando únicamente los colores corporativos, los contenidos y las imágenes de cada web.</p><p>Se creó una arquitectura basada en componentes reutilizables y configurables que superó las auditorías de accesibilidad y obtuvo la certificación WCAG 2.1 nivel AA.</p><ul><li><a href=\"https://pharmagrip.cinfa.com/\">Pharmagrip</a></li><li><a href=\"https://respibien.cinfa.com/\">Respibien</a></li><li><a href=\"https://cinfatos.cinfa.com/\">Cinfatós</a></li><li><a href=\"https://optiben.cinfa.com/\">Optiben</a></li></ul>",
+      "en": "<p>It makes it quick and easy to launch new websites by adapting only each site's brand colours, content and images.</p><p>We built an architecture based on reusable, configurable components that passed the accessibility audits and achieved WCAG 2.1 level AA certification.</p><ul><li><a href=\"https://pharmagrip.cinfa.com/\">Pharmagrip</a></li><li><a href=\"https://respibien.cinfa.com/\">Respibien</a></li><li><a href=\"https://cinfatos.cinfa.com/\">Cinfatós</a></li><li><a href=\"https://optiben.cinfa.com/\">Optiben</a></li></ul>"
+    },
+    "tags": [
+      "WordPress",
+      "ACF"
+    ],
+    "image": "assets/images/cinfa-screenshot.png",
+    "previews": [
+      "assets/images/cinfa-screenshot1.png",
+      "assets/images/cinfa-screenshot2.png"
+    ],
+    "links": {
+      "live": "https://pharmagrip.cinfa.com/"
     }
   },
   {
@@ -223,6 +230,53 @@
     }
   },
   {
+    "title": "El Águila",
+    "type": "work",
+    "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Desarrollo frontend para la web de El Águila.",
+      "en": "Front-end development for the El Águila website."
+    },
+    "description": {
+      "es": "<p>Desarrollo frontend de diferentes módulos y componentes para la web de El Águila, siguiendo el branding y las directrices de diseño de la marca y manteniendo una identidad visual coherente y adaptada a diferentes dispositivos.</p>",
+      "en": "<p>Front-end development of various modules and components for the El Águila website, following the brand's guidelines and design direction while keeping a consistent visual identity across devices.</p>"
+    },
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "image": "assets/images/elaguila-screenshot.png",
+    "video": "assets/video/elaguila-video.mp4",
+    "links": {
+      "live": "https://www.cervezaelaguila.es/"
+    }
+  },
+  {
+    "title": "Vuse España",
+    "type": "work",
+    "featured": false,
+    "status": "inactive",
+    "subtitle": {
+      "es": "Desarrollo frontend de la plataforma e-commerce de Vuse España.",
+      "en": "Front-end development of the Vuse Spain e-commerce platform."
+    },
+    "description": {
+      "es": "<p>Vuse es una marca de BAT especializada en productos de vapeo. El proyecto consiste en el desarrollo frontend de su plataforma e-commerce en España con PHP y Shopify, creando una experiencia de usuario responsive, intuitiva y adaptada a la identidad visual de la marca.</p>",
+      "en": "<p>Vuse is a BAT brand specialising in vaping products. The project covers the front-end development of its e-commerce platform in Spain with PHP and Shopify, creating a responsive, intuitive user experience aligned with the brand's visual identity.</p>"
+    },
+    "tags": [
+      "PHP",
+      "Shopify"
+    ],
+    "image": "assets/images/vuse-screenshot.png",
+    "video": "assets/video/vuse-video.mp4",
+    "links": {
+      "live": "https://web.archive.org/web/20240325181949/https://vuse.es/"
+    }
+  },
+  {
     "title": "Farmacias Direct",
     "type": "work",
     "featured": false,
@@ -246,84 +300,6 @@
     "video": "assets/video/farmacias-video.mp4",
     "links": {
       "live": "https://www.farmaciasdirect.es/"
-    }
-  },
-  {
-    "title": "Webscavul",
-    "type": "personal",
-    "featured": false,
-    "status": "inactive",
-    "subtitle": {
-      "es": "Desarrollo fullstack presentado como Trabajo Fin de Máster.",
-      "en": "Full-stack development presented as my Master's thesis."
-    },
-    "description": {
-      "es": "<p>Webscavul es una herramienta integrada en un entorno Docker que permite la detección y el análisis de vulnerabilidades web e incorpora una herramienta tipo Kanban. El desarrollo consta de:</p><ul><li>Diseño y desarrollo de la base de datos en MariaDB</li><li>Motor de escaneo y API desarrollados en Python</li><li>Interfaz web construida con Next.js</li></ul>",
-      "en": "<p>Webscavul is a tool running in a Docker environment for detecting and analysing web vulnerabilities, with a built-in Kanban-style tool. The development includes:</p><ul><li>Database design and development in MariaDB</li><li>Scanning engine and API built in Python</li><li>Web interface built with Next.js</li></ul>"
-    },
-    "tags": [
-      "Python",
-      "Next.js",
-      "Docker"
-    ],
-    "image": "assets/images/webscavul-screenshot.png",
-    "previews": [
-      "assets/images/webscavul-screenshot1.png",
-      "assets/images/webscavul-screenshot2.png",
-      "assets/images/webscavul-screenshot3.png"
-    ],
-    "links": {
-      "code": "https://github.com/albertogmdev/webscavul",
-      "file": "assets/files/webscavul.pdf"
-    }
-  },
-  {
-    "title": "Bnomio Studio",
-    "type": "personal",
-    "featured": false,
-    "status": "active",
-    "subtitle": {
-      "es": "Portfolio desarrollado para Bnomio Studio.",
-      "en": "Portfolio developed for Bnomio Studio."
-    },
-    "description": {
-      "es": "<p>Creación y desarrollo de un tema personalizado de WordPress con un diseño claro y minimalista, basado en una dualidad visual que aporta personalidad e identidad propia al proyecto. El uso de Carbon Fields permite crear nuevas páginas fácilmente y que su contenido sea dinámico y personalizable.</p>",
-      "en": "<p>Design and development of a custom WordPress theme with a clean, minimalist design built on a visual duality that gives the project its own personality and identity. Carbon Fields makes it easy to create new pages with dynamic, customisable content.</p>"
-    },
-    "tags": [
-      "PHP",
-      "WordPress",
-      "Carbon Fields"
-    ],
-    "image": "assets/images/bnomiostudio-screenshot.png",
-    "video": "assets/video/bnomiostudio-video.mp4",
-    "links": {
-      "live": "https://www.bnomio.com/",
-      "code": "https://github.com/albertogmdev/binomio-portfolio"
-    }
-  },
-  {
-    "title": "Hayunlugar",
-    "type": "personal",
-    "featured": false,
-    "status": "active",
-    "subtitle": {
-      "es": "Landing page desarrollada para Hayunlugar.",
-      "en": "Landing page developed for Hayunlugar."
-    },
-    "description": {
-      "es": "<p>Desarrollo de una landing page centrada en el minimalismo y la experiencia de usuario. El proyecto pone especial atención en el diseño, las animaciones y las transiciones para conseguir una navegación fluida y agradable.</p>",
-      "en": "<p>Development of a landing page focused on minimalism and user experience. The project pays special attention to design, animations and transitions to achieve smooth, pleasant navigation.</p>"
-    },
-    "tags": [
-      "HTML",
-      "JavaScript",
-      "CSS"
-    ],
-    "image": "assets/images/hayunlugar-screenshot.png",
-    "video": "assets/video/hayunlugar-video.mp4",
-    "links": {
-      "live": "https://hayunlugar.com/"
     }
   },
   {
@@ -351,28 +327,27 @@
     }
   },
   {
-    "title": "Word Counter",
+    "title": "Hayunlugar",
     "type": "personal",
     "featured": false,
     "status": "active",
     "subtitle": {
-      "es": "Pequeña aplicación web desarrollada para aprender Astro.",
-      "en": "Small web app built to learn Astro."
+      "es": "Landing page desarrollada para Hayunlugar.",
+      "en": "Landing page developed for Hayunlugar."
     },
     "description": {
-      "es": "Word Counter es una web donde el usuario introduce un texto y obtiene información detallada sobre él, además de poder convertirlo a diferentes formatos.",
-      "en": "Word Counter is a website where users enter a text to get detailed information about it and convert it to different formats."
+      "es": "<p>Desarrollo de una landing page centrada en el minimalismo y la experiencia de usuario. El proyecto pone especial atención en el diseño, las animaciones y las transiciones para conseguir una navegación fluida y agradable.</p>",
+      "en": "<p>Development of a landing page focused on minimalism and user experience. The project pays special attention to design, animations and transitions to achieve smooth, pleasant navigation.</p>"
     },
     "tags": [
-      "Astro",
       "HTML",
-      "JavaScript"
+      "JavaScript",
+      "CSS"
     ],
-    "image": "assets/images/wordcounter-screenshot.png",
-    "video": "assets/video/wordcounter-video.mp4",
+    "image": "assets/images/hayunlugar-screenshot.png",
+    "video": "assets/video/hayunlugar-video.mp4",
     "links": {
-      "live": "https://albertogmdev.github.io/word-counter/",
-      "code": "https://github.com/albertogmdev/word-counter"
+      "live": "https://hayunlugar.com/"
     }
   },
   {
@@ -399,6 +374,31 @@
     ],
     "links": {
       "file": "assets/files/bomose.pdf"
+    }
+  },
+  {
+    "title": "Word Counter",
+    "type": "personal",
+    "featured": false,
+    "status": "active",
+    "subtitle": {
+      "es": "Pequeña aplicación web desarrollada para aprender Astro.",
+      "en": "Small web app built to learn Astro."
+    },
+    "description": {
+      "es": "Word Counter es una web donde el usuario introduce un texto y obtiene información detallada sobre él, además de poder convertirlo a diferentes formatos.",
+      "en": "Word Counter is a website where users enter a text to get detailed information about it and convert it to different formats."
+    },
+    "tags": [
+      "Astro",
+      "HTML",
+      "JavaScript"
+    ],
+    "image": "assets/images/wordcounter-screenshot.png",
+    "video": "assets/video/wordcounter-video.mp4",
+    "links": {
+      "live": "https://albertogmdev.github.io/word-counter/",
+      "code": "https://github.com/albertogmdev/word-counter"
     }
   }
 ]

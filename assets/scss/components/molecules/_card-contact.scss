@@ -4,22 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   gap: rem($space-1-5);
   height: 100%;
-  padding-inline: rem($space-1-5);
+  // The link fills the whole cell (padding moved from .contact-item) so the
+  // hit area, hover background and focus ring all match the cell.
+  padding: rem($contact-item-padding-block) rem($space-1-5);
   color: $textSecondary;
   text-decoration: none;
   @include transition($duration-base, color, background-color);
-
-  // Extended hit area: covers the vertical padding of .contact-item so
-  // clicks/hover there trigger the link while hover paints only the button.
-  &::before {
-    content: '';
-    position: absolute;
-    inset-block: rem(-$contact-item-padding-block);
-    inset-inline: 0;
-  }
 
   &:hover {
     background-color: $backgroundTint;
@@ -58,6 +50,11 @@
     @include down(md) {
       display: none;
     }
+  }
+
+  // Inset ring so it stays inside the cell and does not overlap neighbours.
+  &:focus-visible {
+    outline-offset: -2px;
   }
 
   &:hover .card-arrow {

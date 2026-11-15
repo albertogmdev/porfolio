@@ -190,9 +190,7 @@ $eva-stripe-width: 12px;
   }
 
   .section-contact + .divider--band {
-    @include down(md) {
-      margin-top: 0;
-    }
+    margin-top: 0;
   }
 
   .main:has(.panel-projects, .panel-experience) + .footer .divider--band {
