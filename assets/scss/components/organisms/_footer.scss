@@ -1,6 +1,27 @@
 @use '../../abstracts' as *;
 
+// El footer no cambia al navegar por SPA: su primer divider se ajusta al panel
+// activo, no a la variante de la pagina de entrada. Todos los paneles acaban en
+// el CTA, asi que se comporta como en la home: solo mobile. Se usan las clases
+// del panel (no el CTA) para no depender de la carga del partial. El panel se
+// sustituye con replaceChildren, sin coexistir con el saliente: no hay parpadeo.
+.main:has(.panel-home, .panel-projects, .panel-experience) + .footer > .divider--band:first-child {
+  display: block;
+
+  @include up(sm) {
+    display: none;
+  }
+}
+
 .footer {
+  position: relative;
+
+  // Linea a 100vw sobre todo el footer (encima de la banda mobile, que queda
+  // separada por su margin-top). .page recorta el exceso con overflow-x: clip.
+  &::before {
+    @include full-bleed-line(top);
+  }
+
   .footer-container {
     display: flex;
     flex-direction: column;
@@ -13,6 +34,8 @@
     line-height: rem($line-height-body);
     text-align: center;
 
+    padding-block: rem($space-3);
+
     @include down(md) {
       padding-block: rem($section-gutter);
     }
@@ -21,5 +44,39 @@
   .footer-name {
     color: $textSoft;
     font-weight: 600;
+  }
+
+  // Ultima fila de la columna centrada de footer-container: queda abajo del todo.
+  .footer-social {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 rem($space-4);
+  }
+
+  .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: rem($space-1-5);
+    min-height: rem($space-8);
+    color: $textSecondary;
+    font-size: rem($font-size-body);
+    line-height: rem($line-height-body);
+    text-decoration: none;
+    @include transition($duration-base, color);
+
+    &:hover {
+      color: $textPrimary;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    .icon {
+      width: rem($icon-size-sm);
+      height: rem($icon-size-sm);
+    }
   }
 }

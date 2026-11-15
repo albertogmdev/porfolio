@@ -1,3 +1,5 @@
+import './tracking.js';
+
 const modules = new Map();
 
 const loadModule = (name) => {

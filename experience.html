@@ -28,7 +28,7 @@
 
     <header class="navbar">
       <div class="navbar-container container">
-        <a class="navbar-logo" href="./" data-link>albertogmdev</a>
+        <a class="navbar-logo" href="./" data-link><img class="navbar-logo-image" src="assets/images/porfolio-logo.png" alt="albertogmdev" width="859" height="134" decoding="async"></a>
         <div class="navbar-actions">
           <nav class="navbar-nav" aria-label="Principal" data-i18n-attr="aria-label:nav.main">
             <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú" data-i18n-attr="aria-label:nav.menu.open">
@@ -89,16 +89,17 @@
             <ul class="experience-list" data-source="experience" data-group="education" aria-busy="true"></ul>
           </section>
 
+          <div class="divider divider--band" aria-hidden="true"></div>
+
+          <div data-partial="cta"></div>
+
         </div>
       </div>
     </main>
 
     <footer class="footer container">
       <div class="divider divider--band" aria-hidden="true"></div>
-      <div class="footer-container">
-        <p class="footer-text" data-i18n-rich="footer.credit" data-i18n-strong="footer-name">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
-        <p class="footer-text" data-i18n="footer.rights">© 2026 Todos los derechos reservados.</p>
-      </div>
+      <div data-partial="footer"></div>
     </footer>
   </div>
 </body>

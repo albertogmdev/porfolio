@@ -184,16 +184,16 @@
     "en": "About me"
   },
   "about.p1": {
+    "es": "Actualmente, mi perfil combina una sólida experiencia técnica con un enfoque cada vez más orientado al liderazgo técnico, la gestión de proyectos y la toma de decisiones tecnológicas, poniendo especial atención en la automatización y optimización de procesos para mejorar la eficiencia y la calidad del trabajo.",
+    "en": "Currently, my profile combines solid technical experience with an increasingly focused approach on technical leadership, project management, and technological decision-making, with special attention to process automation and optimization to improve efficiency and work quality."
+  },
+  "about.p2": {
     "es": "He estado trabajando como **Full-Stack Developer** en diversos proyectos web, e-commerces y landing pages, para diferentes clientes, usando numerosas tecnologías y lenguajes de programación.",
     "en": "I have been working as a **Full-Stack Developer** on a wide range of web projects, e-commerce sites and landing pages for different clients, using many technologies and programming languages."
   },
-  "about.p2": {
-    "es": "En el front trabajo con **HTML, CSS, SASS y JavaScript**, y con frameworks como ReactJS, VueJS, NextJS, NuxtJS y Astro. En el back, con PHP y CodeIgniter, bases de datos MySQL, PostgreSQL y MongoDB.",
-    "en": "On the front end I work with **HTML, CSS, SASS and JavaScript**, and with frameworks such as ReactJS, VueJS, NextJS, NuxtJS and Astro. On the back end, with PHP and CodeIgniter, and MySQL, PostgreSQL and MongoDB databases."
-  },
   "about.p3": {
-    "es": "Tengo experiencia con **Shopify** y CMS como WordPress, Storyblok, Sitecore, Strapi o Sanity, con servicios de **AWS** como S3, Route53, Lambda y Cloud9, y con control de versiones en GitHub y bash/shell.",
-    "en": "I have experience with **Shopify** and CMSs such as WordPress, Storyblok, Sitecore, Strapi or Sanity, with **AWS** services such as S3, Route53, Lambda and Cloud9, and with version control on GitHub and bash/shell."
+    "es": "En **frontend** trabajo con HTML, CSS, SASS y JavaScript, y con frameworks como ReactJS, VueJS, NextJS, NuxtJS y Astro. En **backend**, con PHP y CodeIgniter, bases de datos MySQL, PostgreSQL y MongoDB. Tengo experiencia con **Shopify** y CMS como WordPress, Storyblok, Sitecore, Strapi, Magento o Sanity, con servicios de **AWS** como S3, Route53, Lambda y Cloud9, y con control de versiones en GitHub y bash/shell.",
+    "en": "On the **frontend** I work with HTML, CSS, SASS and JavaScript, and with frameworks such as ReactJS, VueJS, NextJS, NuxtJS and Astro. On the **backend**, with PHP and CodeIgniter, and MySQL, PostgreSQL and MongoDB databases. I have experience with **Shopify** and CMSs such as WordPress, Storyblok, Sitecore, Strapi, Magento or Sanity, with **AWS** services such as S3, Route53, Lambda and Cloud9, and with version control on GitHub and bash/shell."
   },
   "contact.title": {
     "es": "Contacto",
@@ -268,8 +268,8 @@
     "en": "Let's talk?"
   },
   "cta.text": {
-    "es": "Texto de invitación a contactar, de una o dos líneas, provisional.",
-    "en": "Provisional text inviting visitors to get in touch, one or two lines long."
+    "es": "Si estás interesado/a en colaborar, trabajar conmigo o simplemente quieres ponerte en contacto, no dudes en escribirme.",
+    "en": "If you are interested in collaborating, working with me or just want to get in touch, feel free to reach out."
   },
   "cta.button": {
     "es": "Hablemos",
@@ -284,12 +284,16 @@
     "en": "Education"
   },
   "footer.credit": {
-    "es": "Diseñado y desarrollado por **Alberto Gonzalez**",
-    "en": "Designed and developed by **Alberto Gonzalez**"
+    "es": "Diseñado y desarrollado por **Alberto**",
+    "en": "Designed and developed by **Alberto**"
   },
   "footer.rights": {
     "es": "© 2026 Todos los derechos reservados.",
     "en": "© 2026 All rights reserved."
+  },
+  "footer.social": {
+    "es": "Redes sociales",
+    "en": "Social links"
   },
   "error.title": {
     "es": "No se pudo cargar la página",

@@ -3,7 +3,7 @@
 .main {
   position: relative;
   flex: 1;
-  padding-top: rem($navbar-height + 4px);
+  padding-top: rem($main-offset);
   background-color: $backgroundPrimary;
 
   @include down(md) {
@@ -18,7 +18,7 @@
 
 .view-loader {
   position: absolute;
-  top: rem($navbar-height + 1px);
+  top: rem($navbar-offset);
   right: 0;
   left: 0;
   z-index: 1;

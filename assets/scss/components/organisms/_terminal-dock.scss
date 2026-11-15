@@ -1,6 +1,6 @@
 @use '../../abstracts' as *;
 
-$dock-navbar-gap: ($navbar-height + 4px) - ($navbar-height + 1px);
+$dock-navbar-gap: $main-offset - $navbar-offset;
 
 .terminal-dock {
   margin-top: rem(-$dock-navbar-gap);

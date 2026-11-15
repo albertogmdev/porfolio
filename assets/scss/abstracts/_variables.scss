@@ -25,8 +25,15 @@ $project-media-ratio: 1.824;
 // Filas compartidas por .card-project en la rejilla subgrid: record, media, titulo, subtitulo, texto, sitios, footer.
 $project-card-rows: 7;
 $project-body-rows: 5;
-$navbar-height: 48px;
+// Contenido del header: logo de 32px + $section-gutter arriba y abajo.
+$navbar-height: 56px;
+// Alto total de la navbar fija (contenido + borde inferior): lo que tapa en pantalla.
+$navbar-offset: $navbar-height + 1px;
+// Inicio del contenido bajo la navbar fija (offset + 3px de respiro).
+$main-offset: $navbar-offset + 3px;
 $navbar-menu-padding-y: 0.35rem;
+// Alto del logo PNG; el ancho sale de la proporcion (~6.4:1 → ~205px a 32px).
+$navbar-logo-height: 32px;
 $section-gutter: 12px;
 $header-height: 40px;
 $terminal-height: 340px;
@@ -176,5 +183,5 @@ $media-tone-4: var(--mediaTone4);
 $preview-border: var(--previewBorder);
 $shadow-cta: var(--shadowCta);
 $shadow-menu: var(--shadowMenu);
-$crt-phosphor: var(--crtPhosphor);
+$crt-ink: var(--crtInk);
 $crt-background: var(--crtBackground);

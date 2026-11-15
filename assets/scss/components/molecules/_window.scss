@@ -1,5 +1,7 @@
 @use '../../abstracts' as *;
 
+$guest-size: 240px;
+
 .window {
   display: flex;
   flex-direction: column;
@@ -89,11 +91,16 @@
     top: 0;
     left: 0;
     z-index: $z-widget-summoned;
-    width: rem(240px);
+    width: rem($guest-size);
     max-width: calc(100vw - #{rem($space-2 * 2)});
     aspect-ratio: 1;
     box-shadow: $shadow-menu;
     transform-origin: 0 0;
+
+    // Pantallas bajas: cabe entera entre la navbar fija y el borde inferior (margen $space-2 arriba y abajo).
+    @supports (height: 100dvh) {
+      width: min(#{rem($guest-size)}, calc(100dvh - #{rem($navbar-offset + $space-2 * 2)}));
+    }
 
     .eye-screen {
       flex: 1;

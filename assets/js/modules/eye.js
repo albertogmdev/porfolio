@@ -206,13 +206,23 @@ export const init = (root) => {
 
   // El ojo de la home sigue en su hueco de la rejilla (no mueve el layout) y solo se desplaza con transform. El invitado (otras páginas) es fixed y entra desde el borde derecho.
   const guest = root.classList.contains('window--guest');
+  // Alto de la navbar publicado por el CSS en rem (--navbar-offset), en px segun el font-size raiz real.
+  const navbarOffset = () => {
+    const styles = getComputedStyle(document.documentElement);
+    const value = parseFloat(styles.getPropertyValue('--navbar-offset'));
+    if (!Number.isFinite(value)) return 0;
+    const rootSize = parseFloat(styles.fontSize);
+    return value * (Number.isFinite(rootSize) ? rootSize : 16);
+  };
+
   const summonTransforms = (terminal) => {
     const home = root.getBoundingClientRect();
     const box = terminal.getBoundingClientRect();
     const scale = guest ? 1 : Math.min(1, SUMMON_WIDTH / home.width);
     const left = box.left + (box.width - home.width * scale) / 2;
     const rawTop = box.top + 12;
-    const top = guest ? clamp(rawTop, 8, Math.max(8, window.innerHeight - home.height - 8)) : rawTop;
+    const minTop = guest ? navbarOffset() + 8 : 8;
+    const top = guest ? clamp(rawTop, minTop, Math.max(minTop, window.innerHeight - home.height - 8)) : rawTop;
     const end = `translate(${left - home.left}px, ${top - home.top}px) scale(${scale})`;
     const start = guest ? `translate(${window.innerWidth}px, ${top - home.top}px) scale(${GUEST_START_SCALE})` : 'none';
     return { start, end };

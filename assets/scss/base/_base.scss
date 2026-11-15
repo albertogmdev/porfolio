@@ -1,6 +1,8 @@
 @use '../abstracts' as *;
 
 html {
+  // Alto que tapa la navbar fija; lo leen los elementos fijos posicionados por JS (ojo invitado).
+  --navbar-offset: #{rem($navbar-offset)};
   box-sizing: border-box;
   font-size: 100%;
   -webkit-text-size-adjust: 100%;

@@ -48,14 +48,6 @@ $eva-stripe-width: 12px;
   .navbar {
     border-bottom-style: solid;
 
-    .navbar-logo {
-      font-family: $eva-font-display;
-      font-size: rem(22px);
-      font-weight: 400;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
     .navbar-menu {
       border-radius: 0;
     }
@@ -133,8 +125,9 @@ $eva-stripe-width: 12px;
     border-top: 0;
   }
 
+  // Antes del CTA (paginas interiores) la banda se mantiene completa; el CTA llega como parcial.
   .section-about + .divider--band,
-  .section-projects + .divider--band {
+  .section-projects + .divider--band:not(:has(+ .section-cta, + [data-partial='cta'])) {
     height: 1px;
 
     &::before {
@@ -185,20 +178,12 @@ $eva-stripe-width: 12px;
     }
   }
 
-  .section-projects:has(.projects-item) + .divider--band {
+  .section-projects:has(.projects-item) + .divider--band:not(:has(+ .section-cta, + [data-partial='cta'])) {
     height: 0;
   }
 
   .section-contact + .divider--band {
     margin-top: 0;
-  }
-
-  .main:has(.panel-projects, .panel-experience) + .footer .divider--band {
-    margin-top: 0;
-
-    &::before {
-      border-top: 0;
-    }
   }
 
   .title-section {
@@ -692,6 +677,10 @@ $eva-stripe-width: 12px;
   }
 
   .footer {
+    &::before {
+      border-top-style: solid;
+    }
+
     .footer-name {
       color: $textPrimary;
       font-family: $eva-font-display;

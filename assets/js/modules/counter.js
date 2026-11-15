@@ -1,5 +1,4 @@
-const SUPABASE_URL = 'https://ddvvosicvwnzezhsczbp.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_HcJhfv2nkobGECTeLEnzPQ_hvEE_tvO';
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from '../supabase.js';
 
 const DIGITS = 6;
 const TICK_MS = 70;

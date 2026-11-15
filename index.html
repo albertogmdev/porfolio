@@ -28,7 +28,7 @@
 
     <header class="navbar">
       <div class="navbar-container container">
-        <a class="navbar-logo" href="./" data-link>albertogmdev</a>
+        <a class="navbar-logo" href="./" data-link><img class="navbar-logo-image" src="assets/images/porfolio-logo.png" alt="albertogmdev" width="859" height="134" decoding="async"></a>
         <div class="navbar-actions">
           <nav class="navbar-nav" aria-label="Principal" data-i18n-attr="aria-label:nav.main">
             <button class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menú" data-i18n-attr="aria-label:nav.menu.open">
@@ -186,7 +186,7 @@
                 </a>
               </li>
               <li class="contact-item">
-                <a class="card-contact" href="https://example.com/" target="_blank" rel="noopener noreferrer">
+                <a class="card-contact" href="https://example.com/" target="_blank" rel="noopener noreferrer" data-track="curriculum">
                   <span class="card-icon"><span class="icon icon-paperclip" aria-hidden="true"></span></span>
                   <span class="card-label">CV</span>
                   <span class="icon icon-arrow-up-right card-arrow" aria-hidden="true"></span>
@@ -226,20 +226,7 @@
           </section>
           <div class="divider divider--band" aria-hidden="true"></div>
 
-          <section class="section-cta" aria-labelledby="cta-title">
-            <div class="section-header">
-              <h2 class="title-section" id="cta-title" data-i18n="cta.title">¿Hablamos?</h2>
-              <span class="eva-mark" lang="ja" aria-hidden="true" title="Conexión" data-i18n-attr="title:kanji.connection">接続</span>
-            </div>
-            <div class="cta-container">
-              <p class="cta-text" data-i18n="cta.text">Texto de invitación a contactar, de una o dos líneas, provisional.</p>
-              <a class="button-primary" href="mailto:albergonmar@gmail.com">
-                <span class="button-shine" aria-hidden="true"></span>
-                <span class="button-label" data-i18n="cta.button">Hablemos</span>
-                <span class="icon icon-arrow-right" aria-hidden="true"></span>
-              </a>
-            </div>
-          </section>
+          <div data-partial="cta"></div>
 
         </div>
       </div>
@@ -247,10 +234,7 @@
 
     <footer class="footer container">
       <div class="divider divider--band divider--mobile-only" aria-hidden="true"></div>
-      <div class="footer-container">
-        <p class="footer-text" data-i18n-rich="footer.credit" data-i18n-strong="footer-name">Diseñado y desarrollado por <strong class="footer-name">Alberto Gonzalez</strong></p>
-        <p class="footer-text" data-i18n="footer.rights">© 2026 Todos los derechos reservados.</p>
-      </div>
+      <div data-partial="footer"></div>
     </footer>
   </div>
 </body>

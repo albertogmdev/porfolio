@@ -6,7 +6,7 @@
   right: 0;
   left: 0;
   z-index: $z-navbar;
-  height: rem($navbar-height + 1px);
+  height: rem($navbar-offset);
   border-bottom: 1px dashed $strokeSecondary;
   background-color: $backgroundPrimary;
 
@@ -29,15 +29,16 @@
   }
 
   .navbar-logo {
+    display: block;
+    flex: none;
     color: $textPrimary;
-    font-family: $font-heading;
-    font-size: rem($font-size-subtitle);
-    line-height: rem($line-height-subtitle);
     text-decoration: none;
+  }
 
-    @include theme-bash {
-      text-shadow: $text-glow;
-    }
+  .navbar-logo-image {
+    display: block;
+    width: auto;
+    height: rem($navbar-logo-height);
   }
 
   .navbar-actions {
