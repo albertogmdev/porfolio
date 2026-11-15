@@ -183,9 +183,13 @@
     "es": "Sobre mí",
     "en": "About me"
   },
+  "about.viewExperience": {
+    "es": "Ver experiencia",
+    "en": "View experience"
+  },
   "about.p1": {
-    "es": "Actualmente, mi perfil combina una sólida experiencia técnica con un enfoque cada vez más orientado al liderazgo técnico, la gestión de proyectos y la toma de decisiones tecnológicas, poniendo especial atención en la automatización y optimización de procesos para mejorar la eficiencia y la calidad del trabajo.",
-    "en": "Currently, my profile combines solid technical experience with an increasingly focused approach on technical leadership, project management, and technological decision-making, with special attention to process automation and optimization to improve efficiency and work quality."
+    "es": "Actualmente, mi perfil combina una sólida **experiencia técnica** con un enfoque cada vez más orientado al **liderazgo técnico**, la **gestión de proyectos** y la toma de decisiones tecnológicas, poniendo especial atención en la **automatización y optimización** de procesos para mejorar la eficiencia y la calidad del trabajo.",
+    "en": "Currently, my profile combines solid **technical experience** with an increasingly focused approach on **technical leadership**, **project management**, and technological decision-making, with special attention to process **automation and optimization** to improve efficiency and work quality."
   },
   "about.p2": {
     "es": "He estado trabajando como **Full-Stack Developer** en diversos proyectos web, e-commerces y landing pages, para diferentes clientes, usando numerosas tecnologías y lenguajes de programación.",

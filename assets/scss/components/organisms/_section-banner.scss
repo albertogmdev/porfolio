@@ -7,15 +7,19 @@ $banner-height-sm: 208px;
   .banner-container {
     position: relative;
     height: rem($banner-height);
-    padding-inline: rem($section-gutter);
     overflow: hidden;
+
+    // Superficie a ancho interior del container: anula su padding lateral
+    // (0 bajo md porque .main lo elimina; $space-2 desde md).
+    @include up(md) {
+      margin-inline: rem(-$space-2);
+    }
 
     // Vineteado CRT: oscurece solo las esquinas, el centro queda transparente.
     &::before {
       content: '';
       position: absolute;
-      inset: 0 rem($section-gutter);
-      border-radius: $radius-xs;
+      inset: 0;
       background-image: radial-gradient(
         ellipse at center,
         transparent 62%,
@@ -34,8 +38,7 @@ $banner-height-sm: 208px;
       &::after {
         content: '';
         position: absolute;
-        inset: 0 rem($section-gutter);
-        border-radius: $radius-xs;
+        inset: 0;
         background-image: $lcd-grid;
         pointer-events: none;
       }
@@ -46,7 +49,6 @@ $banner-height-sm: 208px;
     display: block;
     width: 100%;
     height: 100%;
-    border-radius: $radius-xs;
     background-color: $crt-background;
     color: $crt-ink;
   }
