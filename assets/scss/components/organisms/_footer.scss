@@ -1,23 +1,10 @@
 @use '../../abstracts' as *;
 
-// El footer no cambia al navegar por SPA: su primer divider se ajusta al panel
-// activo, no a la variante de la pagina de entrada. Todos los paneles acaban en
-// el CTA, asi que se comporta como en la home: solo mobile. Se usan las clases
-// del panel (no el CTA) para no depender de la carga del partial. El panel se
-// sustituye con replaceChildren, sin coexistir con el saliente: no hay parpadeo.
-.main:has(.panel-home, .panel-projects, .panel-experience) + .footer > .divider--band:first-child {
-  display: block;
-
-  @include up(sm) {
-    display: none;
-  }
-}
-
 .footer {
   position: relative;
 
-  // Linea a 100vw sobre todo el footer (encima de la banda mobile, que queda
-  // separada por su margin-top). .page recorta el exceso con overflow-x: clip.
+  // Linea a 100vw sobre todo el footer, justo tras el CTA de cada panel.
+  // .page recorta el exceso con overflow-x: clip.
   &::before {
     @include full-bleed-line(top);
   }

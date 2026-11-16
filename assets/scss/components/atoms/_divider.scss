@@ -24,10 +24,4 @@
       @include full-bleed-band;
     }
   }
-
-  &--mobile-only {
-    @include up(sm) {
-      display: none;
-    }
-  }
 }

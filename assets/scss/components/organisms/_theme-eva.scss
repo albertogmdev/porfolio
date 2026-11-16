@@ -251,18 +251,6 @@ $eva-stripe-width: 12px;
     margin-top: rem($space-3);
   }
 
-  .footer .divider--band {
-    margin-bottom: rem($space-3);
-
-    &::before {
-      inset-inline: rem(-$section-gutter);
-
-      @include up(md) {
-        inset-inline: rem(-$space-2);
-      }
-    }
-  }
-
   .section-profile {
     .profile-container {
       flex-wrap: wrap;
