@@ -1,12 +1,26 @@
-import { SUPABASE_ANON_KEY, SUPABASE_URL } from '../supabase.js';
+import { SUPABASE_ANON_KEY, SUPABASE_URL, canTrack, readVisits } from '../supabase.js';
 
 const DIGITS = 6;
 const TICK_MS = 70;
 const SETTLE_TICKS = 3;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-// Una visita por sesion 
+const READ_CACHE_KEY = 'visit_count_read';
+
+// Fuera de produccion o para bots solo se lee el total (GET), sin contar ni marcar 'visited'.
+// La lectura se cachea en una clave aparte para no repetir el GET al volver a la home.
+const readCount = async () => {
+  const cached = sessionStorage.getItem(READ_CACHE_KEY);
+  if (cached !== null && /^\d+$/.test(cached)) return Number(cached);
+
+  const count = await readVisits();
+  sessionStorage.setItem(READ_CACHE_KEY, String(count));
+  return count;
+};
+
+// Una visita por sesion, solo en produccion y para humanos.
 const getCount = async () => {
+  if (!canTrack()) return readCount();
   if (sessionStorage.getItem('visited') === 'true') return Number(sessionStorage.getItem('visit_count'));
 
   const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_visits`, {
