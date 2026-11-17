@@ -8,20 +8,32 @@
     "en": "Loading…"
   },
   "meta.title.home": {
-    "es": "Inicio — Alberto Gonzalez",
-    "en": "Home — Alberto Gonzalez"
+    "es": "Inicio | Alberto Gonzalez",
+    "en": "Home | Alberto Gonzalez"
   },
   "meta.title.projects": {
-    "es": "Proyectos — Alberto Gonzalez",
-    "en": "Projects — Alberto Gonzalez"
+    "es": "Proyectos | Alberto Gonzalez",
+    "en": "Projects | Alberto Gonzalez"
   },
   "meta.title.experience": {
-    "es": "Experiencia — Alberto Gonzalez",
-    "en": "Experience — Alberto Gonzalez"
+    "es": "Experiencia | Alberto Gonzalez",
+    "en": "Experience | Alberto Gonzalez"
+  },
+  "meta.description.home": {
+    "es": "Portfolio de Alberto Gonzalez, desarrollador Full Stack sénior en Madrid, España.",
+    "en": "Portfolio of Alberto Gonzalez, Senior Full Stack Developer in Madrid, Spain."
+  },
+  "meta.description.projects": {
+    "es": "Proyectos de Alberto Gonzalez, desarrollador Full Stack sénior en Madrid, España.",
+    "en": "Projects by Alberto Gonzalez, Senior Full Stack Developer in Madrid, Spain."
+  },
+  "meta.description.experience": {
+    "es": "Experiencia profesional y formación de Alberto Gonzalez, desarrollador Full Stack sénior en Madrid, España.",
+    "en": "Work experience and education of Alberto Gonzalez, Senior Full Stack Developer in Madrid, Spain."
   },
   "meta.title.error": {
-    "es": "Página no encontrada — Alberto Gonzalez",
-    "en": "Page not found — Alberto Gonzalez"
+    "es": "Página no encontrada | Alberto Gonzalez",
+    "en": "Page not found | Alberto Gonzalez"
   },
   "nav.main": {
     "es": "Principal",
