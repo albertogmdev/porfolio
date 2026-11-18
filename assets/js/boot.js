@@ -6,7 +6,7 @@
 
   const STORAGE_KEY = 'hasVisited';
   const REPEAT_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
-  const DURATION_MS = 3000;
+  const DURATION_MS = 2350;
   const LEAVE_MS = 250;
   const LOCAL_HOSTS = ['', 'localhost', '127.0.0.1', '[::1]'];
 
@@ -33,11 +33,11 @@
     { at: 160, text: 'MAGI CONSENSUS ..... ', status: '3/3 APPROVED' },
     { at: BAR_START_MS, text: 'Memory Testing: ', memory: true, modifier: 'memory' },
     { at: BAR_START_MS, bar: true, modifier: 'bar' },
-    { at: 700, text: 'LOADING PORTFOLIO... ', status: 'OK', modifier: 'task' },
-    { at: 1200, text: 'LOADING PROJECTS... ', status: 'OK', modifier: 'task' },
-    { at: 1700, text: 'LOADING MODULES... ', status: 'OK', modifier: 'task' },
-    { at: 2200, text: 'LOADING VISITOR COUNTER... ', status: 'OK', modifier: 'task' },
-    { at: 2650, text: 'SYNCHRONIZATION RATE ... ', status: '400%', modifier: 'task' },
+    { at: 600, text: 'LOADING PORTFOLIO... ', status: 'OK', modifier: 'task' },
+    { at: 1000, text: 'LOADING PROJECTS... ', status: 'OK', modifier: 'task' },
+    { at: 1400, text: 'LOADING MODULES... ', status: 'OK', modifier: 'task' },
+    { at: 1800, text: 'LOADING VISITOR COUNTER... ', status: 'OK', modifier: 'task' },
+    { at: 2150, text: 'SYNCHRONIZATION RATE ... ', status: '400%', modifier: 'task' },
   ];
   const STATUS_DELAY_MS = 200;
 
