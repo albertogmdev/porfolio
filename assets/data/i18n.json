@@ -215,6 +215,10 @@
     "es": "Contacto",
     "en": "Contact"
   },
+  "contact.cv": {
+    "es": "assets/files/CV_es.pdf",
+    "en": "assets/files/CV_en.pdf"
+  },
   "projects.title": {
     "es": "Proyectos",
     "en": "Projects"
