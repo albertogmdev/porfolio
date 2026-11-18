@@ -251,6 +251,13 @@ $eva-stripe-width: 12px;
     margin-top: rem($space-3);
   }
 
+  .section-counter {
+    @include down(sm) {
+      margin-top: 0;
+      padding-top: rem($space-3);
+    }
+  }
+
   .section-profile {
     .profile-container {
       flex-wrap: wrap;
@@ -266,6 +273,7 @@ $eva-stripe-width: 12px;
         align-items: start;
         column-gap: rem($space-3);
         row-gap: rem($space-1);
+        padding-block-end: 0;
       }
 
       @include up(sm) {
@@ -345,7 +353,7 @@ $eva-stripe-width: 12px;
     .profile-info {
       @include down(sm) {
         grid-area: info;
-        align-self: center;
+        align-self: start;
       }
     }
 

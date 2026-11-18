@@ -3568,6 +3568,12 @@ html:not([data-theme=bash]) .terminal-boot--loader {
 [data-theme=eva] .divider--band + .section-widgets {
   margin-top: 0.75rem;
 }
+@media (max-width: 639.98px) {
+  [data-theme=eva] .section-counter {
+    margin-top: 0;
+    padding-top: 0.75rem;
+  }
+}
 [data-theme=eva] .section-profile .profile-container {
   flex-wrap: wrap;
   align-items: flex-start;
@@ -3581,6 +3587,7 @@ html:not([data-theme=bash]) .terminal-boot--loader {
     align-items: start;
     column-gap: 0.75rem;
     row-gap: 0.25rem;
+    padding-block-end: 0;
   }
 }
 @media (min-width: 640px) {
@@ -3658,7 +3665,7 @@ html:not([data-theme=bash]) .terminal-boot--loader {
 @media (max-width: 639.98px) {
   [data-theme=eva] .section-profile .profile-info {
     grid-area: info;
-    align-self: center;
+    align-self: start;
   }
 }
 [data-theme=eva] .section-profile .profile-name {
@@ -3960,4 +3967,133 @@ html:not([data-theme=bash]) .terminal-boot--loader {
   font-size: 1.25rem;
   font-weight: 400;
   letter-spacing: 0;
+}
+
+html.is-booting {
+  overflow: hidden;
+  background-color: #000000;
+}
+html.is-booting .page {
+  visibility: hidden;
+}
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: max(1.5rem, env(safe-area-inset-top)) 5vw max(1.5rem, env(safe-area-inset-bottom));
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: #000000;
+  color: #b8b8b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  cursor: wait;
+}
+@media (min-width: 768px) {
+  .boot {
+    padding-top: max(2.5rem, env(safe-area-inset-top));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .boot {
+    transition: opacity 250ms ease-out;
+  }
+}
+.boot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, color-mix(in srgb, #777777 22%, transparent) 2px, color-mix(in srgb, #777777 22%, transparent) 3px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.boot.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+.boot .boot-container {
+  width: 100%;
+  max-width: 90vw;
+  min-width: 0;
+}
+.boot .boot-ascii {
+  margin: 0 0 1.5rem;
+  color: #f3f3f3;
+  font-family: inherit;
+  font-size: min(0.875rem, 90vw / 62.424);
+  font-variant-ligatures: none;
+  line-height: 1;
+  text-shadow: 0 0 8px color-mix(in srgb, #f3f3f3 25%, transparent);
+  white-space: pre;
+}
+.boot .boot-log {
+  min-width: 0;
+}
+.boot .boot-line {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 768px) {
+  .boot .boot-line {
+    font-size: 0.9375rem;
+  }
+}
+.boot .boot-line--title {
+  margin-bottom: 0.5rem;
+  color: #f3f3f3;
+  font-weight: 700;
+  text-shadow: 0 0 8px color-mix(in srgb, #f3f3f3 25%, transparent);
+}
+.boot .boot-line--memory {
+  font-variant-numeric: tabular-nums;
+}
+.boot .boot-line--task {
+  margin-top: 0.5rem;
+}
+.boot .boot-line--bar {
+  font-variant-numeric: tabular-nums;
+  white-space: pre-wrap;
+}
+.boot .boot-status {
+  color: var(--eva-alert, #ff2a1a);
+  font-weight: 700;
+  text-shadow: 0 0 6px color-mix(in srgb, var(--eva-alert, #ff2a1a) 45%, transparent);
+}
+.boot .boot-memory,
+.boot .boot-percent {
+  font-variant-numeric: tabular-nums;
+}
+.boot .boot-bar {
+  color: var(--eva-alert, #ff2a1a);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}
+.boot .boot-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-top: 0.25rem;
+  background-color: var(--eva-alert, #ff2a1a);
+  vertical-align: text-bottom;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .boot .boot-cursor {
+    animation: boot-cursor-blink 1s steps(1, end) infinite;
+  }
+}
+
+@keyframes boot-cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }

@@ -1,0 +1,159 @@
+@use 'sass:map';
+@use '../../abstracts' as *;
+
+// Paleta eva fija (el boot no depende del tema activo): blanco, gris y rojo.
+$boot-eva: map.get($themes, eva);
+$boot-white: map.get($boot-eva, textPrimary);
+$boot-gray: map.get($boot-eva, textSecondary);
+$boot-glow: 0 0 8px color-mix(in srgb, #{$boot-white} 25%, transparent);
+$boot-alert-glow: 0 0 6px color-mix(in srgb, #{$boot-alert} 45%, transparent);
+$boot-scanlines: repeating-linear-gradient(
+  to bottom,
+  transparent 0,
+  transparent 2px,
+  color-mix(in srgb, #{map.get($boot-eva, strokeStrong)} 22%, transparent) 2px,
+  color-mix(in srgb, #{map.get($boot-eva, strokeStrong)} 22%, transparent) 3px
+);
+
+html.is-booting {
+  overflow: hidden;
+  background-color: $boot-background;
+
+  .page {
+    visibility: hidden;
+  }
+}
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: $z-boot-loader;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: max(rem($space-6), env(safe-area-inset-top)) 5vw max(rem($space-6), env(safe-area-inset-bottom));
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: $boot-background;
+  color: $boot-gray;
+  font-family: $font-mono;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  cursor: wait;
+
+  @include up(md) {
+    padding-top: max(rem($space-10), env(safe-area-inset-top));
+  }
+
+  @include motion-safe {
+    transition: opacity $boot-leave-duration ease-out;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: $boot-scanlines;
+    opacity: $boot-scanlines-opacity;
+    pointer-events: none;
+  }
+
+  &.is-leaving {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .boot-container {
+    width: 100%;
+    max-width: $boot-ascii-width;
+    min-width: 0;
+  }
+
+  .boot-ascii {
+    // Con 102 columnas el ancho es 61.2em; el font-size nunca supera el 90vw.
+    margin: 0 0 rem($space-6);
+    color: $boot-white;
+    font-family: inherit;
+    font-size: min(rem($boot-ascii-max-size), calc(#{$boot-ascii-width} / #{$boot-ascii-columns * $boot-glyph-width * 1.02}));
+    font-variant-ligatures: none;
+    line-height: 1;
+    text-shadow: $boot-glow;
+    white-space: pre;
+  }
+
+  .boot-log {
+    min-width: 0;
+  }
+
+  .boot-line {
+    margin: 0;
+    font-size: rem(13px);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+
+    @include up(md) {
+      font-size: rem(15px);
+    }
+
+    &--title {
+      margin-bottom: rem($space-2);
+      color: $boot-white;
+      font-weight: 700;
+      text-shadow: $boot-glow;
+    }
+
+    &--memory {
+      font-variant-numeric: tabular-nums;
+    }
+
+    &--task {
+      margin-top: rem($space-2);
+    }
+
+    &--bar {
+      font-variant-numeric: tabular-nums;
+      white-space: pre-wrap;
+    }
+  }
+
+  .boot-status {
+    color: $boot-alert;
+    font-weight: 700;
+    text-shadow: $boot-alert-glow;
+  }
+
+  .boot-memory,
+  .boot-percent {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .boot-bar {
+    color: $boot-alert;
+    font-variant-numeric: tabular-nums;
+    white-space: pre;
+  }
+
+  .boot-cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    margin-top: rem($space-1);
+    background-color: $boot-alert;
+    vertical-align: text-bottom;
+
+    @include motion-safe {
+      animation: boot-cursor-blink 1s steps(1, end) infinite;
+    }
+  }
+}
+
+@keyframes boot-cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}

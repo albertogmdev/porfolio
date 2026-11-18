@@ -136,6 +136,18 @@ $z-widget-summoned: 46;
 $z-navbar: 50;
 $z-skip: 100;
 $z-boot: 110;
+$z-boot-loader: 120;
+
+// Boot loader (independiente del tema activo; colores de la paleta eva en _boot.scss).
+$boot-background: #000000;
+$boot-alert: var(--eva-alert, #ff2a1a);
+$boot-scanlines-opacity: 0.6;
+$boot-leave-duration: 250ms;
+$boot-ascii-columns: 102;
+// Ancho de glifo monoespaciado (em) con holgura; 102 columnas * 0.6em = 61.2em.
+$boot-glyph-width: 0.6;
+$boot-ascii-width: 90vw;
+$boot-ascii-max-size: 14px;
 
 $text-glow: 0 0 8px rgba(77, 255, 124, 0.45);
 $scanlines: repeating-linear-gradient(

@@ -3,6 +3,7 @@ import { SUPABASE_ANON_KEY, SUPABASE_URL, canTrack, readVisits } from '../supaba
 const DIGITS = 6;
 const TICK_MS = 70;
 const SETTLE_TICKS = 3;
+const AFTER_BOOT_DELAY_MS = 500;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const READ_CACHE_KEY = 'visit_count_read';
@@ -50,7 +51,7 @@ export const init = async (root) => {
   container.append(...digits);
 
   const setAll = (value) => digits.forEach((digit) => (digit.dataset.value = value));
-  setAll('-');
+  setAll(window.bootRan ? '0' : '-');
 
   // El texto accesible sigue al idioma activo.
   let labelState = ['counter.loading'];
@@ -59,6 +60,13 @@ export const init = async (root) => {
   };
   document.addEventListener('app:lang-change', renderLabel);
   renderLabel();
+
+  // La petición arranca ya (en paralelo al boot screen) y la animación de dígitos espera a que termine.
+  const request = getCount();
+  request.catch(() => {});
+  await window.bootDone;
+  // Tras el boot screen el contador se muestra a 000000 y arranca la animación medio segundo después.
+  if (window.bootRan) await new Promise((resolve) => setTimeout(resolve, AFTER_BOOT_DELAY_MS));
 
   // Animacion de los digitos
   let target = null;
@@ -77,7 +85,7 @@ export const init = async (root) => {
       }, TICK_MS);
 
   try {
-    const count = await getCount();
+    const count = await request;
     target = String(count).padStart(DIGITS, '0').slice(-DIGITS);
     labelState = ['counter.visits', { count }];
     if (!timer) {
